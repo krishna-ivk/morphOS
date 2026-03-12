@@ -1,0 +1,28 @@
+name: feature_pipeline
+
+steps:
+
+  - id: interpret_vision
+    type: agent
+    agent: vision_agent
+    input:
+      file: vision/product_vision.md
+
+  - id: split_tasks
+    type: program
+    command: python scripts/task_split.py
+
+  - id: implement_features
+    type: parallel_agents
+    agent: coding_agent
+    items_from: tasks.json
+    max_parallel: 4
+
+  - id: run_tests
+    type: program
+    command: programs/run_tests.sh
+
+  - id: fix_errors
+    type: conditional_agent
+    condition: test_failure
+    agent: debugging_agent

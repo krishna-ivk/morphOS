@@ -1,0 +1,15 @@
+name: release_pipeline
+
+steps:
+
+  - id: dependency_scan
+    type: program
+    command: programs/dependency_scan.sh
+
+  - id: run_tests
+    type: program
+    command: programs/run_tests.sh
+
+  - id: deploy
+    type: program
+    command: programs/deploy.sh

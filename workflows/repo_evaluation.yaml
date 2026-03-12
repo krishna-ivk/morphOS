@@ -1,0 +1,15 @@
+name: repo_evaluation
+
+steps:
+
+  - id: clone_repo
+    type: program
+    command: git clone ${repo_url} workspace
+
+  - id: scan_repo
+    type: program
+    command: programs/repo_scan.sh workspace
+
+  - id: architecture_review
+    type: agent
+    agent: architecture_agent
