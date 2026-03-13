@@ -1,360 +1,335 @@
 # morphOS Buildability Plan
 
-This document translates the current `morphOS` specification set into an implementation plan.
+This document translates the current `morphOS` specification set into a practical Skyforce implementation plan.
 
-It answers three questions:
+It answers four questions:
 
-1. What can we build now with high confidence?
-2. What needs clarification before we build it?
-3. What should not be built yet because the current spec is too abstract or too risky?
+1. What is already built from the `morphOS` direction?
+2. What can we build next with high confidence?
+3. What still needs clarity before implementation?
+4. What should explicitly not be built yet?
 
-This plan assumes the current repo landscape:
+This plan assumes the current repo split:
 
-- `morphOS` is the specification and operating-model repo
-- `skyforce-core` is the shared contracts and CLI repo
-- `skyforce-symphony` is the orchestration runtime
-- `skyforce-harness` is the execution/runtime adapter layer
-- `skyforce-command-centre` is the operator UI
+- `morphOS`: specification, archetypes, workflow language, policy language
+- `skyforce-core`: shared contracts, CLI, validation tooling
+- `skyforce-symphony`: orchestration runtime
+- `skyforce-harness`: execution adapters and receipts
+- `skyforce-command-centre`: human control plane
 
 ## Executive Summary
 
-### Build now
+### Already built
 
-The strongest immediately buildable areas from `morphOS` are:
+The following `morphOS`-aligned capabilities now exist in the Skyforce runtime:
 
-- shared event taxonomy
-- workflow template loader contract
-- policy rule model
-- agent archetype to runtime registration mapping
-- connectivity mode model
-- topology classification model
+- workflow template loading from `morphOS/workflows`
+- template selection per issue
+- lightweight workflow progress state in Symphony
+- runtime action classification for the current workflow step
+- execution envelopes carrying workflow template metadata
+- CLI and dashboard visibility for template and step progress
+- initial shared contracts for events, policy, cells, workflows, and connectivity
 
-These are specification-heavy but concrete enough to implement.
+### Build next
+
+The strongest next build targets are:
+
+- explicit execution of `program` steps
+- explicit execution of `approval` steps
+- event taxonomy alignment across repos
+- policy evaluation hooks at workflow boundaries
+- agent archetype import into Symphony Agent Hub
 
 ### Needs clarity
 
-The areas that need sharper decisions first are:
+The biggest unresolved areas are:
 
 - memory architecture
 - learning loop behavior
-- human role model
-- exact workflow graph semantics
-- policy evaluation engine behavior under conflicts
-
-These are promising, but not yet tight enough for clean implementation.
+- human authority model
+- rich workflow graph semantics
+- conflict resolution in policy evaluation
 
 ### Do not build yet
 
-The areas we should explicitly avoid building right now are:
+Do not build these yet:
 
-- unconstrained self-evolution
 - autonomous self-modifying code loops
-- a second orchestrator runtime inside `morphOS`
-- a separate event bus runtime inside `morphOS`
-- a duplicate schema system outside `skyforce-core`
+- a second orchestrator inside `morphOS`
+- a second event bus runtime inside `morphOS`
+- a full memory platform before contracts and policy settle
 
-## What We Can Build Now
+## What Is Already Built
 
-## 1. Event Taxonomy and Event Envelope
+## 1. Workflow Template Loading
+
+### Status
+
+Built.
+
+### Where it lives
+
+- `morphOS/workflows/*.yaml`
+- `skyforce-symphony/elixir/lib/symphony_elixir/workflow_template_store.ex`
+- `skyforce-symphony/elixir/lib/symphony_elixir/workflow_template_planner.ex`
+
+### What works now
+
+- Symphony loads workflow templates from the `morphOS` repo
+- Symphony selects a template per issue
+- supported v1 step types are tracked explicitly
+- template metadata is exposed in Symphony observability
+
+### Current limit
+
+Templates are selected and tracked, but not yet executed as full graph programs.
+
+## 2. Workflow Progress And Runtime Action Mapping
+
+### Status
+
+Built as a lightweight runtime layer.
+
+### Where it lives
+
+- `skyforce-symphony/elixir/lib/symphony_elixir/orchestrator.ex`
+- `skyforce-symphony/elixir/lib/symphony_elixir/execution_envelope.ex`
+- `skyforce-core/scripts/sky.mjs`
+- `skyforce-command-centre/frontend/src/App.jsx`
+
+### What works now
+
+- dispatch creates initial workflow progress
+- Codex continuation turns advance the current step index
+- Symphony exposes `workflow_progress` in live running state
+- the current step is classified into a runtime action:
+  - `agent_turn`
+  - `program_runner`
+  - `parallel_agent_fanout`
+  - `conditional_agent_gate`
+  - `approval_gate`
+- CLI and dashboard show template, step progress, and runtime action
+
+### Current limit
+
+This is runtime-aligned planning, not full step execution.
+
+## 3. Shared Contracts
+
+### Status
+
+Partially built.
+
+### Where it lives
+
+- `skyforce-core/packages/contracts/src/index.ts`
+
+### What works now
+
+The contracts package includes `morphOS`-aligned foundations for:
+
+- event envelopes
+- agent cells
+- workflow templates and step types
+- policy rules and decisions
+- connectivity modes and capability flags
+- context and artifact references
+
+### Current limit
+
+Not every `morphOS` concept is mapped yet, and some contracts are still broad rather than fully enforced.
+
+## 4. Execution Envelope Bridge
+
+### Status
+
+Built.
+
+### Where it lives
+
+- `skyforce-symphony/elixir/lib/symphony_elixir/execution_envelope.ex`
+- `skyforce-harness/scripts/consume-execution-envelope.mjs`
+- `skyforce-harness/scripts/inspect-execution-envelope.mjs`
+
+### What works now
+
+- selected workflow template metadata is embedded into execution envelopes
+- workflow progress and runtime action metadata are preserved
+- Harness inspection and receipt flows can carry those fields
+
+### Current limit
+
+Harness receives the plan metadata, but does not yet execute `program` and `approval` steps directly from it.
+
+## 5. Human Visibility
+
+### Status
+
+Built.
+
+### Where it lives
+
+- `skyforce-core/scripts/sky.mjs`
+- `skyforce-command-centre/main.py`
+- `skyforce-command-centre/frontend/src/App.jsx`
+
+### What works now
+
+- `sky workflows`
+- `sky inspect`
+- `sky summary`
+- `sky tail`
+- Command Centre Fleet Health execution cards
+
+Humans can already see:
+
+- selected template
+- current step
+- runtime action for the current step
+- execution stage
+- validation status
+- summary sync state
+
+### Current limit
+
+The operator can see the intended runtime action, but cannot yet trigger all step types as first-class workflow actions.
+
+## What We Can Build Next With High Confidence
+
+## 1. Program Step Execution
 
 ### Why it is buildable now
 
-The event bus spec is concrete enough already:
-
-- named event families exist
-- delivery expectations are described
-- publishing/subscription rules are defined
-- persistence intent is clear
+The current templates already define deterministic `program` steps, and the runtime action classification is in place.
 
 ### What to build
 
-In `skyforce-core`:
-
-- `EventEnvelope`
-- `EventType`
-- `EventSource`
-- `EventDeliveryMode`
-- `DeferredEvent`
-- `DeadLetterEvent`
-
 In `skyforce-symphony`:
 
-- event emission aligned to `workflow.*`, `agent.*`, `task.*`, `policy.*`
+- a `program_runner` execution path
+- bounded command execution metadata
+- step completion events
 
 In `skyforce-harness`:
 
-- event emission aligned to execution pickup, adapter execution, result write, heartbeat, and failure
-
-In `skyforce-command-centre`:
-
-- event stream panels
-- event filters by issue, agent, node, protocol
+- program execution receipt schema
+- command allowlist or policy gate integration
 
 ### Confidence
 
 High.
 
-### Dependencies
-
-- shared contracts only
-
-## 2. Workflow Template Loader
+## 2. Approval Step Execution
 
 ### Why it is buildable now
 
-`morphOS/workflows/*.yaml` already expresses the intent for:
-
-- feature flow
-- release flow
-- repo evaluation
-
-The runtime semantics are not fully complete, but template loading is still very buildable.
+Approval is already a natural fit for `command-centre`, and the workflow model now identifies approval gates explicitly.
 
 ### What to build
 
-In `skyforce-core`:
-
-- `WorkflowTemplate`
-- `WorkflowStep`
-- `WorkflowBranch`
-- `WorkflowTrigger`
-- `WorkflowConstraint`
-
 In `skyforce-symphony`:
 
-- load workflow templates from a configurable path
-- validate templates against contracts
-- expose loaded templates in observability state
-
-### Initial scope
-
-Only support:
-
-- sequential steps
-- parallel fan-out
-- conditional branch
-- approval step
-- retry metadata
-
-### Confidence
-
-High for loading and validation.
-Medium for execution semantics beyond the initial subset.
-
-## 3. Policy Rule Model
-
-### Why it is buildable now
-
-The policy spec is already structured around:
-
-- rules
-- triggers
-- conditions
-- actions on fail
-- precedence
-
-That is enough to define a real policy contract now.
-
-### What to build
-
-In `skyforce-core`:
-
-- `PolicyRule`
-- `PolicyTrigger`
-- `PolicyCondition`
-- `PolicyDecision`
-- `PolicyAction`
-- `PolicyViolation`
-
-In `skyforce-symphony`:
-
-- step-level policy evaluation hooks
-
-In `skyforce-harness`:
-
-- execution guard hooks for file/network/tool/process actions
+- approval step pause state
+- approval wait/resume behavior
 
 In `skyforce-command-centre`:
 
-- policy decision and violation visibility
-
-### Initial scope
-
-Only enforce:
-
-- destructive action gating
-- network write gating
-- test-required gate
-- deploy gate
-- token/time budget gate
-
-### Confidence
-
-High for the contract and enforcement hooks.
-Medium for a complete evaluator.
-
-## 4. Agent Archetype Mapping
-
-### Why it is buildable now
-
-The current agent files are structured enough to become archetypes:
-
-- vision
-- coding
-- debugging
-- architecture
-- learning
-
-Skyforce already has Agent Hub and runtime registrations.
-
-### What to build
-
-In `morphOS`:
-
-- normalize each agent spec into a machine-readable archetype manifest
-
-In `skyforce-core`:
-
-- `AgentCell`
-- `AgentArchetype`
-- `AgentToolPolicy`
-- `AgentSubscription`
-
-In `skyforce-symphony`:
-
-- import archetypes into Agent Hub registrations
+- approval step card and action
+- resume signal back into Symphony
 
 ### Confidence
 
 High.
 
-### Constraint
-
-Treat the current markdown files as human-readable source, not direct runtime config forever.
-
-## 5. Connectivity Mode Model
+## 3. Event Taxonomy Alignment
 
 ### Why it is buildable now
 
-The runtime architecture clearly defines:
-
-- offline
-- connected
-- restricted connected
-
-This maps well to your real hybrid environment.
+The event model is already strong in `morphOS`, and Symphony already emits rich observability events.
 
 ### What to build
 
 In `skyforce-core`:
 
-- `ConnectivityMode`
-- `CapabilityFlags`
+- canonical event type families
 
-In `skyforce-symphony`:
+In `skyforce-symphony` and `skyforce-harness`:
 
-- runtime connectivity state
-- queue/defer rules for blocked actions
-
-In `skyforce-harness`:
-
-- node connectivity reporting
-- protocol availability reporting
+- event naming and payload alignment
 
 In `skyforce-command-centre`:
 
-- connectivity mode visibility
-- deferred action counts
+- event stream sections grouped by event family
 
 ### Confidence
 
 High.
 
-## 6. Runtime Topology Classification
+## 4. Agent Archetype Import
 
 ### Why it is buildable now
 
-The topology spec is concrete and closely matches your actual environment:
-
-- laptop
-- Mac Mini / home server
-- cloud
-- hybrid
-
-Skyforce already has node records and routing heuristics.
+`morphOS/agents/*.md` already describe the intended agent roles, and Symphony already has Agent Hub.
 
 ### What to build
 
-In `skyforce-core`:
-
-- topology enums and node-class contracts
-
-In `skyforce-symphony`:
-
-- routing rules based on topology class
-
-In `skyforce-harness`:
-
-- per-node descriptor fields
-
-In `skyforce-command-centre`:
-
-- topology view
+- a machine-readable archetype manifest derived from agent docs
+- import into Symphony Agent Hub
+- mapping to capabilities, allowed task kinds, and trust policies
 
 ### Confidence
 
-High.
+Medium-high.
+
+## 5. Policy Hooking
+
+### Why it is buildable now
+
+The contract side is far enough along to begin guarded enforcement.
+
+### What to build
+
+- workflow boundary checks in Symphony
+- execution-side checks in Harness
+- policy decision visibility in Command Centre
+
+### Confidence
+
+Medium-high for v1 enforcement hooks.
 
 ## What Needs Clarity Before We Build It
 
-## 1. Workflow Execution Semantics
+## 1. Full Workflow Graph Semantics
 
 ### Why it needs clarity
 
-The docs clearly want richer graph behavior, but they do not yet lock:
+We still do not have one tight answer for:
 
-- step I/O schema
-- branch merge rules
-- retry ownership
+- step input and output typing
+- branch merge behavior
 - compensation logic
-- event checkpoints between every node
-
-### Questions to answer
-
-- Are workflow steps declarative only, or can they embed execution logic?
-- How are workflow outputs typed and passed forward?
-- What is the canonical approval step behavior?
-- How do we pause and resume graph nodes?
-
-### What to do first
-
-Define a strict v1 workflow subset and reject everything else.
+- retry ownership per step
+- resumability semantics across all step kinds
 
 ### Current buildability
 
-Medium.
+Medium for a strict subset.
+Low for a full graph runtime.
 
 ## 2. Memory Architecture
 
 ### Why it needs clarity
 
-The memory layer is directionally strong, but not implementation-ready.
+The memory direction is compelling, but the implementation boundary is still open.
 
-Open areas:
+Open questions:
 
-- storage model
-- retrieval model
-- memory TTL and retention
-- indexing
-- privacy boundary
-- write authority
-
-### Questions to answer
-
-- Is memory local-first, cloud-first, or hybrid?
-- What is authoritative: file memory, database memory, or graph memory?
-- Which agents may write semantic memory?
-- What is the approval policy for stored lessons?
+- file vs database vs graph storage
+- retention and TTL
+- who may write memory
+- privacy boundaries
+- retrieval strategy
 
 ### Current buildability
 
@@ -364,274 +339,125 @@ Medium-low.
 
 ### Why it needs clarity
 
-The learning agent idea is compelling, but the path from observation to platform change is not yet tight.
+We still need a precise model for:
 
-Open areas:
-
-- what counts as a learned pattern
-- who approves a learned pattern
-- how learning becomes a proposal
-- whether learning affects prompts, policies, workflows, or code
-
-### Questions to answer
-
-- Is learning read-only at first?
-- Does learning create issues, docs, or code patches?
-- Can learning ever update policy automatically?
+- what counts as learning
+- who approves learned changes
+- whether learning creates docs, issues, prompts, policies, or code
 
 ### Current buildability
 
-Medium for artifact generation.
-Low for automatic system adaptation.
+Medium for proposal artifacts.
+Low for autonomous adaptation.
 
-## 4. Human Cell Model
+## 4. Human Authority Model
 
 ### Why it needs clarity
 
-The concept of human roles is interesting, but there is not yet enough operational detail to implement it cleanly.
+The role taxonomy exists, but authority boundaries do not yet.
 
-Open areas:
+Open questions:
 
-- permission mapping
-- role assignment model
-- escalation flow
-- approval rights
-- human-to-agent interaction protocol
-
-### What we need first
-
-- explicit role schema
-- authority model
-- action matrix
+- who can approve what
+- what can be overridden
+- what must escalate
+- which actions are operator-only
 
 ### Current buildability
 
 Low-medium.
 
-## 5. Policy Conflict Resolution Beyond the Basics
+## 5. Policy Conflict Resolution
 
 ### Why it needs clarity
 
-The spec gives precedence rules, but real policy evaluation needs stronger definitions for:
+We still need stronger definitions for:
 
-- multi-rule matching on one action
-- partial approval
-- deferred vs blocked behavior
-- human override semantics
-- per-node vs global policy
+- multi-rule matches
+- partial approvals
+- per-node overrides
+- deferred vs blocked outcomes
+- human override rules
 
 ### Current buildability
 
-Medium for a small engine.
-Low for a full policy platform without sharper rules.
+Medium for a narrow engine.
+Low for a full policy platform.
 
 ## What We Should Not Build Yet
 
-## 1. Autonomous Self-Modifying System Loops
+## 1. Autonomous Self-Modifying Code Loops
 
-### Why not
+These would bypass trust and validation too early.
 
-This is the highest-risk interpretation of "self-evolve."
-
-Problems:
-
-- too easy to bypass validation
-- too easy to create feedback loops
-- too easy to create architecture drift
-- impossible to trust early
-
-### What to do instead
-
-Only build proposal-driven evolution first:
+Build proposal-driven evolution first:
 
 - observe
 - propose
 - validate
 - require approval
-- then execute
+- execute
 
-## 2. A Separate Orchestrator Runtime in morphOS
+## 2. A Second Orchestrator Inside morphOS
 
-### Why not
+Symphony is already the orchestration runtime.
 
-Skyforce already has Symphony.
+`morphOS` should stay the specification authority, not become a duplicate runtime.
 
-If `morphOS` also grows a real orchestrator runtime now, we create:
-
-- dual workflow engines
-- dual execution models
-- dual observability
-
-That is wasted motion and long-term confusion.
-
-### What to do instead
-
-Keep orchestration runtime implementation in `skyforce-symphony`.
-
-## 3. A Separate Event Bus Runtime in morphOS
-
-### Why not
-
-The event bus belongs to the running system, not to the spec repo.
-
-### What to do instead
+## 3. A Separate Event Bus Runtime Inside morphOS
 
 `morphOS` should define the event model.
 Skyforce should implement it.
 
-## 4. A Full Memory Platform Before Contracts and Policy Are Stable
+## 4. A Full Memory Platform Before Policy And Contracts Settle
 
-### Why not
+Without stable contracts, memory becomes a dumping ground and governance risk.
 
-Memory becomes a dumping ground if built too early.
+## 5. Full Human-Role Runtime Without A Clear Authority Matrix
 
-Problems:
-
-- unclear schemas
-- unclear write permissions
-- unclear retention
-- unclear search model
-
-### What to do instead
-
-First stabilize:
-
-- events
-- policy
-- workflow state
-- execution artifacts
-
-Then build the memory layer on top of those.
-
-## 5. Full Human-Role Runtime Without an Authority Model
-
-### Why not
-
-Human roles affect:
-
-- approvals
-- escalation
-- safety
-- accountability
-
-Without a clear authority model, the implementation will be arbitrary.
+Approval and escalation logic should not be guessed into existence.
 
 ## Recommended Build Order
 
-## Stage 1: Immediate
+1. Finish explicit execution for `program` steps.
+2. Add explicit pause/resume handling for `approval` steps.
+3. Align event taxonomy across repos.
+4. Add first policy evaluation hooks.
+5. Import agent archetypes into Symphony Agent Hub.
+6. Define the authority model for human roles.
+7. Design memory and learning on top of the stabilized runtime.
 
-Build now:
+## Decision Summary
 
-1. event contracts
-2. workflow template contracts and loader
-3. policy contracts
-4. connectivity mode contracts
-5. topology contracts
-6. agent archetype mapping
+### Build now
 
-## Stage 2: Near-Term
-
-Build after stage 1 lands:
-
-1. Symphony workflow template execution subset
-2. policy enforcement hooks
-3. event stream alignment
-4. command-centre policy and event visibility
-5. CLI support for `morphOS` repo search and status
-
-## Stage 3: Mid-Term
-
-Build after execution and policy settle:
-
-1. memory write model
-2. learning artifact model
-3. deferred action replay model
-4. topology-aware scheduling refinement
-
-## Stage 4: Later
-
-Only build after trust and validation are strong:
-
-1. proposal-driven self-evolution loop
-2. learning-to-policy suggestions
-3. learning-to-workflow suggestions
-4. human role runtime
-
-## Repo-by-Repo Build Map
-
-## Build in morphOS
-
-- specification authority
-- agent archetypes
-- workflow templates
-- policy reference files
-- topology model
-- integration plans
-
-## Build in skyforce-core
-
-- contracts for events, policy, topology, connectivity, workflow templates, agent cells
-- CLI visibility into morphOS assets
-
-## Build in skyforce-symphony
-
-- workflow template loader and executor
-- policy hooks
-- event publication
-- connectivity-aware orchestration
-- archetype-backed Agent Hub registration
-
-## Build in skyforce-harness
-
-- event emission for execution lifecycle
-- execution guard rails
-- connectivity reporting
-- protocol/tool policy enforcement
-
-## Build in skyforce-command-centre
-
-- event visibility
-- policy visibility
-- topology/connectivity panels
-- archetype and workflow template visibility
-
-## Final Recommendation
-
-### Can be built now
-
-- yes: events
-- yes: workflow loader
-- yes: policy contracts
-- yes: topology model
-- yes: connectivity model
-- yes: agent archetype mapping
+- deterministic workflow step execution
+- approval handling
+- event taxonomy alignment
+- policy hook integration
+- agent archetype import
 
 ### Needs clarity
 
 - memory
 - learning
-- workflow graph semantics beyond v1
-- human roles
-- full policy conflict semantics
+- full graph semantics
+- human authority
+- advanced policy conflicts
 
-### Cannot be built safely yet
+### Do not build yet
 
-- autonomous self-modification
-- a second runtime orchestrator in `morphOS`
-- a second event bus runtime in `morphOS`
-- a full memory platform before core contracts stabilize
+- self-modifying code loops
+- duplicate orchestrator runtime
+- duplicate event bus runtime
+- premature memory platform
 
-## Bottom Line
+## Human Reading Order
 
-The current `morphOS` specs are good enough to drive the next real platform layer.
+For someone new to the platform, read in this order:
 
-What they are not yet good enough for is unconstrained autonomy.
-
-So the immediate move is:
-
-- build the contracts
-- build the loader
-- build the policy hooks
-- build the event alignment
-
-Then use Skyforce runtime and validation to carry the rest safely.
+1. `README.md`
+2. `docs/SKYFORCE_RUNTIME_OVERVIEW.md`
+3. `docs/morphos_vs_skyforce_evaluation.md`
+4. this buildability plan
+5. `docs/ROADMAP.md`
