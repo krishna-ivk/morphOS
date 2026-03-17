@@ -21,7 +21,13 @@ If you are reading this as a human operator, builder, or collaborator, use this 
 2. [Skyforce runtime overview](/home/vashista/skyforce/morphOS/docs/SKYFORCE_RUNTIME_OVERVIEW.md)
 3. [Buildability plan](/home/vashista/skyforce/morphOS/docs/morphos_buildability_plan.md)
 4. [morphOS vs Skyforce evaluation](/home/vashista/skyforce/morphOS/docs/morphos_vs_skyforce_evaluation.md)
-5. [Roadmap](/home/vashista/skyforce/morphOS/docs/ROADMAP.md)
+5. [morphOS v0 core stack](/home/vashista/skyforce/morphOS/docs/MORPHOS_V0_CORE_STACK.md)
+6. [morphOS v0 runtime contracts](/home/vashista/skyforce/morphOS/docs/MORPHOS_V0_RUNTIME_CONTRACTS.md)
+7. [Symphony and Durable authority boundary](/home/vashista/skyforce/morphOS/docs/SYMPHONY_DURABLE_AUTHORITY_BOUNDARY.md)
+8. [Durable execution handoff contracts](/home/vashista/skyforce/morphOS/docs/DURABLE_EXECUTION_HANDOFF_CONTRACTS.md)
+9. [Context architecture](/home/vashista/skyforce/morphOS/docs/CONTEXT_ARCHITECTURE.md)
+10. [Context Hub evaluation](/home/vashista/skyforce/morphOS/docs/CONTEXT_HUB_EVALUATION.md)
+11. [Roadmap](/home/vashista/skyforce/morphOS/docs/ROADMAP.md)
 
 ## What morphOS Owns
 
@@ -70,6 +76,12 @@ The Skyforce runtime already implements several `morphOS`-aligned pieces:
 - [Policy engine spec](/home/vashista/skyforce/morphOS/docs/policy_engine_spec.md)
 - [Runtime topology spec](/home/vashista/skyforce/morphOS/docs/runtime_topology_spec.md)
 - [Interaction layer spec](/home/vashista/skyforce/morphOS/docs/interaction_layer_spec.md)
+- [morphOS v0 core stack](/home/vashista/skyforce/morphOS/docs/MORPHOS_V0_CORE_STACK.md)
+- [morphOS v0 runtime contracts](/home/vashista/skyforce/morphOS/docs/MORPHOS_V0_RUNTIME_CONTRACTS.md)
+- [Symphony and Durable authority boundary](/home/vashista/skyforce/morphOS/docs/SYMPHONY_DURABLE_AUTHORITY_BOUNDARY.md)
+- [Durable execution handoff contracts](/home/vashista/skyforce/morphOS/docs/DURABLE_EXECUTION_HANDOFF_CONTRACTS.md)
+- [Context architecture](/home/vashista/skyforce/morphOS/docs/CONTEXT_ARCHITECTURE.md)
+- [Context Hub evaluation](/home/vashista/skyforce/morphOS/docs/CONTEXT_HUB_EVALUATION.md)
 
 ## Current Release
 
