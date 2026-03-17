@@ -33,9 +33,10 @@ Use this repo when you need to understand:
 6. [morphOS v0 runtime contracts](/home/vashista/skyforce/morphOS/docs/MORPHOS_V0_RUNTIME_CONTRACTS.md)
 7. [Symphony and Durable authority boundary](/home/vashista/skyforce/morphOS/docs/SYMPHONY_DURABLE_AUTHORITY_BOUNDARY.md)
 8. [Durable execution handoff contracts](/home/vashista/skyforce/morphOS/docs/DURABLE_EXECUTION_HANDOFF_CONTRACTS.md)
-9. [Context architecture](/home/vashista/skyforce/morphOS/docs/CONTEXT_ARCHITECTURE.md)
-10. [Context Hub evaluation](/home/vashista/skyforce/morphOS/docs/CONTEXT_HUB_EVALUATION.md)
-11. [Roadmap](/home/vashista/skyforce/morphOS/docs/ROADMAP.md)
+9. [Software factory techniques for morphOS](/home/vashista/skyforce/morphOS/docs/SOFTWARE_FACTORY_TECHNIQUES_FOR_MORPHOS.md)
+10. [Context architecture](/home/vashista/skyforce/morphOS/docs/CONTEXT_ARCHITECTURE.md)
+11. [Context Hub evaluation](/home/vashista/skyforce/morphOS/docs/CONTEXT_HUB_EVALUATION.md)
+12. [Roadmap](/home/vashista/skyforce/morphOS/docs/ROADMAP.md)
 
 ## Human Mental Model
 
