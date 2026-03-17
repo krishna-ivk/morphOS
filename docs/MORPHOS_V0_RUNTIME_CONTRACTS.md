@@ -623,7 +623,7 @@ After this document, the next architecture layer should be:
 
 ## Related Docs
 
-- [MORPHOS_V0_CORE_STACK.md](/home/vashista/skyforce/morphOS/docs/MORPHOS_V0_CORE_STACK.md)
-- [schemas.md](/home/vashista/skyforce/morphOS/docs/schemas.md)
-- [CONTEXT_ARCHITECTURE.md](/home/vashista/skyforce/morphOS/docs/CONTEXT_ARCHITECTURE.md)
-- [morphos_vs_skyforce_evaluation.md](/home/vashista/skyforce/morphOS/docs/morphos_vs_skyforce_evaluation.md)
+- [MORPHOS_V0_CORE_STACK.md](MORPHOS_V0_CORE_STACK.md)
+- [schemas.md](schemas.md)
+- [CONTEXT_ARCHITECTURE.md](CONTEXT_ARCHITECTURE.md)
+- [morphos_vs_skyforce_evaluation.md](morphos_vs_skyforce_evaluation.md)

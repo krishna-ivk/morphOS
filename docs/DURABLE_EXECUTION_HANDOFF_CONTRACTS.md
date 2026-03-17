@@ -9,8 +9,8 @@ for real durable execution in `morphOS v0`.
 
 It is the concrete follow-up to:
 
-- [morphOS v0 runtime contracts](/home/vashista/skyforce/morphOS/docs/MORPHOS_V0_RUNTIME_CONTRACTS.md)
-- [Symphony and Durable authority boundary](/home/vashista/skyforce/morphOS/docs/SYMPHONY_DURABLE_AUTHORITY_BOUNDARY.md)
+- [morphOS v0 runtime contracts](MORPHOS_V0_RUNTIME_CONTRACTS.md)
+- [Symphony and Durable authority boundary](SYMPHONY_DURABLE_AUTHORITY_BOUNDARY.md)
 
 Those docs define the objects and the ownership split.
 This doc defines the handoff messages that allow the split to operate in practice.
@@ -348,6 +348,6 @@ These should be distinct from, but linked to:
 
 ## Related Docs
 
-- [MORPHOS_V0_CORE_STACK.md](/home/vashista/skyforce/morphOS/docs/MORPHOS_V0_CORE_STACK.md)
-- [MORPHOS_V0_RUNTIME_CONTRACTS.md](/home/vashista/skyforce/morphOS/docs/MORPHOS_V0_RUNTIME_CONTRACTS.md)
-- [SYMPHONY_DURABLE_AUTHORITY_BOUNDARY.md](/home/vashista/skyforce/morphOS/docs/SYMPHONY_DURABLE_AUTHORITY_BOUNDARY.md)
+- [MORPHOS_V0_CORE_STACK.md](MORPHOS_V0_CORE_STACK.md)
+- [MORPHOS_V0_RUNTIME_CONTRACTS.md](MORPHOS_V0_RUNTIME_CONTRACTS.md)
+- [SYMPHONY_DURABLE_AUTHORITY_BOUNDARY.md](SYMPHONY_DURABLE_AUTHORITY_BOUNDARY.md)

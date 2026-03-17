@@ -257,7 +257,7 @@ That boundary should remain strict.
 
 ## Repo Ownership Map
 
-### [morphOS](/home/vashista/skyforce/morphOS)
+### [morphOS](..)
 
 Should own:
 
@@ -268,7 +268,7 @@ Should own:
 - memory architecture
 - role definitions
 
-### [skyforce-symphony](/home/vashista/skyforce/skyforce-symphony)
+### [skyforce-symphony](../../skyforce-symphony)
 
 Should own:
 
@@ -278,7 +278,7 @@ Should own:
 - directive routing
 - workflow observability
 
-### [skyforce-core](/home/vashista/skyforce/skyforce-core)
+### [skyforce-core](../../skyforce-core)
 
 Should own:
 
@@ -287,8 +287,8 @@ Should own:
 - validation and publish contract layer
 - cross-runtime schemas
 
-### [skyforce-command-centre](/home/vashista/skyforce/skyforce-command-centre)
-### [skyforce-command-centre-live](/home/vashista/skyforce/skyforce-command-centre-live)
+### [skyforce-command-centre](../../skyforce-command-centre)
+### [skyforce-command-centre-live](../../skyforce-command-centre-live)
 
 Should own:
 
@@ -474,8 +474,8 @@ After this document, the next architecture work should be:
 
 ## Related Docs
 
-- [README.md](/home/vashista/skyforce/morphOS/README.md)
-- [HUMAN_GUIDE.md](/home/vashista/skyforce/morphOS/docs/HUMAN_GUIDE.md)
-- [CONTEXT_ARCHITECTURE.md](/home/vashista/skyforce/morphOS/docs/CONTEXT_ARCHITECTURE.md)
-- [CONTEXT_HUB_EVALUATION.md](/home/vashista/skyforce/morphOS/docs/CONTEXT_HUB_EVALUATION.md)
-- [morphos_vs_skyforce_evaluation.md](/home/vashista/skyforce/morphOS/docs/morphos_vs_skyforce_evaluation.md)
+- [README.md](../README.md)
+- [HUMAN_GUIDE.md](HUMAN_GUIDE.md)
+- [CONTEXT_ARCHITECTURE.md](CONTEXT_ARCHITECTURE.md)
+- [CONTEXT_HUB_EVALUATION.md](CONTEXT_HUB_EVALUATION.md)
+- [morphos_vs_skyforce_evaluation.md](morphos_vs_skyforce_evaluation.md)

@@ -352,8 +352,8 @@ After this document, the next architecture or implementation step should be:
 
 ## Related Docs
 
-- [MORPHOS_V0_CORE_STACK.md](/home/vashista/skyforce/morphOS/docs/MORPHOS_V0_CORE_STACK.md)
-- [MORPHOS_V0_RUNTIME_CONTRACTS.md](/home/vashista/skyforce/morphOS/docs/MORPHOS_V0_RUNTIME_CONTRACTS.md)
-- [runtime_topology_spec.md](/home/vashista/skyforce/morphOS/docs/runtime_topology_spec.md)
-- [event_bus_spec.md](/home/vashista/skyforce/morphOS/docs/event_bus_spec.md)
-- [policy_engine_spec.md](/home/vashista/skyforce/morphOS/docs/policy_engine_spec.md)
+- [MORPHOS_V0_CORE_STACK.md](MORPHOS_V0_CORE_STACK.md)
+- [MORPHOS_V0_RUNTIME_CONTRACTS.md](MORPHOS_V0_RUNTIME_CONTRACTS.md)
+- [runtime_topology_spec.md](runtime_topology_spec.md)
+- [event_bus_spec.md](event_bus_spec.md)
+- [policy_engine_spec.md](policy_engine_spec.md)
