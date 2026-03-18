@@ -1101,8 +1101,64 @@ def test_promote_workspace_can_filter_selected_files(tmp_path, repo_root):
         "run-filter-promo", apply=True, only_files=["b.txt"]
     )
     assert applied["promoted"][0]["files_promoted"] == ["b.txt"]
+    assert applied["promoted"][0]["checksums"][0]["path"] == "b.txt"
     assert (source_repo / "a.txt").read_text() == "oldA"
     assert (source_repo / "b.txt").read_text() == "newB"
+
+
+def test_promote_workspace_supports_exclude_globs_and_preview_checksums(
+    tmp_path, repo_root
+):
+    orchestrator = Orchestrator(repo_root)
+    run_dir = repo_root / "artifacts" / "runs" / "run-exclude-promo"
+    (run_dir / "artifacts").mkdir(parents=True, exist_ok=True)
+    write_json(
+        run_dir / "artifacts" / "run_state.json",
+        {
+            "run_id": "run-exclude-promo",
+            "workflow": "feature_pipeline",
+            "status": "completed",
+            "started_at": "2026-03-18T00:00:00+00:00",
+            "ended_at": "2026-03-18T00:01:00+00:00",
+            "connectivity_mode": "offline",
+            "mode": "factory",
+            "pause_reason": None,
+            "current_step_index": 0,
+            "steps": [],
+            "context": {},
+        },
+    )
+    source_repo = tmp_path / "source-exclude"
+    workspace = run_dir / "workspace"
+    source_repo.mkdir(parents=True, exist_ok=True)
+    (workspace / "nested").mkdir(parents=True, exist_ok=True)
+    workspace.mkdir(parents=True, exist_ok=True)
+    (source_repo / "a.txt").write_text("oldA")
+    (source_repo / "nested").mkdir(parents=True, exist_ok=True)
+    (source_repo / "nested" / "b.txt").write_text("oldB")
+    (workspace / "a.txt").write_text("newA")
+    (workspace / "nested" / "b.txt").write_text("newB")
+    write_json(
+        run_dir / "artifacts" / "implement_features_source_handoff.json",
+        {
+            "step_id": "implement_features",
+            "workspace_path": str(workspace),
+            "source_repo_path": str(source_repo),
+            "workspace_files": ["a.txt", "nested/b.txt"],
+            "combined_patch_path": None,
+            "promotion_ready": True,
+        },
+    )
+    preview = orchestrator.promote_workspace_changes(
+        "run-exclude-promo",
+        only_files=["*.txt", "nested/*.txt"],
+        exclude_files=["nested/*"],
+    )
+    candidate = preview["candidates"][0]
+    assert candidate["selected_files"] == ["a.txt"]
+    assert candidate["selection"]["exclude_files"] == ["nested/*"]
+    assert candidate["file_statuses"][0]["checksums"]["source"]
+    assert candidate["file_statuses"][0]["checksums"]["workspace"]
 
 
 def test_bounded_retry_can_apply_multiple_fixes(repo_root, tmp_path):

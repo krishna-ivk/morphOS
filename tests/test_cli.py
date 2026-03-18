@@ -229,6 +229,125 @@ class StubOrchestrator:
             "task_result": {"task_id": "SMOKE-001", "backend": "codex"},
         }
 
+    def context_search(self, query, consumer="operator", limit=5):
+        return {
+            "query": query,
+            "consumer": consumer,
+            "matched": 1,
+            "results": [
+                {
+                    "context_id": "repo-doc-1",
+                    "title": "Context Hub Guide",
+                    "source": "repo-local-docs",
+                    "trust_label": "curated",
+                    "access_label": "public",
+                    "uri": "docs/guide.md",
+                    "summary": "Grounded retrieval guidance.",
+                }
+            ],
+        }
+
+    def context_get(self, context_id, consumer="operator"):
+        return {
+            "context_id": context_id,
+            "title": "Context Hub Guide",
+            "content": "Guide content",
+            "annotations": [],
+        }
+
+    def context_list_annotations(
+        self, context_id, consumer="operator", include_pending=False
+    ):
+        return {
+            "context_id": context_id,
+            "consumer": consumer,
+            "annotations": [
+                {
+                    "annotation_id": "annotation-1",
+                    "status": "active",
+                    "author_kind": "human",
+                    "author_id": "alice",
+                    "trust_label": "annotated",
+                    "access_label": "public",
+                    "content": "Use this guide first.",
+                }
+            ],
+        }
+
+    def context_create_annotation(self, context_id, **kwargs):
+        return {
+            "annotation_id": "annotation-1",
+            "context_id": context_id,
+            "status": "active"
+            if kwargs.get("author_kind") == "human"
+            else "pending_review",
+            "author_kind": kwargs.get("author_kind"),
+            "author_id": kwargs.get("author_id"),
+            "content": kwargs.get("content"),
+        }
+
+    def context_promote_annotation(self, annotation_id, **kwargs):
+        return {
+            "annotation_id": annotation_id,
+            "status": "active",
+            "approved_by": kwargs.get("approver"),
+            "trust_label": kwargs.get("trust_label"),
+        }
+
+    def promote_workspace_changes(
+        self, run_id, apply=False, step_id=None, only_files=None, exclude_files=None
+    ):
+        selected = only_files or ["sample.txt"]
+        if exclude_files:
+            selected = [path for path in selected if path not in exclude_files]
+        return {
+            "run_id": run_id,
+            "dry_run": not apply,
+            "matched": 1,
+            "candidates": [
+                {
+                    "step_id": step_id or "implement_features",
+                    "promotion_ready": True,
+                    "source_repo_path": "/tmp/source",
+                    "workspace_path": "/tmp/workspace",
+                    "workspace_files": ["sample.txt"],
+                    "selected_files": selected,
+                    "selection": {
+                        "only_files": only_files or [],
+                        "exclude_files": exclude_files or [],
+                    },
+                    "combined_patch_path": "/tmp/patch.diff",
+                    "source_dirty": False,
+                    "changed_file_count": 1,
+                    "identical_file_count": 0,
+                    "missing_workspace_file_count": 0,
+                    "file_statuses": [
+                        {
+                            "path": "sample.txt",
+                            "status": "overwrite",
+                            "checksums": {"source": "oldhash", "workspace": "newhash"},
+                            "preview": "--- sample.txt\n+++ sample.txt\n@@ -1 +1 @@\n-old\n+new",
+                        }
+                    ],
+                }
+            ],
+            "promoted": []
+            if not apply
+            else [
+                {
+                    "files_promoted": selected,
+                    "checksums": [
+                        {
+                            "path": (selected or ["sample.txt"])[0],
+                            "source_before": "oldhash",
+                            "workspace": "newhash",
+                            "source_after": "newhash",
+                        }
+                    ],
+                }
+            ],
+        }
+
     class job_store:
         @staticmethod
         def latest_run_id(**kwargs):
@@ -483,3 +602,95 @@ def test_cli_cleanup_test_runs_apply_reports_archived_candidates(monkeypatch, ca
     output = json.loads(capsys.readouterr().out)
     assert output["dry_run"] is False
     assert output["candidates"][0]["run_id"] == "run-test-1"
+
+
+def test_cli_context_search_json(monkeypatch, capsys):
+    monkeypatch.setattr(cli, "Orchestrator", lambda repo_root: StubOrchestrator())
+    assert cli.main(["context-search", "--query", "Context Hub"]) == 0
+    output = json.loads(capsys.readouterr().out)
+    assert output["matched"] == 1
+    assert output["results"][0]["context_id"] == "repo-doc-1"
+
+
+def test_cli_context_search_human(monkeypatch, capsys):
+    monkeypatch.setattr(cli, "Orchestrator", lambda repo_root: StubOrchestrator())
+    assert cli.main(["context-search", "--query", "Context Hub", "--human"]) == 0
+    output = capsys.readouterr().out
+    assert "Context matches: 1" in output
+    assert "Context Hub Guide" in output
+
+
+def test_cli_context_annotate_and_promote(monkeypatch, capsys):
+    monkeypatch.setattr(cli, "Orchestrator", lambda repo_root: StubOrchestrator())
+    assert (
+        cli.main(
+            [
+                "context-annotate",
+                "repo-doc-1",
+                "--author-kind",
+                "human",
+                "--author-id",
+                "alice",
+                "--content",
+                "Use this guide first.",
+            ]
+        )
+        == 0
+    )
+    created = json.loads(capsys.readouterr().out)
+    assert created["annotation_id"] == "annotation-1"
+    assert cli.main(["context-promote", "annotation-1", "--approver", "alice"]) == 0
+    promoted = json.loads(capsys.readouterr().out)
+    assert promoted["status"] == "active"
+
+
+def test_cli_promote_workspace(monkeypatch, capsys):
+    monkeypatch.setattr(cli, "Orchestrator", lambda repo_root: StubOrchestrator())
+    assert cli.main(["promote-workspace", "run-1", "--apply"]) == 0
+    output = json.loads(capsys.readouterr().out)
+    assert output["dry_run"] is False
+    assert output["promoted"][0]["files_promoted"] == ["sample.txt"]
+    assert output["promoted"][0]["checksums"][0]["source_after"] == "newhash"
+
+
+def test_cli_promote_workspace_human(monkeypatch, capsys):
+    monkeypatch.setattr(cli, "Orchestrator", lambda repo_root: StubOrchestrator())
+    assert cli.main(["promote-workspace", "run-1", "--human"]) == 0
+    output = capsys.readouterr().out
+    assert "Promote workspace (preview): 1 matched for run-1" in output
+    assert "implement_features" in output
+    assert "sample.txt: overwrite" in output
+    assert "checksums: source=oldhash workspace=newhash" in output
+    assert "preview:" in output
+
+
+def test_cli_promote_workspace_only_file(monkeypatch, capsys):
+    monkeypatch.setattr(cli, "Orchestrator", lambda repo_root: StubOrchestrator())
+    assert (
+        cli.main(["promote-workspace", "run-1", "--apply", "--only-file", "sample.txt"])
+        == 0
+    )
+    output = json.loads(capsys.readouterr().out)
+    assert output["candidates"][0]["selected_files"] == ["sample.txt"]
+    assert output["promoted"][0]["files_promoted"] == ["sample.txt"]
+
+
+def test_cli_promote_workspace_exclude_file(monkeypatch, capsys):
+    monkeypatch.setattr(cli, "Orchestrator", lambda repo_root: StubOrchestrator())
+    assert (
+        cli.main(
+            [
+                "promote-workspace",
+                "run-1",
+                "--apply",
+                "--only-file",
+                "sample.txt",
+                "--exclude-file",
+                "sample.txt",
+            ]
+        )
+        == 0
+    )
+    output = json.loads(capsys.readouterr().out)
+    assert output["candidates"][0]["selected_files"] == []
+    assert output["promoted"][0]["files_promoted"] == []

@@ -49,6 +49,11 @@
           "name": "applied_fix_results",
           "path": "${artifacts_dir}/apply_fixes_output.json",
           "kind": "file_exists"
+        },
+        {
+          "name": "applied_fix_source_handoff",
+          "path": "${artifacts_dir}/apply_fixes_source_handoff.json",
+          "kind": "file_exists"
         }
       ]
     },

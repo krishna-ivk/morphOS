@@ -133,6 +133,79 @@ def _format_paused_runs(data: dict[str, Any]) -> str:
     return "\n".join(lines) + "\n"
 
 
+def _format_context_search(data: dict[str, Any]) -> str:
+    lines = [f"Context matches: {data.get('matched', 0)} for `{data.get('query', '')}`"]
+    for item in data.get("results", []):
+        lines.extend(
+            [
+                "",
+                f"{item.get('context_id')}  {item.get('title')}",
+                f"  source: {item.get('source')}  trust: {item.get('trust_label')}  access: {item.get('access_label')}",
+                f"  uri: {item.get('uri')}",
+                f"  summary: {item.get('summary')}",
+            ]
+        )
+    return "\n".join(lines) + "\n"
+
+
+def _format_context_annotations(data: dict[str, Any]) -> str:
+    annotations = data.get("annotations", [])
+    lines = [f"Annotations: {len(annotations)} for {data.get('context_id')}"]
+    for item in annotations:
+        lines.extend(
+            [
+                "",
+                f"{item.get('annotation_id')}  {item.get('status')}",
+                f"  author: {item.get('author_kind')}:{item.get('author_id')}",
+                f"  trust/access: {item.get('trust_label')} / {item.get('access_label')}",
+                f"  content: {item.get('content')}",
+            ]
+        )
+    return "\n".join(lines) + "\n"
+
+
+def _format_promote_workspace(data: dict[str, Any]) -> str:
+    action = "apply" if not data.get("dry_run", True) else "preview"
+    lines = [
+        f"Promote workspace ({action}): {data.get('matched', 0)} matched for {data.get('run_id')}"
+    ]
+    for item in data.get("candidates", []):
+        lines.extend(
+            [
+                "",
+                f"{item.get('step_id')}  ready={item.get('promotion_ready')}",
+                f"  source: {item.get('source_repo_path')}",
+                f"  workspace: {item.get('workspace_path')}",
+                f"  files: {', '.join(item.get('workspace_files', [])) or 'none'}",
+                f"  selected: {', '.join(item.get('selected_files', [])) or 'none'}",
+                f"  selection: only={', '.join(item.get('selection', {}).get('only_files', [])) or 'none'} exclude={', '.join(item.get('selection', {}).get('exclude_files', [])) or 'none'}",
+                f"  patch: {item.get('combined_patch_path')}",
+                f"  source dirty: {item.get('source_dirty')}",
+                f"  file counts: changed={item.get('changed_file_count', 0)} identical={item.get('identical_file_count', 0)} missing={item.get('missing_workspace_file_count', 0)}",
+            ]
+        )
+        for file_item in item.get("file_statuses", []):
+            lines.append(f"    - {file_item.get('path')}: {file_item.get('status')}")
+            checksums = file_item.get("checksums") or {}
+            if checksums:
+                lines.append(
+                    f"      checksums: source={checksums.get('source')} workspace={checksums.get('workspace')}"
+                )
+            if file_item.get("preview"):
+                lines.append("      preview:")
+                for preview_line in str(file_item.get("preview")).splitlines():
+                    lines.append(f"        {preview_line}")
+    promoted = data.get("promoted", [])
+    if promoted:
+        lines.append("")
+        lines.append("Promoted:")
+        for item in promoted:
+            lines.append(
+                f"- {item.get('step_id')}: {', '.join(item.get('files_promoted', [])) or 'none'}"
+            )
+    return "\n".join(lines) + "\n"
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="skyforce")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -245,6 +318,58 @@ def build_parser() -> argparse.ArgumentParser:
     cleanup_parser.add_argument("--older-than-days", type=int)
     cleanup_parser.add_argument("--limit", type=int)
     cleanup_parser.add_argument("--include-paused", action="store_true")
+
+    context_search_parser = subparsers.add_parser(
+        "context-search", help="Search reference context"
+    )
+    context_search_parser.add_argument("--query", required=True)
+    context_search_parser.add_argument("--consumer", default="operator")
+    context_search_parser.add_argument("--limit", type=int, default=5)
+    context_search_parser.add_argument("--human", action="store_true")
+
+    context_get_parser = subparsers.add_parser("context-get", help="Get a context item")
+    context_get_parser.add_argument("context_id")
+    context_get_parser.add_argument("--consumer", default="operator")
+
+    context_annotations_parser = subparsers.add_parser(
+        "context-annotations", help="List context annotations"
+    )
+    context_annotations_parser.add_argument("context_id")
+    context_annotations_parser.add_argument("--consumer", default="operator")
+    context_annotations_parser.add_argument("--include-pending", action="store_true")
+    context_annotations_parser.add_argument("--human", action="store_true")
+
+    context_annotate_parser = subparsers.add_parser(
+        "context-annotate", help="Create a context annotation"
+    )
+    context_annotate_parser.add_argument("context_id")
+    context_annotate_parser.add_argument("--consumer", default="operator")
+    context_annotate_parser.add_argument(
+        "--author-kind", required=True, choices=["human", "machine"]
+    )
+    context_annotate_parser.add_argument("--author-id", required=True)
+    context_annotate_parser.add_argument("--content", required=True)
+    context_annotate_parser.add_argument("--confidence", type=float)
+    context_annotate_parser.add_argument("--trust-label")
+    context_annotate_parser.add_argument("--access-label", default="workspace")
+    context_annotate_parser.add_argument("--supersedes-annotation-id")
+
+    context_promote_parser = subparsers.add_parser(
+        "context-promote", help="Promote a pending machine annotation"
+    )
+    context_promote_parser.add_argument("annotation_id")
+    context_promote_parser.add_argument("--approver", required=True)
+    context_promote_parser.add_argument("--trust-label", default="annotated")
+
+    promote_workspace_parser = subparsers.add_parser(
+        "promote-workspace", help="Preview or apply workspace changes to source repo"
+    )
+    promote_workspace_parser.add_argument("run_id")
+    promote_workspace_parser.add_argument("--step-id")
+    promote_workspace_parser.add_argument("--apply", action="store_true")
+    promote_workspace_parser.add_argument("--human", action="store_true")
+    promote_workspace_parser.add_argument("--only-file", action="append", default=[])
+    promote_workspace_parser.add_argument("--exclude-file", action="append", default=[])
 
     codex_smoke_parser = subparsers.add_parser(
         "codex-smoke", help="Run a minimal coding_agent model-worker smoke test"
@@ -393,6 +518,71 @@ def main(argv: list[str] | None = None) -> int:
             include_paused=args.include_paused,
         )
         print(json.dumps(data, indent=2, default=str))
+        return 0
+
+    if args.command == "context-search":
+        data = orchestrator.context_search(
+            args.query, consumer=args.consumer, limit=args.limit
+        )
+        if args.human:
+            print(_format_context_search(data), end="")
+        else:
+            print(json.dumps(data, indent=2, default=str))
+        return 0
+
+    if args.command == "context-get":
+        data = orchestrator.context_get(args.context_id, consumer=args.consumer)
+        print(json.dumps(data, indent=2, default=str))
+        return 0
+
+    if args.command == "context-annotations":
+        data = orchestrator.context_list_annotations(
+            args.context_id,
+            consumer=args.consumer,
+            include_pending=args.include_pending,
+        )
+        if args.human:
+            print(_format_context_annotations(data), end="")
+        else:
+            print(json.dumps(data, indent=2, default=str))
+        return 0
+
+    if args.command == "context-annotate":
+        data = orchestrator.context_create_annotation(
+            args.context_id,
+            consumer=args.consumer,
+            author_kind=args.author_kind,
+            author_id=args.author_id,
+            content=args.content,
+            confidence=args.confidence,
+            trust_label=args.trust_label,
+            access_label=args.access_label,
+            supersedes_annotation_id=args.supersedes_annotation_id,
+        )
+        print(json.dumps(data, indent=2, default=str))
+        return 0
+
+    if args.command == "context-promote":
+        data = orchestrator.context_promote_annotation(
+            args.annotation_id,
+            approver=args.approver,
+            trust_label=args.trust_label,
+        )
+        print(json.dumps(data, indent=2, default=str))
+        return 0
+
+    if args.command == "promote-workspace":
+        data = orchestrator.promote_workspace_changes(
+            args.run_id,
+            apply=args.apply,
+            step_id=args.step_id,
+            only_files=args.only_file,
+            exclude_files=args.exclude_file,
+        )
+        if args.human:
+            print(_format_promote_workspace(data), end="")
+        else:
+            print(json.dumps(data, indent=2, default=str))
         return 0
 
     if args.command == "workflows":

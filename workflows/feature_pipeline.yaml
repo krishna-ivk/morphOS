@@ -59,7 +59,14 @@
       "condition": "plan_review_approved",
       "agent": "coding_agent",
       "items_from": "tasks.json",
-      "max_parallel": 4
+      "max_parallel": 4,
+      "contracts": [
+        {
+          "name": "implementation_source_handoff",
+          "path": "${artifacts_dir}/implement_features_source_handoff.json",
+          "kind": "file_exists"
+        }
+      ]
     },
     {
       "id": "run_tests",
@@ -108,6 +115,11 @@
         {
           "name": "applied_fix_results",
           "path": "${artifacts_dir}/apply_fixes_output.json",
+          "kind": "file_exists"
+        },
+        {
+          "name": "applied_fix_source_handoff",
+          "path": "${artifacts_dir}/apply_fixes_source_handoff.json",
           "kind": "file_exists"
         }
       ]
