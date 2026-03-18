@@ -1,5 +1,7 @@
 # morphOS Roadmap
 
+Canonical priority note: roadmap phases live here, but the current implementation order is tracked in [MORPHOS_V0_IMPLEMENTATION_BOARD.md](/Users/shivakrishnayadav/Documents/skyforce/docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md).
+
 This roadmap tracks how `morphOS` should evolve from a strong specification repository into a stable operating-model authority for the Skyforce runtime stack.
 
 It is intentionally scoped around definition, contracts, and integration.

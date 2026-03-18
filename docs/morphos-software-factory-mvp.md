@@ -1,5 +1,7 @@
 # morphOS Software Factory MVP
 
+Canonical priority note: for the authoritative feature order and repo ownership, see [MORPHOS_V0_IMPLEMENTATION_BOARD.md](/Users/shivakrishnayadav/Documents/skyforce/docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md).
+
 ## Goal
 
 Make `morphOS` useful first as a software factory operating model.

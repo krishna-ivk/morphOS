@@ -2,6 +2,8 @@
 
 `morphOS` is the specification and operating-model repository for the long-term agentic system.
 
+Canonical build-priority note: treat [docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md](/Users/shivakrishnayadav/Documents/skyforce/docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md) as the source of truth for what to build next across `morphOS` and Skyforce.
+
 It defines how the platform should think, coordinate, protect itself, and evolve.
 It is not the primary runtime.
 

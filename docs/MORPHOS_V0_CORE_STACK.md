@@ -1,5 +1,7 @@
 # morphOS v0 Core Stack
 
+Canonical priority note: this file defines the mandatory stack; use [MORPHOS_V0_IMPLEMENTATION_BOARD.md](/Users/shivakrishnayadav/Documents/skyforce/docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md) for the prioritized implementation order.
+
 This document defines the non-negotiable runtime stack for `morphOS v0`.
 
 If `morphOS` is the specification for the organism, this stack is the minimum set of runtime organs that make the organism viable.

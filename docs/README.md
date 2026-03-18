@@ -2,6 +2,8 @@
 
 Use this folder as the main entry point for SkyForce specifications.
 
+Canonical priority note: use [MORPHOS_V0_IMPLEMENTATION_BOARD.md](/Users/shivakrishnayadav/Documents/skyforce/docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md) when you need the authoritative cross-repo build order.
+
 ## Sections
 
 - `agents/` — role definitions for specialized agent cells
@@ -12,6 +14,7 @@ Use this folder as the main entry point for SkyForce specifications.
 ## Start Here
 
 - `agentic_os_architecture.md` — overall operating system design
+- `MORPHOS_V0_IMPLEMENTATION_BOARD.md` — canonical prioritized build board
 - `cell_spec.md` — shared template for all agent definitions
 - `schemas.md` — data contracts and shared structures
 - `interaction_layer_spec.md` — how humans and agents communicate

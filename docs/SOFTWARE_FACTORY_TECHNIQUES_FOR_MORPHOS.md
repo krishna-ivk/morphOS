@@ -1,5 +1,7 @@
 # Software Factory Techniques For morphOS
 
+Canonical priority note: this file explains the operating methods; use [MORPHOS_V0_IMPLEMENTATION_BOARD.md](/Users/shivakrishnayadav/Documents/skyforce/docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md) for the actual build sequence.
+
 This document translates the StrongDM Software Factory techniques into
 `morphOS` doctrine.
 
