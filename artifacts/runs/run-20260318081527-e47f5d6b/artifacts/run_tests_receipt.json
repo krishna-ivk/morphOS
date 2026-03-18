@@ -1,0 +1,9 @@
+{
+  "step_id": "run_tests",
+  "command": "bash programs/run_tests.sh run-20260318081527-e47f5d6b /Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318081527-e47f5d6b/validation",
+  "exit_code": 0,
+  "started_at": "2026-03-18T08:15:27.036096Z",
+  "ended_at": "2026-03-18T08:15:27.440874Z",
+  "stdout_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318081527-e47f5d6b/artifacts/run_tests_stdout.txt",
+  "stderr_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318081527-e47f5d6b/artifacts/run_tests_stderr.txt"
+}

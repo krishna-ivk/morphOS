@@ -1,0 +1,14 @@
+{
+  "step_id": "apply_fixes",
+  "overall_result": "pass",
+  "contracts": [
+    {
+      "name": "applied_fix_results",
+      "result": "pass",
+      "details": "Artifact exists",
+      "evidence_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318095517-333010a3/artifacts/apply_fixes_output.json",
+      "schema_name": null
+    }
+  ],
+  "signals": []
+}

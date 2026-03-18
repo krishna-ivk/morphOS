@@ -1,0 +1,119 @@
+{
+  "run_id": "run-20260318084334-c8dfdaa7",
+  "workflow": "repo_evaluation",
+  "status": "completed",
+  "started_at": "2026-03-18T08:43:34.133181+00:00",
+  "ended_at": "2026-03-18T08:43:34.133185+00:00",
+  "connectivity_mode": "online_read",
+  "mode": "factory",
+  "pause_reason": null,
+  "current_step_index": 3,
+  "steps": [
+    {
+      "step_id": "scan_repo",
+      "agent": null,
+      "status": "completed",
+      "started_at": "2026-03-18T08:43:34.098909Z",
+      "ended_at": "2026-03-18T08:43:34.127457Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318084334-c8dfdaa7/artifacts/scan_repo_output.json",
+      "error": null
+    },
+    {
+      "step_id": "architecture_review",
+      "agent": "architecture_agent",
+      "status": "completed",
+      "started_at": "2026-03-18T08:43:34.128043Z",
+      "ended_at": "2026-03-18T08:43:34.129607Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318084334-c8dfdaa7/artifacts/architecture_review_output.json",
+      "error": null
+    },
+    {
+      "step_id": "learn_from_run",
+      "agent": "learning_agent",
+      "status": "completed",
+      "started_at": "2026-03-18T08:43:34.129968Z",
+      "ended_at": "2026-03-18T08:43:34.132458Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318084334-c8dfdaa7/artifacts/learn_from_run_output.json",
+      "error": null
+    }
+  ],
+  "context": {
+    "source_repo_path": "/Users/shivakrishnayadav/Documents/skyforce",
+    "repo_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318084334-c8dfdaa7/workspace",
+    "workspace_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318084334-c8dfdaa7/workspace",
+    "run_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318084334-c8dfdaa7",
+    "artifacts_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318084334-c8dfdaa7/artifacts",
+    "validation_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318084334-c8dfdaa7/validation",
+    "seed_path": "/Users/shivakrishnayadav/Documents/skyforce/docs/vision/product_vision.md",
+    "connectivity_mode": "online_read",
+    "retrieval": {
+      "workflow": "repo_evaluation",
+      "lessons": [
+        {
+          "id": "lesson-run-20260318084330-3a414bed",
+          "lesson": "Workflow repo_evaluation completed with status running",
+          "context": "No root test suite was detected.",
+          "learned_from": "run-20260318084330-3a414bed",
+          "timestamp": "2026-03-18T08:43:30.874432Z"
+        },
+        {
+          "id": "lesson-run-20260318084330-4e119d7f",
+          "lesson": "Workflow repo_evaluation completed with status running",
+          "context": "No root test suite was detected.",
+          "learned_from": "run-20260318084330-4e119d7f",
+          "timestamp": "2026-03-18T08:43:30.768878Z"
+        },
+        {
+          "id": "lesson-run-20260318084330-bab1d251",
+          "lesson": "Workflow repo_evaluation completed with status running",
+          "context": "No root test suite was detected.",
+          "learned_from": "run-20260318084330-bab1d251",
+          "timestamp": "2026-03-18T08:43:30.656187Z"
+        }
+      ],
+      "exemplars": [
+        {
+          "run_id": "run-20260318084330-bab1d251",
+          "workflow": "repo_evaluation",
+          "summary_short": "Workflow `repo_evaluation` is `completed` with 3 completed steps and 0 failures.",
+          "contract_reports": {
+            "architecture_review": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318084330-bab1d251/validation/architecture_review_contract_report.json"
+          },
+          "evidence_refs": [
+            "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318084330-bab1d251/summaries/evidence.json",
+            "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318084330-bab1d251/validation/architecture_review_contract_report.json"
+          ]
+        },
+        {
+          "run_id": "run-20260318084330-4e119d7f",
+          "workflow": "repo_evaluation",
+          "summary_short": "Workflow `repo_evaluation` is `completed` with 3 completed steps and 0 failures.",
+          "contract_reports": {
+            "architecture_review": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318084330-4e119d7f/validation/architecture_review_contract_report.json"
+          },
+          "evidence_refs": [
+            "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318084330-4e119d7f/summaries/evidence.json",
+            "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318084330-4e119d7f/validation/architecture_review_contract_report.json"
+          ]
+        },
+        {
+          "run_id": "run-20260318084330-3a414bed",
+          "workflow": "repo_evaluation",
+          "summary_short": "Workflow `repo_evaluation` is `completed` with 3 completed steps and 0 failures.",
+          "contract_reports": {
+            "architecture_review": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318084330-3a414bed/validation/architecture_review_contract_report.json"
+          },
+          "evidence_refs": [
+            "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318084330-3a414bed/summaries/evidence.json",
+            "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318084330-3a414bed/validation/architecture_review_contract_report.json"
+          ]
+        }
+      ],
+      "lesson_count": 3,
+      "exemplar_count": 3
+    },
+    "contract_reports": {
+      "architecture_review": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318084334-c8dfdaa7/validation/architecture_review_contract_report.json"
+    }
+  }
+}

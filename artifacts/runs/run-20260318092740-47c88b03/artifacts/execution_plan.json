@@ -1,0 +1,9 @@
+{
+  "workflow": "feature_pipeline",
+  "task_count": 7,
+  "tasks_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318092740-47c88b03/artifacts/tasks.json",
+  "retrieval_used": {
+    "lesson_count": 3,
+    "exemplar_count": 3
+  }
+}

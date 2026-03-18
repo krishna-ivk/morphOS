@@ -1,0 +1,66 @@
+{
+  "run_id": "run-20260318082723-1653969c",
+  "workflow": "release_pipeline",
+  "status": "completed",
+  "started_at": "2026-03-18T08:27:23.718689Z",
+  "ended_at": "2026-03-18T08:27:24.355812Z",
+  "connectivity_mode": "deploy_enabled",
+  "mode": "factory",
+  "pause_reason": null,
+  "current_step_index": 5,
+  "steps": [
+    {
+      "step_id": "dependency_scan",
+      "agent": null,
+      "status": "completed",
+      "started_at": "2026-03-18T08:27:23.719245Z",
+      "ended_at": "2026-03-18T08:27:23.742623Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318082723-1653969c/artifacts/dependency_scan_output.json",
+      "error": null
+    },
+    {
+      "step_id": "run_tests",
+      "agent": null,
+      "status": "completed",
+      "started_at": "2026-03-18T08:27:23.743074Z",
+      "ended_at": "2026-03-18T08:27:24.179364Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318082723-1653969c/artifacts/run_tests_output.json",
+      "error": null
+    },
+    {
+      "step_id": "request_release_approval",
+      "agent": null,
+      "status": "completed",
+      "started_at": "2026-03-18T08:27:24.179941Z",
+      "ended_at": "2026-03-18T08:27:24.326762Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318082723-1653969c/approvals/approval_packet.json",
+      "error": null
+    },
+    {
+      "step_id": "deploy",
+      "agent": null,
+      "status": "completed",
+      "started_at": "2026-03-18T08:27:24.327568Z",
+      "ended_at": "2026-03-18T08:27:24.352796Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318082723-1653969c/artifacts/deploy_output.json",
+      "error": null
+    },
+    {
+      "step_id": "learn_from_run",
+      "agent": "learning_agent",
+      "status": "completed",
+      "started_at": "2026-03-18T08:27:24.353305Z",
+      "ended_at": "2026-03-18T08:27:24.355426Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318082723-1653969c/artifacts/learn_from_run_output.json",
+      "error": null
+    }
+  ],
+  "context": {
+    "repo_path": "/Users/shivakrishnayadav/Documents/skyforce",
+    "run_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318082723-1653969c",
+    "artifacts_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318082723-1653969c/artifacts",
+    "validation_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318082723-1653969c/validation",
+    "seed_path": "/Users/shivakrishnayadav/Documents/skyforce/docs/vision/product_vision.md",
+    "connectivity_mode": "deploy_enabled"
+  }
+}

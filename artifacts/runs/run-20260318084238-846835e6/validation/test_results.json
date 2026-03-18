@@ -1,0 +1,209 @@
+{
+  "run_id": "run-20260318084238-846835e6",
+  "timestamp": "2026-03-18T08:42:38.619400+00:00",
+  "summary": {
+    "total": 28,
+    "passed": 28,
+    "failed": 0,
+    "skipped": 0
+  },
+  "overall_result": "pass",
+  "tests": [
+    {
+      "name": "tests.test_cli::test_cli_paused_runs",
+      "result": "pass",
+      "duration_ms": 2,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_paused_runs_passes_filters",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_paused_runs_limit_json",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_paused_runs_passes_age_and_limit",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_paused_runs_human",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_paused_runs_limit_human",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_logs",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_resume_paused_connectivity_dry_run",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_approvals",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_approvals_human",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_approvals_passes_run_id_age_and_limit",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_approve_runs_dry_run",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_approve_runs_passes_age_and_limit",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_approve_runs_human_preview",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_approve_runs_human_apply",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_archive_runs",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_archive_runs_passes_age_and_limit",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_archive_runs_apply_reports_archived_candidates",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_summary_json",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_summary_text",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_summary_uses_latest_matching_run",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_codex_smoke",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_cleanup_test_runs",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_cleanup_test_runs_apply_reports_archived_candidates",
+      "result": "pass",
+      "duration_ms": 3,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_policy::test_policy_engine_loads_enabled_policy_files",
+      "result": "pass",
+      "duration_ms": 0,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_policy::test_policy_engine_blocks_secret_output",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_policy::test_policy_engine_defers_for_connectivity",
+      "result": "pass",
+      "duration_ms": 0,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_task_split::test_task_split_emits_schema_valid_tasks",
+      "result": "pass",
+      "duration_ms": 95,
+      "error_message": null,
+      "stack_trace": null
+    }
+  ]
+}

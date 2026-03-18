@@ -1,0 +1,14 @@
+{
+  "step_id": "split_tasks",
+  "overall_result": "pass",
+  "contracts": [
+    {
+      "name": "task_list",
+      "result": "pass",
+      "details": "Validated as TaskList",
+      "evidence_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318084818-5b5a7ab3/artifacts/tasks.json",
+      "schema_name": "TaskList"
+    }
+  ],
+  "signals": []
+}

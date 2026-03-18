@@ -1,0 +1,16 @@
+{
+  "run_id": "run-20260318091113-18b15b8c",
+  "workflow": "workspace_exec",
+  "status": "completed",
+  "steps": [
+    {
+      "step_id": "write_marker",
+      "agent": null,
+      "status": "completed",
+      "started_at": "2026-03-18T09:11:13.383226Z",
+      "ended_at": "2026-03-18T09:11:13.405144Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091113-18b15b8c/artifacts/write_marker_output.json",
+      "error": null
+    }
+  ]
+}

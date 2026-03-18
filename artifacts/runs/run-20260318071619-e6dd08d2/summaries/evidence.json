@@ -1,0 +1,16 @@
+{
+  "run_id": "run-20260318071619-e6dd08d2",
+  "workflow": "codex_smoke",
+  "status": "running",
+  "steps": [
+    {
+      "step_id": "probe_coding_agent",
+      "agent": "coding_agent",
+      "status": "running",
+      "started_at": "2026-03-18T07:16:19.168378Z",
+      "ended_at": null,
+      "output_ref": null,
+      "error": null
+    }
+  ]
+}

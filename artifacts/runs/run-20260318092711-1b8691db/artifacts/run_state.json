@@ -1,0 +1,79 @@
+{
+  "run_id": "run-20260318092711-1b8691db",
+  "workflow": "codex_smoke",
+  "status": "completed",
+  "started_at": "2026-03-18T09:27:11.843784Z",
+  "ended_at": "2026-03-18T09:27:12.413325Z",
+  "connectivity_mode": "online_read",
+  "mode": "factory",
+  "pause_reason": null,
+  "current_step_index": 1,
+  "steps": [
+    {
+      "step_id": "probe_coding_agent",
+      "agent": "coding_agent",
+      "status": "completed",
+      "started_at": "2026-03-18T09:27:12.405123Z",
+      "ended_at": "2026-03-18T09:27:12.411129Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318092711-1b8691db/artifacts/probe_coding_agent_output.json",
+      "error": null
+    }
+  ],
+  "context": {
+    "source_repo_path": "/Users/shivakrishnayadav/Documents/skyforce",
+    "repo_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318092711-1b8691db/workspace",
+    "workspace_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318092711-1b8691db/workspace",
+    "run_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318092711-1b8691db",
+    "artifacts_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318092711-1b8691db/artifacts",
+    "validation_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318092711-1b8691db/validation",
+    "seed_path": "/Users/shivakrishnayadav/Documents/skyforce/docs/vision/product_vision.md",
+    "connectivity_mode": "online_read",
+    "retrieval": {
+      "workflow": "codex_smoke",
+      "lessons": [],
+      "exemplars": [
+        {
+          "run_id": "run-20260318092701-3d4ebcea",
+          "workflow": "codex_smoke",
+          "summary_short": "Workflow `codex_smoke` is `completed` with 1 completed steps and 0 failures.",
+          "contract_reports": {
+            "probe_coding_agent": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318092701-3d4ebcea/validation/probe_coding_agent_contract_report.json"
+          },
+          "evidence_refs": [
+            "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318092701-3d4ebcea/summaries/evidence.json",
+            "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318092701-3d4ebcea/validation/probe_coding_agent_contract_report.json"
+          ]
+        },
+        {
+          "run_id": "run-20260318092658-17e563dc",
+          "workflow": "codex_smoke",
+          "summary_short": "Workflow `codex_smoke` is `completed` with 1 completed steps and 0 failures.",
+          "contract_reports": {
+            "probe_coding_agent": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318092658-17e563dc/validation/probe_coding_agent_contract_report.json"
+          },
+          "evidence_refs": [
+            "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318092658-17e563dc/summaries/evidence.json",
+            "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318092658-17e563dc/validation/probe_coding_agent_contract_report.json"
+          ]
+        },
+        {
+          "run_id": "run-20260318091159-67828fdd",
+          "workflow": "codex_smoke",
+          "summary_short": "Workflow `codex_smoke` is `completed` with 1 completed steps and 0 failures.",
+          "contract_reports": {
+            "probe_coding_agent": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091159-67828fdd/validation/probe_coding_agent_contract_report.json"
+          },
+          "evidence_refs": [
+            "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091159-67828fdd/summaries/evidence.json",
+            "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091159-67828fdd/validation/probe_coding_agent_contract_report.json"
+          ]
+        }
+      ],
+      "lesson_count": 0,
+      "exemplar_count": 3
+    },
+    "contract_reports": {
+      "probe_coding_agent": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318092711-1b8691db/validation/probe_coding_agent_contract_report.json"
+    }
+  }
+}

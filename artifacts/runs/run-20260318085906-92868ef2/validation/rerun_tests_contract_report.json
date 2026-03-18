@@ -1,0 +1,23 @@
+{
+  "step_id": "rerun_tests",
+  "overall_result": "pass",
+  "contracts": [
+    {
+      "name": "rerun_test_results",
+      "result": "pass",
+      "details": "Validated as TestResults",
+      "evidence_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318085906-92868ef2/validation/test_results.json",
+      "schema_name": "TestResults"
+    }
+  ],
+  "signals": [
+    {
+      "name": "persistent_test_failure_signal",
+      "result": "pass",
+      "context_key": "persistent_test_failure",
+      "value": "fail",
+      "expected": "fail",
+      "evidence_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318085906-92868ef2/validation/test_results.json"
+    }
+  ]
+}

@@ -1,0 +1,9 @@
+{
+  "step_id": "scan_repo",
+  "command": "bash programs/repo_scan.sh /Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318090012-7fc0d791/workspace /Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318090012-7fc0d791/artifacts",
+  "exit_code": 0,
+  "started_at": "2026-03-18T09:00:12.494896Z",
+  "ended_at": "2026-03-18T09:00:12.519730Z",
+  "stdout_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318090012-7fc0d791/artifacts/scan_repo_stdout.txt",
+  "stderr_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318090012-7fc0d791/artifacts/scan_repo_stderr.txt"
+}

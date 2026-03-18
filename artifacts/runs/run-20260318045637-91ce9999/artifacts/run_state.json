@@ -1,0 +1,47 @@
+{
+  "run_id": "run-20260318045637-91ce9999",
+  "workflow": "repo_evaluation",
+  "status": "completed",
+  "started_at": "2026-03-18T04:56:37.195212Z",
+  "ended_at": "2026-03-18T04:56:38.748400Z",
+  "connectivity_mode": "online_read",
+  "mode": "factory",
+  "current_step_index": 3,
+  "steps": [
+    {
+      "step_id": "scan_repo",
+      "agent": null,
+      "status": "completed",
+      "started_at": "2026-03-18T04:56:37.254277Z",
+      "ended_at": "2026-03-18T04:56:38.052109Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318045637-91ce9999/artifacts/scan_repo_output.json",
+      "error": null
+    },
+    {
+      "step_id": "architecture_review",
+      "agent": "architecture_agent",
+      "status": "completed",
+      "started_at": "2026-03-18T04:56:38.052685Z",
+      "ended_at": "2026-03-18T04:56:38.746992Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318045637-91ce9999/artifacts/architecture_review_output.json",
+      "error": null
+    },
+    {
+      "step_id": "learn_from_run",
+      "agent": "learning_agent",
+      "status": "completed",
+      "started_at": "2026-03-18T04:56:38.747417Z",
+      "ended_at": "2026-03-18T04:56:38.748076Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318045637-91ce9999/artifacts/learn_from_run_output.json",
+      "error": null
+    }
+  ],
+  "context": {
+    "repo_path": "/Users/shivakrishnayadav/Documents/skyforce",
+    "run_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318045637-91ce9999",
+    "artifacts_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318045637-91ce9999/artifacts",
+    "validation_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318045637-91ce9999/validation",
+    "seed_path": "/Users/shivakrishnayadav/Documents/skyforce/docs/vision/product_vision.md",
+    "connectivity_mode": "online_read"
+  }
+}

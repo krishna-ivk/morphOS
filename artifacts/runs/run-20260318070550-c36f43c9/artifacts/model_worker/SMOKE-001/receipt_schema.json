@@ -1,0 +1,56 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "task_id",
+    "status",
+    "files_written",
+    "tests_written",
+    "patch_path",
+    "error",
+    "partial_output_ref"
+  ],
+  "properties": {
+    "task_id": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "completed",
+        "failed",
+        "blocked"
+      ]
+    },
+    "files_written": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "tests_written": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "patch_path": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "error": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "partial_output_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

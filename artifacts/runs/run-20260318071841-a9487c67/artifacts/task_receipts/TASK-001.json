@@ -1,0 +1,9 @@
+{
+  "task_id": "TASK-001",
+  "status": "completed",
+  "files_written": [
+    "work/TASK-001-vision-to-feature-decomposition.md"
+  ],
+  "tests_written": [],
+  "patch_path": null
+}

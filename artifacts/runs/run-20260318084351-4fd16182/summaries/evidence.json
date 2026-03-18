@@ -1,0 +1,79 @@
+{
+  "run_id": "run-20260318084351-4fd16182",
+  "workflow": "feature_pipeline",
+  "status": "completed",
+  "steps": [
+    {
+      "step_id": "interpret_vision",
+      "agent": "vision_agent",
+      "status": "completed",
+      "started_at": "2026-03-18T08:43:51.985352Z",
+      "ended_at": "2026-03-18T08:43:51.986467Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318084351-4fd16182/artifacts/interpret_vision_output.json",
+      "error": null
+    },
+    {
+      "step_id": "split_tasks",
+      "agent": null,
+      "status": "completed",
+      "started_at": "2026-03-18T08:43:51.986992Z",
+      "ended_at": "2026-03-18T08:43:52.090698Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318084351-4fd16182/artifacts/split_tasks_output.json",
+      "error": null
+    },
+    {
+      "step_id": "implement_features",
+      "agent": "coding_agent",
+      "status": "completed",
+      "started_at": "2026-03-18T08:43:52.091312Z",
+      "ended_at": "2026-03-18T08:43:52.094006Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318084351-4fd16182/artifacts/implement_features_output.json",
+      "error": null
+    },
+    {
+      "step_id": "run_tests",
+      "agent": null,
+      "status": "completed",
+      "started_at": "2026-03-18T08:43:52.094534Z",
+      "ended_at": "2026-03-18T08:43:52.556511Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318084351-4fd16182/artifacts/run_tests_output.json",
+      "error": null
+    },
+    {
+      "step_id": "fix_errors",
+      "agent": "debugging_agent",
+      "status": "skipped",
+      "started_at": null,
+      "ended_at": null,
+      "output_ref": null,
+      "error": null
+    },
+    {
+      "step_id": "rerun_tests",
+      "agent": null,
+      "status": "skipped",
+      "started_at": null,
+      "ended_at": null,
+      "output_ref": null,
+      "error": null
+    },
+    {
+      "step_id": "request_validation_review",
+      "agent": null,
+      "status": "skipped",
+      "started_at": null,
+      "ended_at": null,
+      "output_ref": null,
+      "error": null
+    },
+    {
+      "step_id": "learn_from_run",
+      "agent": "learning_agent",
+      "status": "completed",
+      "started_at": "2026-03-18T08:43:52.558269Z",
+      "ended_at": "2026-03-18T08:43:52.561388Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318084351-4fd16182/artifacts/learn_from_run_output.json",
+      "error": null
+    }
+  ]
+}

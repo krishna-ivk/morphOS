@@ -1,0 +1,28 @@
+{
+  "name": "repo_evaluation",
+  "steps": [
+    {
+      "id": "scan_repo",
+      "type": "program",
+      "command": "bash programs/repo_scan.sh ${repo_path} ${artifacts_dir}"
+    },
+    {
+      "id": "architecture_review",
+      "type": "agent",
+      "agent": "architecture_agent",
+      "contracts": [
+        {
+          "name": "architecture_report",
+          "path": "${artifacts_dir}/architecture_report.json",
+          "kind": "json_schema",
+          "schema_name": "ArchitectureReport"
+        }
+      ]
+    },
+    {
+      "id": "learn_from_run",
+      "type": "agent",
+      "agent": "learning_agent"
+    }
+  ]
+}

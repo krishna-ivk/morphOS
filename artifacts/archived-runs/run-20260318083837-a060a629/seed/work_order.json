@@ -1,0 +1,13 @@
+{
+  "run_id": "run-20260318083837-a060a629",
+  "workflow": "repo_evaluation",
+  "mode": "factory",
+  "seed_type": "implicit",
+  "seed_ref": null,
+  "seed_title": "Default product vision",
+  "seed_summary": "Using the default product vision document.",
+  "seed_payload": {},
+  "origin": "test",
+  "repo_path": "/Users/shivakrishnayadav/Documents/skyforce",
+  "created_at": "2026-03-18T08:38:37.895853Z"
+}

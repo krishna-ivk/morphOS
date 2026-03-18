@@ -1,0 +1,13 @@
+{
+  "diagnoses": [
+    {
+      "test_name": "synthetic::failure",
+      "symptom": "forced fail",
+      "root_cause": "Automated debugger could not determine root cause from local evidence.",
+      "fix_strategy": "Inspect the failing test and referenced source files, then retry.",
+      "confidence": "low",
+      "files_to_modify": []
+    }
+  ],
+  "count": 1
+}

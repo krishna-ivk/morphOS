@@ -1,0 +1,205 @@
+{
+  "run_id": "run-20260318091113-1132ae47",
+  "workflow": "feature_pipeline",
+  "status": "completed",
+  "started_at": "2026-03-18T09:11:13.561020Z",
+  "ended_at": "2026-03-18T09:11:14.079084Z",
+  "connectivity_mode": "online_read",
+  "mode": "factory",
+  "pause_reason": null,
+  "current_step_index": 10,
+  "steps": [
+    {
+      "step_id": "interpret_vision",
+      "agent": "vision_agent",
+      "status": "completed",
+      "started_at": "2026-03-18T09:11:13.623543Z",
+      "ended_at": "2026-03-18T09:11:13.624738Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091113-1132ae47/artifacts/interpret_vision_output.json",
+      "error": null
+    },
+    {
+      "step_id": "build_execution_plan",
+      "agent": "planning_agent",
+      "status": "completed",
+      "started_at": "2026-03-18T09:11:13.625110Z",
+      "ended_at": "2026-03-18T09:11:13.625851Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091113-1132ae47/artifacts/build_execution_plan_output.json",
+      "error": null
+    },
+    {
+      "step_id": "review_execution_plan",
+      "agent": "reviewer_agent",
+      "status": "completed",
+      "started_at": "2026-03-18T09:11:13.626196Z",
+      "ended_at": "2026-03-18T09:11:13.626827Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091113-1132ae47/artifacts/review_execution_plan_output.json",
+      "error": null
+    },
+    {
+      "step_id": "implement_features",
+      "agent": "coding_agent",
+      "status": "completed",
+      "started_at": "2026-03-18T09:11:13.627172Z",
+      "ended_at": "2026-03-18T09:11:13.629480Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091113-1132ae47/artifacts/implement_features_output.json",
+      "error": null
+    },
+    {
+      "step_id": "run_tests",
+      "agent": null,
+      "status": "completed",
+      "started_at": "2026-03-18T09:11:13.629990Z",
+      "ended_at": "2026-03-18T09:11:14.073945Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091113-1132ae47/artifacts/run_tests_output.json",
+      "error": null
+    },
+    {
+      "step_id": "fix_errors",
+      "agent": "debugging_agent",
+      "status": "skipped",
+      "started_at": null,
+      "ended_at": null,
+      "output_ref": null,
+      "error": null
+    },
+    {
+      "step_id": "apply_fixes",
+      "agent": "coding_agent",
+      "status": "skipped",
+      "started_at": null,
+      "ended_at": null,
+      "output_ref": null,
+      "error": null
+    },
+    {
+      "step_id": "rerun_tests",
+      "agent": null,
+      "status": "skipped",
+      "started_at": null,
+      "ended_at": null,
+      "output_ref": null,
+      "error": null
+    },
+    {
+      "step_id": "request_validation_review",
+      "agent": null,
+      "status": "skipped",
+      "started_at": null,
+      "ended_at": null,
+      "output_ref": null,
+      "error": null
+    },
+    {
+      "step_id": "learn_from_run",
+      "agent": "learning_agent",
+      "status": "completed",
+      "started_at": "2026-03-18T09:11:14.075591Z",
+      "ended_at": "2026-03-18T09:11:14.078649Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091113-1132ae47/artifacts/learn_from_run_output.json",
+      "error": null
+    }
+  ],
+  "context": {
+    "source_repo_path": "/Users/shivakrishnayadav/Documents/skyforce",
+    "repo_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091113-1132ae47/workspace",
+    "workspace_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091113-1132ae47/workspace",
+    "run_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091113-1132ae47",
+    "artifacts_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091113-1132ae47/artifacts",
+    "validation_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091113-1132ae47/validation",
+    "seed_path": "/Users/shivakrishnayadav/Documents/skyforce/docs/vision/product_vision.md",
+    "connectivity_mode": "online_read",
+    "retrieval": {
+      "workflow": "feature_pipeline",
+      "lessons": [
+        {
+          "id": "lesson-run-20260318091112-88f797fb",
+          "lesson": "Workflow feature_pipeline completed with status running",
+          "context": "Local MVP orchestration run",
+          "learned_from": "run-20260318091112-88f797fb",
+          "timestamp": "2026-03-18T09:11:12.495604Z"
+        },
+        {
+          "id": "lesson-run-20260318091111-293cabe1",
+          "lesson": "Workflow feature_pipeline completed with status running",
+          "context": "Local MVP orchestration run",
+          "learned_from": "run-20260318091111-293cabe1",
+          "timestamp": "2026-03-18T09:11:11.966398Z"
+        },
+        {
+          "id": "lesson-run-20260318091111-a63dc701",
+          "lesson": "Workflow feature_pipeline completed with status running",
+          "context": "Local MVP orchestration run",
+          "learned_from": "run-20260318091111-a63dc701",
+          "timestamp": "2026-03-18T09:11:11.419570Z"
+        }
+      ],
+      "exemplars": [
+        {
+          "run_id": "run-20260318091112-88f797fb",
+          "workflow": "feature_pipeline",
+          "summary_short": "Workflow `feature_pipeline` is `completed` with 5 completed steps and 0 failures.",
+          "contract_reports": {
+            "interpret_vision": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091112-88f797fb/validation/interpret_vision_contract_report.json",
+            "build_execution_plan": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091112-88f797fb/validation/build_execution_plan_contract_report.json",
+            "review_execution_plan": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091112-88f797fb/validation/review_execution_plan_contract_report.json",
+            "run_tests": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091112-88f797fb/validation/run_tests_contract_report.json"
+          },
+          "evidence_refs": [
+            "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091112-88f797fb/summaries/evidence.json",
+            "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091112-88f797fb/validation/interpret_vision_contract_report.json",
+            "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091112-88f797fb/validation/build_execution_plan_contract_report.json",
+            "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091112-88f797fb/validation/review_execution_plan_contract_report.json",
+            "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091112-88f797fb/validation/run_tests_contract_report.json"
+          ]
+        },
+        {
+          "run_id": "run-20260318091111-a63dc701",
+          "workflow": "feature_pipeline",
+          "summary_short": "Workflow `feature_pipeline` is `completed` with 6 completed steps and 0 failures.",
+          "contract_reports": {
+            "interpret_vision": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091111-a63dc701/validation/interpret_vision_contract_report.json",
+            "build_execution_plan": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091111-a63dc701/validation/build_execution_plan_contract_report.json",
+            "review_execution_plan": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091111-a63dc701/validation/review_execution_plan_contract_report.json",
+            "run_tests": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091111-a63dc701/validation/run_tests_contract_report.json"
+          },
+          "evidence_refs": [
+            "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091111-a63dc701/summaries/evidence.json",
+            "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091111-a63dc701/validation/interpret_vision_contract_report.json",
+            "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091111-a63dc701/validation/build_execution_plan_contract_report.json",
+            "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091111-a63dc701/validation/review_execution_plan_contract_report.json",
+            "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091111-a63dc701/validation/run_tests_contract_report.json"
+          ]
+        },
+        {
+          "run_id": "run-20260318091111-293cabe1",
+          "workflow": "feature_pipeline",
+          "summary_short": "Workflow `feature_pipeline` is `completed` with 6 completed steps and 0 failures.",
+          "contract_reports": {
+            "interpret_vision": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091111-293cabe1/validation/interpret_vision_contract_report.json",
+            "build_execution_plan": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091111-293cabe1/validation/build_execution_plan_contract_report.json",
+            "review_execution_plan": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091111-293cabe1/validation/review_execution_plan_contract_report.json",
+            "run_tests": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091111-293cabe1/validation/run_tests_contract_report.json"
+          },
+          "evidence_refs": [
+            "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091111-293cabe1/summaries/evidence.json",
+            "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091111-293cabe1/validation/interpret_vision_contract_report.json",
+            "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091111-293cabe1/validation/build_execution_plan_contract_report.json",
+            "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091111-293cabe1/validation/review_execution_plan_contract_report.json",
+            "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091111-293cabe1/validation/run_tests_contract_report.json"
+          ]
+        }
+      ],
+      "lesson_count": 3,
+      "exemplar_count": 3
+    },
+    "contract_reports": {
+      "interpret_vision": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091113-1132ae47/validation/interpret_vision_contract_report.json",
+      "build_execution_plan": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091113-1132ae47/validation/build_execution_plan_contract_report.json",
+      "review_execution_plan": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091113-1132ae47/validation/review_execution_plan_contract_report.json",
+      "run_tests": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091113-1132ae47/validation/run_tests_contract_report.json"
+    },
+    "plan_review_approved": true,
+    "test_failure": false
+  }
+}

@@ -1,0 +1,1 @@
+{"run_id": "temp-run", "timestamp": "2026-03-18T08:54:41.805567+00:00", "summary": {"total": 1, "passed": 0, "failed": 1, "skipped": 0}, "overall_result": "fail", "tests": [{"name": "synthetic::failure", "result": "fail", "duration_ms": 1, "error_message": "forced fail", "stack_trace": null}]}

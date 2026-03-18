@@ -1,0 +1,21 @@
+{
+  "step_id": "build_execution_plan",
+  "overall_result": "pass",
+  "contracts": [
+    {
+      "name": "task_list",
+      "result": "pass",
+      "details": "Validated as TaskList",
+      "evidence_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318095550-55b1a366/artifacts/tasks.json",
+      "schema_name": "TaskList"
+    },
+    {
+      "name": "execution_plan",
+      "result": "pass",
+      "details": "Artifact exists",
+      "evidence_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318095550-55b1a366/artifacts/execution_plan.json",
+      "schema_name": null
+    }
+  ],
+  "signals": []
+}

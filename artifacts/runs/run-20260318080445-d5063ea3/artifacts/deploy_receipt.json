@@ -1,0 +1,9 @@
+{
+  "step_id": "deploy",
+  "command": "bash programs/deploy.sh run-20260318080445-d5063ea3 /Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318080445-d5063ea3/artifacts",
+  "exit_code": 0,
+  "started_at": "2026-03-18T08:04:46.653326Z",
+  "ended_at": "2026-03-18T08:04:46.693449Z",
+  "stdout_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318080445-d5063ea3/artifacts/deploy_stdout.txt",
+  "stderr_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318080445-d5063ea3/artifacts/deploy_stderr.txt"
+}

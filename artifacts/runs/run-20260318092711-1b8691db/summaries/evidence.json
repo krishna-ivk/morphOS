@@ -1,0 +1,16 @@
+{
+  "run_id": "run-20260318092711-1b8691db",
+  "workflow": "codex_smoke",
+  "status": "completed",
+  "steps": [
+    {
+      "step_id": "probe_coding_agent",
+      "agent": "coding_agent",
+      "status": "completed",
+      "started_at": "2026-03-18T09:27:12.405123Z",
+      "ended_at": "2026-03-18T09:27:12.411129Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318092711-1b8691db/artifacts/probe_coding_agent_output.json",
+      "error": null
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "core_safety",
+  "version": 1,
+  "priority": 1000,
+  "enabled": true,
+  "rules": [
+    {
+      "id": "block_secret_in_code",
+      "description": "No secrets in outputs",
+      "trigger": {
+        "event_type": "task.completed"
+      },
+      "action_on_fail": "reject"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "skyforce"
+version = "0.1.0"
+description = "Local morphOS/SkyForce MVP runtime"
+requires-python = ">=3.11"
+dependencies = [
+  "pydantic>=2,<3",
+]
+
+[tool.setuptools]
+packages = ["skyforce", "skyforce.runtime"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

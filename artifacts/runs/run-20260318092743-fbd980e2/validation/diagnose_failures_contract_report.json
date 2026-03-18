@@ -1,0 +1,14 @@
+{
+  "step_id": "diagnose_failures",
+  "overall_result": "pass",
+  "contracts": [
+    {
+      "name": "repair_tasks",
+      "result": "pass",
+      "details": "Validated as TaskList",
+      "evidence_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318092743-fbd980e2/artifacts/repair_tasks.json",
+      "schema_name": "TaskList"
+    }
+  ],
+  "signals": []
+}

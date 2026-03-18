@@ -1,0 +1,38 @@
+{
+  "name": "feature_pipeline",
+  "steps": [
+    {
+      "id": "interpret_vision",
+      "type": "agent",
+      "agent": "vision_agent"
+    },
+    {
+      "id": "split_tasks",
+      "type": "program",
+      "command": "python3 scripts/task_split.py ${artifacts_dir}/feature_plan.json ${artifacts_dir}/tasks.json"
+    },
+    {
+      "id": "implement_features",
+      "type": "parallel_agents",
+      "agent": "coding_agent",
+      "items_from": "tasks.json",
+      "max_parallel": 4
+    },
+    {
+      "id": "run_tests",
+      "type": "program",
+      "command": "bash programs/run_tests.sh ${run_id} ${validation_dir}"
+    },
+    {
+      "id": "fix_errors",
+      "type": "conditional_agent",
+      "condition": "test_failure",
+      "agent": "debugging_agent"
+    },
+    {
+      "id": "learn_from_run",
+      "type": "agent",
+      "agent": "learning_agent"
+    }
+  ]
+}

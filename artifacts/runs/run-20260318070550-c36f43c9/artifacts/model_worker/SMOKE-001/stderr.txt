@@ -1,0 +1,138 @@
+OpenAI Codex v0.114.0 (research preview)
+--------
+workdir: /Users/shivakrishnayadav/Documents/skyforce
+model: gpt-5.4
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR, /Users/shivakrishnayadav/.codex/memories]
+reasoning effort: high
+reasoning summaries: none
+session id: 019cffc3-d88e-7aa2-a609-27d692230f35
+--------
+user
+You are the SkyForce coding_agent. Stay strictly within task scope. Return only one JSON object matching the requested receipt schema. Do not wrap the response in markdown fences or prose. If the task cannot be completed, still return valid JSON with status 'failed' or 'blocked' and an error field.
+
+Task payload:
+{
+  "id": "SMOKE-001",
+  "task": "Codex smoke task",
+  "description": "Do not modify repository files. Return a valid coding task receipt JSON for SMOKE-001. If edits would be needed, return status blocked.",
+  "status": "pending",
+  "assigned_agent": "coding_agent",
+  "feature_ref": "codex_smoke",
+  "depends_on": []
+}
+
+Repo root: /Users/shivakrishnayadav/Documents/skyforce
+Run dir: /Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318070550-c36f43c9
+Validation dir: /Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318070550-c36f43c9/validation
+
+mcp startup: no servers
+exec
+/bin/zsh -lc pwd in /Users/shivakrishnayadav/Documents/skyforce succeeded in 0ms:
+/Users/shivakrishnayadav/Documents/skyforce
+exec
+/bin/zsh -lc "rg --files /Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318070550-c36f43c9 | sed 's#"'^#/##'"'" in /Users/shivakrishnayadav/Documents/skyforce exited 1 in 0ms:
+sed: 1: "s#^#/##
+": bad flag in substitute command: '#'
+exec
+/bin/zsh -lc "rg -n \"receipt schema|status.*blocked|coding task receipt|SMOKE-001|task receipt\" /Users/shivakrishnayadav/Documents/skyforce -g '"'!node_modules'"' -g '"'!dist'"' -g '"'!build'"'" in /Users/shivakrishnayadav/Documents/skyforce succeeded in 247ms:
+/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318070550-c36f43c9/plan/run_plan.json:9:        "id": "SMOKE-001",
+/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318070550-c36f43c9/plan/run_plan.json:11:        "description": "Do not modify repository files. Return a valid coding task receipt JSON for SMOKE-001. If edits would be needed, return status blocked.",
+/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318070550-c36f43c9/artifacts/model_worker/SMOKE-001/payload.json:2:  "id": "SMOKE-001",
+/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318070550-c36f43c9/artifacts/model_worker/SMOKE-001/payload.json:4:  "description": "Do not modify repository files. Return a valid coding task receipt JSON for SMOKE-001. If edits would be needed, return status blocked.",
+/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318070550-c36f43c9/artifacts/model_worker/SMOKE-001/prompt.txt:1:You are the SkyForce coding_agent. Stay strictly within task scope. Return only one JSON object matching the requested receipt schema. Do not wrap the response in markdown fences or prose. If the task cannot be completed, still return valid JSON with status 'failed' or 'blocked' and an error field.
+/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318070550-c36f43c9/artifacts/model_worker/SMOKE-001/prompt.txt:5:  "id": "SMOKE-001",
+/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318070550-c36f43c9/artifacts/model_worker/SMOKE-001/prompt.txt:7:  "description": "Do not modify repository files. Return a valid coding task receipt JSON for SMOKE-001. If edits would be needed, return status blocked.",
+/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318070518-43727c38/work/SMOKE-001-codex-smoke-task.md:5:Description: Do not modify repository files. Return a valid coding task receipt JSON for SMOKE-001. If edits would be needed, return status blocked.
+/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318070518-43727c38/plan/run_plan.json:9:        "id": "SMOKE-001",
+/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318070518-43727c38/plan/run_plan.json:11:        "description": "Do not modify repository files. Return a valid coding task receipt JSON for SMOKE-001. If edits would be needed, return status blocked.",
+/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318070518-43727c38/artifacts/probe_coding_agent_output.json:2:  "task_id": "SMOKE-001",
+/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318070518-43727c38/artifacts/probe_coding_agent_output.json:5:    "work/SMOKE-001-codex-smoke-task.md"
+/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318070518-43727c38/artifacts/task_receipts/SMOKE-001.json:2:  "task_id": "SMOKE-001",
+/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318070518-43727c38/artifacts/task_receipts/SMOKE-001.json:5:    "work/SMOKE-001-codex-smoke-task.md"
+/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318070403-05df7595/artifacts/probe_coding_agent_output.json:2:  "task_id": "SMOKE-001",
+/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318070403-05df7595/artifacts/model_worker/SMOKE-001/response.json:1:{"task_id":"SMOKE-001","status":"completed","files_written":[],"tests_written":[],"patch_path":null,"error":null,"partial_output_ref":null}
+/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318070403-05df7595/artifacts/model_worker/SMOKE-001/payload.json:2:  "id": "SMOKE-001",
+/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318070403-05df7595/artifacts/model_worker/SMOKE-001/payload.json:4:  "description": "Do not modify repository files. Return a valid coding task receipt JSON for SMOKE-001. If edits would be needed, return status blocked.",
+/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318070403-05df7595/artifacts/model_worker/SMOKE-001/stderr.txt:13:You are the SkyForce coding_agent. Stay strictly within task scope. Return only one JSON object matching the requested receipt schema. Do not wrap the response in markdown fences or prose. If the task cannot be completed, still return valid JSON with status 'failed' or 'blocked' and an error field.
+/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318070403-05df7595/artifacts/model_worker/SMOKE-001/stderr.txt:17:  "id": "SMOKE-001",
+exec
+/bin/zsh -lc "sed -n '250,340p' tests/test_runtime.py" in /Users/shivakrishnayadav/Documents/skyforceexec
+/bin/zsh -lc "sed -n '120,190p' tests/test_cli.py" in /Users/shivakrishnayadav/Documents/skyforceexec
+/bin/zsh -lc "sed -n '1,80p' artifacts/runs/run-20260318070518-ca45e6ec/artifacts/model_worker/SMOKE-001/response.json" in /Users/shivakrishnayadav/Documents/skyforce succeeded in 0ms:
+{"task_id":"SMOKE-001","status":"completed","files_written":[],"tests_written":[],"patch_path":null,"error":null,"partial_output_ref":null}
+ succeeded in 0ms:
+    state = orchestrator.run_workflow(
+        "release_pipeline", mode="factory", seed_path=None, repo_path=str(repo_root)
+    )
+    preview = orchestrator.batch_apply_approvals(
+        apply=False,
+        decision="approve",
+        reason="Tests passed",
+        workflow="release_pipeline",
+    )
+    assert preview["matched"] >= 1
+    assert preview["queue_totals"]["pending"] >= 1
+    assert preview["filtered_counts"]["matched"] == preview["matched"]
+    assert preview["candidates"][0]["summary_snippet"]
+    applied = orchestrator.batch_apply_approvals(
+        apply=True,
+        decision="approve",
+        reason="Tests passed",
+        run_id=state.run_id,
+    )
+    assert applied["applied"] == 1
+ succeeded in 0ms:
+            ],
+            "validation": {
+                "overall_result": "pass",
+                "summary": {"total": 7, "failed": 0, "skipped": 0},
+            },
+            "pending_approval": {
+                "step_id": "request_release_approval",
+                "reason": "Release actions require human approval.",
+            },
+            "deferred_actions": [],
+            "evidence_refs": ["artifacts/evidence.json"],
+        }
+
+    def run_codex_smoke(self, repo_path="."):
+        return {
+            "run_id": "run-smoke",
+            "workflow": "codex_smoke",
+            "status": "completed",
+            "backend_used": "codex",
+            "model_worker_error_path": None,
+exec
+/bin/zsh -lc "rg -n \"files_written|partial_output_ref|tests_written|patch_path\" src tests -g '"'!node_modules'"'" in /Users/shivakrishnayadav/Documents/skyforce exited 2 in 0ms:
+rg: src: No such file or directory (os error 2)
+tests/test_runtime.py:353:            '```json\n{"task_id":"TASK-001","status":"completed","files_written":[],"tests_written":[],"patch_path":null}\n```'
+tests/test_runtime.py:389:            '{"task_id":"TASK-001","status":"completed","files_written":[],"tests_written":[],"patch_path":null}'
+tests/test_runtime.py:423:            '{"task_id":"WRONG","status":"completed","files_written":[],"tests_written":[],"patch_path":null}'
+exec
+/bin/zsh -lc "rg -n \"probe_coding_agent_output|task_receipts|response.json|validate.*receipt|Receipt\" . -g '"'!node_modules'"'" in /Users/shivakrishnayadav/Documents/skyforce succeeded in 166ms:
+./artifacts/runs/run-20260318070518-43727c38/summaries/evidence.json:12:      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318070518-43727c38/artifacts/probe_coding_agent_output.json",
+./artifacts/runs/run-20260318070518-43727c38/artifacts/run_state.json:18:      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318070518-43727c38/artifacts/probe_coding_agent_output.json",
+./artifacts/runs/run-20260318070403-05df7595/summaries/evidence.json:12:      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318070403-05df7595/artifacts/probe_coding_agent_output.json",
+./artifacts/runs/run-20260318070403-05df7595/artifacts/run_state.json:18:      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318070403-05df7595/artifacts/probe_coding_agent_output.json",
+./artifacts/runs/run-20260318070403-05df7595/artifacts/model_worker/SMOKE-001/stderr.txt:40:./artifacts/runs/run-20260318043924-fafedd96/artifacts/task_receipts/TASK-001.json
+./artifacts/runs/run-20260318070403-05df7595/artifacts/model_worker/SMOKE-001/stderr.txt:41:./artifacts/runs/run-20260318043924-fafedd96/artifacts/task_receipts/TASK-007.json
+./artifacts/runs/run-20260318070403-05df7595/artifacts/model_worker/SMOKE-001/stderr.txt:42:./artifacts/runs/run-20260318043924-fafedd96/artifacts/task_receipts/TASK-006.json
+./artifacts/runs/run-20260318070403-05df7595/artifacts/model_worker/SMOKE-001/stderr.txt:43:./artifacts/runs/run-20260318043924-fafedd96/artifacts/task_receipts/TASK-005.json
+./artifacts/runs/run-20260318070403-05df7595/artifacts/model_worker/SMOKE-001/stderr.txt:44:./artifacts/runs/run-20260318043924-fafedd96/artifacts/task_receipts/TASK-004.json
+./artifacts/runs/run-20260318070403-05df7595/artifacts/model_worker/SMOKE-001/stderr.txt:45:./artifacts/runs/run-20260318043924-fafedd96/artifacts/task_receipts/TASK-003.json
+./artifacts/runs/run-20260318070403-05df7595/artifacts/model_worker/SMOKE-001/stderr.txt:46:./artifacts/runs/run-20260318043924-fafedd96/artifacts/task_receipts/TASK-002.json
+./artifacts/runs/run-20260318070403-05df7595/artifacts/model_worker/SMOKE-001/stderr.txt:58:./artifacts/runs/run-20260318043942-034c25e1/artifacts/task_receipts/TASK-004.json:3:  "status": "completed",
+./artifacts/runs/run-20260318070403-05df7595/artifacts/model_worker/SMOKE-001/stderr.txt:59:./artifacts/runs/run-20260318043942-034c25e1/artifacts/task_receipts/TASK-004.json:4:  "files_written": [
+./artifacts/runs/run-20260318070403-05df7595/artifacts/model_worker/SMOKE-001/stderr.txt:60:./artifacts/runs/run-20260318043942-034c25e1/artifacts/task_receipts/TASK-004.json:8:  "patch_path": null
+./artifacts/runs/run-20260318070403-05df7595/artifacts/model_worker/SMOKE-001/stderr.txt:61:./artifacts/runs/run-20260318044058-5349ab20/artifacts/task_receipts/TASK-006.json:3:  "status": "completed",
+./artifacts/runs/run-20260318070403-05df7595/artifacts/model_worker/SMOKE-001/stderr.txt:62:./artifacts/runs/run-20260318044058-5349ab20/artifacts/task_receipts/TASK-006.json:4:  "files_written": [
+./artifacts/runs/run-20260318070403-05df7595/artifacts/model_worker/SMOKE-001/stderr.txt:63:./artifacts/runs/run-20260318044058-5349ab20/artifacts/task_receipts/TASK-006.json:8:  "patch_path": null
+./artifacts/runs/run-20260318070403-05df7595/artifacts/model_worker/SMOKE-001/stderr.txt:64:./artifacts/runs/run-20260318043907-eb4692af/artifacts/task_receipts/TASK-006.json:3:  "status": "completed",
+./artifacts/runs/run-20260318070403-05df7595/artifacts/model_worker/SMOKE-001/stderr.txt:65:./artifacts/runs/run-20260318043907-eb4692af/artifacts/task_receipts/TASK-006.json:4:  "files_written": [
+./artifacts/runs/run-20260318070403-05df7595/artifacts/model_worker/SMOKE-001/stderr.txt:66:./artifacts/runs/run-20260318043907-eb4692af/artifacts/task_receipts/TASK-006.json:8:  "patch_path": null
+codex
+{"task_id":"SMOKE-001","status":"completed","files_written":[],"tests_written":[],"patch_path":null,"error":null,"partial_output_ref":null}
+tokens used
+28,027

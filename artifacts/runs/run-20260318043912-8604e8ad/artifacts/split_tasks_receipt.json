@@ -1,0 +1,9 @@
+{
+  "step_id": "split_tasks",
+  "command": "python3 scripts/task_split.py /Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318043912-8604e8ad/artifacts/feature_plan.json /Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318043912-8604e8ad/artifacts/tasks.json",
+  "exit_code": 0,
+  "started_at": "2026-03-18T04:39:12.540637Z",
+  "ended_at": "2026-03-18T04:39:12.563634Z",
+  "stdout_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318043912-8604e8ad/artifacts/split_tasks_stdout.txt",
+  "stderr_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318043912-8604e8ad/artifacts/split_tasks_stderr.txt"
+}

@@ -1,0 +1,30 @@
+{
+  "run_id": "run-20260318075742-d2237fd4",
+  "workflow": "codex_smoke",
+  "status": "completed",
+  "started_at": "2026-03-18T07:57:42.232488Z",
+  "ended_at": "2026-03-18T07:57:42.289006Z",
+  "connectivity_mode": "online_read",
+  "mode": "factory",
+  "pause_reason": null,
+  "current_step_index": 1,
+  "steps": [
+    {
+      "step_id": "probe_coding_agent",
+      "agent": "coding_agent",
+      "status": "completed",
+      "started_at": "2026-03-18T07:57:42.287603Z",
+      "ended_at": "2026-03-18T07:57:42.288601Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318075742-d2237fd4/artifacts/probe_coding_agent_output.json",
+      "error": null
+    }
+  ],
+  "context": {
+    "repo_path": "/Users/shivakrishnayadav/Documents/skyforce",
+    "run_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318075742-d2237fd4",
+    "artifacts_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318075742-d2237fd4/artifacts",
+    "validation_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318075742-d2237fd4/validation",
+    "seed_path": "/Users/shivakrishnayadav/Documents/skyforce/docs/vision/product_vision.md",
+    "connectivity_mode": "online_read"
+  }
+}

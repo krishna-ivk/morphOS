@@ -1,0 +1,1 @@
+{"run_id": "temp", "timestamp": "2026-03-18T00:00:00+00:00", "summary": {"total": 1, "passed": 0, "failed": 1, "skipped": 0}, "overall_result": "fail", "tests": [{"name": "sample::broken", "result": "fail", "duration_ms": 1, "error_message": "AUTO_FIX|sample.txt|broken|fixed", "stack_trace": null}]}

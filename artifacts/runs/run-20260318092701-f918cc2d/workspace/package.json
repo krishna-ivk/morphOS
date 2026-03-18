@@ -1,0 +1,32 @@
+{
+  "name": "@krishna-ivk/morphos",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Specification and operating-model package for the morphOS agentic operating system.",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/krishna-ivk/morphOS.git"
+  },
+  "files": [
+    "AGENTS.md",
+    "README.md",
+    "CHANGELOG.md",
+    "agents",
+    "docs",
+    "memory",
+    "programs",
+    "scripts",
+    "vision",
+    "workflows"
+  ],
+  "keywords": [
+    "agentic-os",
+    "orchestration",
+    "policy",
+    "workflow",
+    "multi-agent",
+    "skyforce",
+    "morphos"
+  ]
+}

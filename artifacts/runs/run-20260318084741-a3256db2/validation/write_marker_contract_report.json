@@ -1,0 +1,14 @@
+{
+  "step_id": "write_marker",
+  "overall_result": "pass",
+  "contracts": [
+    {
+      "name": "marker_exists",
+      "result": "pass",
+      "details": "Artifact exists",
+      "evidence_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318084741-a3256db2/workspace/workspace_marker.txt",
+      "schema_name": null
+    }
+  ],
+  "signals": []
+}

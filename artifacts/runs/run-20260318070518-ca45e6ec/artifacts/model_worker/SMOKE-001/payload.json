@@ -1,0 +1,9 @@
+{
+  "id": "SMOKE-001",
+  "task": "Codex smoke task",
+  "description": "Do not modify repository files. Return a valid coding task receipt JSON for SMOKE-001. If edits would be needed, return status blocked.",
+  "status": "pending",
+  "assigned_agent": "coding_agent",
+  "feature_ref": "codex_smoke",
+  "depends_on": []
+}

@@ -1,0 +1,35 @@
+{
+  "run_id": "run-20260318083857-8a0cd07d",
+  "workflow": "workspace_exec",
+  "status": "completed",
+  "started_at": "2026-03-18T08:38:57.697887Z",
+  "ended_at": "2026-03-18T08:38:57.778724Z",
+  "connectivity_mode": "online_read",
+  "mode": "factory",
+  "pause_reason": null,
+  "current_step_index": 1,
+  "steps": [
+    {
+      "step_id": "write_marker",
+      "agent": null,
+      "status": "completed",
+      "started_at": "2026-03-18T08:38:57.753839Z",
+      "ended_at": "2026-03-18T08:38:57.778243Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318083857-8a0cd07d/artifacts/write_marker_output.json",
+      "error": null
+    }
+  ],
+  "context": {
+    "source_repo_path": "/Users/shivakrishnayadav/Documents/skyforce",
+    "repo_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318083857-8a0cd07d/workspace",
+    "workspace_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318083857-8a0cd07d/workspace",
+    "run_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318083857-8a0cd07d",
+    "artifacts_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318083857-8a0cd07d/artifacts",
+    "validation_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318083857-8a0cd07d/validation",
+    "seed_path": "/Users/shivakrishnayadav/Documents/skyforce/docs/vision/product_vision.md",
+    "connectivity_mode": "online_read",
+    "contract_reports": {
+      "write_marker": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318083857-8a0cd07d/validation/write_marker_contract_report.json"
+    }
+  }
+}

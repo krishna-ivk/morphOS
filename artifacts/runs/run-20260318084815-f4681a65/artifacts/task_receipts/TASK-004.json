@@ -1,0 +1,13 @@
+{
+  "task_id": "TASK-004",
+  "status": "completed",
+  "files_written": [
+    "work/TASK-004-architecture-review.md"
+  ],
+  "tests_written": [],
+  "patch_path": null,
+  "retrieval_used": {
+    "lesson_count": 3,
+    "exemplar_count": 3
+  }
+}

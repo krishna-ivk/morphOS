@@ -1,0 +1,16 @@
+You are the SkyForce coding_agent. Stay strictly within task scope. Return only one JSON object matching the requested receipt schema. Do not wrap the response in markdown fences or prose. If the task cannot be completed, still return valid JSON with status 'failed' or 'blocked' and an error field.
+
+Task payload:
+{
+  "id": "SMOKE-001",
+  "task": "Codex smoke task",
+  "description": "Do not modify repository files. Return a valid coding task receipt JSON for SMOKE-001. If edits would be needed, return status blocked.",
+  "status": "pending",
+  "assigned_agent": "coding_agent",
+  "feature_ref": "codex_smoke",
+  "depends_on": []
+}
+
+Repo root: /Users/shivakrishnayadav/Documents/skyforce
+Run dir: /Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318071619-e6dd08d2
+Validation dir: /Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318071619-e6dd08d2/validation

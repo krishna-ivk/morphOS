@@ -1,0 +1,14 @@
+{
+  "step_id": "architecture_review",
+  "overall_result": "pass",
+  "contracts": [
+    {
+      "name": "architecture_report",
+      "result": "pass",
+      "details": "Validated as ArchitectureReport",
+      "evidence_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091118-ed95c37b/artifacts/architecture_report.json",
+      "schema_name": "ArchitectureReport"
+    }
+  ],
+  "signals": []
+}

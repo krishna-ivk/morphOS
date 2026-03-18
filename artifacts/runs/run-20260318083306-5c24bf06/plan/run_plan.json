@@ -1,0 +1,62 @@
+{
+  "name": "bounded_retry",
+  "steps": [
+    {
+      "id": "run_tests",
+      "type": "program",
+      "command": "python3 -c \"import json,sys; from pathlib import Path; p=Path(sys.argv[1]); p.mkdir(parents=True, exist_ok=True); (p/'test_results.json').write_text('{\"run_id\": \"temp-run\", \"timestamp\": \"2026-03-18T08:33:06.256522+00:00\", \"summary\": {\"total\": 1, \"passed\": 0, \"failed\": 1, \"skipped\": 0}, \"overall_result\": \"fail\", \"tests\": [{\"name\": \"synthetic::failure\", \"result\": \"fail\", \"duration_ms\": 1, \"error_message\": \"forced fail\", \"stack_trace\": null}]}')\" ${validation_dir}",
+      "contracts": [
+        {
+          "name": "test_results",
+          "path": "${validation_dir}/test_results.json",
+          "kind": "json_schema",
+          "schema_name": "TestResults"
+        }
+      ],
+      "signals": [
+        {
+          "name": "test_failure_signal",
+          "path": "${validation_dir}/test_results.json",
+          "json_path": "overall_result",
+          "equals": "fail",
+          "context_key": "test_failure"
+        }
+      ]
+    },
+    {
+      "id": "diagnose_failures",
+      "type": "agent",
+      "condition": "test_failure",
+      "agent": "debugging_agent"
+    },
+    {
+      "id": "rerun_tests",
+      "type": "program",
+      "condition": "test_failure",
+      "command": "python3 -c \"import json,sys; from pathlib import Path; p=Path(sys.argv[1]); p.mkdir(parents=True, exist_ok=True); (p/'test_results.json').write_text('{\"run_id\": \"temp-run\", \"timestamp\": \"2026-03-18T08:33:06.256522+00:00\", \"summary\": {\"total\": 1, \"passed\": 0, \"failed\": 1, \"skipped\": 0}, \"overall_result\": \"fail\", \"tests\": [{\"name\": \"synthetic::failure\", \"result\": \"fail\", \"duration_ms\": 1, \"error_message\": \"forced fail\", \"stack_trace\": null}]}')\" ${validation_dir}",
+      "contracts": [
+        {
+          "name": "rerun_test_results",
+          "path": "${validation_dir}/test_results.json",
+          "kind": "json_schema",
+          "schema_name": "TestResults"
+        }
+      ],
+      "signals": [
+        {
+          "name": "persistent_test_failure_signal",
+          "path": "${validation_dir}/test_results.json",
+          "json_path": "overall_result",
+          "equals": "fail",
+          "context_key": "persistent_test_failure"
+        }
+      ]
+    },
+    {
+      "id": "request_review",
+      "type": "approval",
+      "condition": "persistent_test_failure",
+      "message": "Human review required after bounded retry."
+    }
+  ]
+}

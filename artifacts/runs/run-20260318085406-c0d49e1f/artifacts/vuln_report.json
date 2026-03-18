@@ -1,0 +1,9 @@
+{
+  "repo_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318085406-c0d49e1f/workspace",
+  "dependency_count": 1,
+  "dependencies": [
+    "pydantic>=2,<3"
+  ],
+  "scan_mode": "static_manifest_only",
+  "critical_findings": []
+}

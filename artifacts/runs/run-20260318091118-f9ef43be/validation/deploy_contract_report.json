@@ -1,0 +1,14 @@
+{
+  "step_id": "deploy",
+  "overall_result": "pass",
+  "contracts": [
+    {
+      "name": "deploy_receipt",
+      "result": "pass",
+      "details": "Artifact exists",
+      "evidence_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091118-f9ef43be/artifacts/deploy_receipt.json",
+      "schema_name": null
+    }
+  ],
+  "signals": []
+}

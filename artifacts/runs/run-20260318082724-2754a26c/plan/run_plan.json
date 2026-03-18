@@ -1,0 +1,33 @@
+{
+  "name": "release_pipeline",
+  "steps": [
+    {
+      "id": "dependency_scan",
+      "type": "program",
+      "command": "bash programs/dependency_scan.sh ${repo_path} ${artifacts_dir}",
+      "requires_connectivity": "online_read"
+    },
+    {
+      "id": "run_tests",
+      "type": "program",
+      "command": "bash programs/run_tests.sh ${run_id} ${validation_dir}"
+    },
+    {
+      "id": "request_release_approval",
+      "type": "approval",
+      "message": "Release actions require human approval."
+    },
+    {
+      "id": "deploy",
+      "type": "program",
+      "step_type": "deploy",
+      "command": "bash programs/deploy.sh ${run_id} ${artifacts_dir}",
+      "requires_connectivity": "deploy_enabled"
+    },
+    {
+      "id": "learn_from_run",
+      "type": "agent",
+      "agent": "learning_agent"
+    }
+  ]
+}

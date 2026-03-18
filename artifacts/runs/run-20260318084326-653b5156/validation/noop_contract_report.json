@@ -1,0 +1,14 @@
+{
+  "step_id": "noop",
+  "overall_result": "fail",
+  "contracts": [
+    {
+      "name": "missing_file",
+      "result": "fail",
+      "details": "Artifact not found: /Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318084326-653b5156/artifacts/does_not_exist.json",
+      "evidence_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318084326-653b5156/artifacts/does_not_exist.json",
+      "schema_name": null
+    }
+  ],
+  "signals": []
+}

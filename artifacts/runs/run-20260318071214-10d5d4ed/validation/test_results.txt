@@ -1,0 +1,188 @@
+....FF.............                                                      [100%]
+=================================== FAILURES ===================================
+______________________________ test_cli_approvals ______________________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10ae3bbd0>
+capsys = <_pytest.capture.CaptureFixture object at 0x10aa39350>
+
+    def test_cli_approvals(monkeypatch, capsys):
+        monkeypatch.setattr(cli, "Orchestrator", lambda repo_root: StubOrchestrator())
+>       assert cli.main(["approvals"]) == 0
+               ^^^^^^^^^^^^^^^^^^^^^^^
+
+tests/test_cli.py:215: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+argv = ['approvals']
+
+    def main(argv: list[str] | None = None) -> int:
+        parser = build_parser()
+        args = parser.parse_args(argv)
+        repo_root = Path(__file__).resolve().parent.parent
+        orchestrator = Orchestrator(repo_root)
+    
+        if args.command == "run":
+            if args.resume:
+                state = orchestrator.resume_run(args.resume)
+            else:
+                state = orchestrator.run_workflow(
+                    workflow_ref=args.workflow,
+                    mode=args.mode,
+                    seed_path=args.seed,
+                    repo_path=args.repo_path,
+                )
+            print(json.dumps(state.model_dump(mode="json"), indent=2))
+            return 0 if state.status in {"completed", "paused"} else 1
+    
+        if args.command == "resume":
+            state = orchestrator.resume_run(args.run_id)
+            print(json.dumps(state.model_dump(mode="json"), indent=2))
+            return 0 if state.status in {"completed", "paused"} else 1
+    
+        if args.command == "resume-paused-connectivity":
+            data = orchestrator.resume_connectivity_paused_runs(dry_run=args.dry_run)
+            print(json.dumps(data, indent=2, default=str))
+            return 0
+    
+        if args.command == "approve":
+            state = orchestrator.apply_approval(args.run_id, args.decision, args.reason)
+            print(json.dumps(state.model_dump(mode="json"), indent=2))
+            return 0 if state.status in {"completed", "paused"} else 1
+    
+        if args.command == "approve-runs":
+            data = orchestrator.batch_apply_approvals(
+                apply=args.apply,
+                decision=args.decision,
+                reason=args.reason,
+                run_id=args.run_id,
+                workflow=args.workflow,
+                older_than_days=args.older_than_days,
+                limit=args.limit,
+            )
+            print(json.dumps(data, indent=2, default=str))
+            return 0
+    
+        if args.command == "status":
+            data = orchestrator.status(args.run_id)
+            print(json.dumps(data, indent=2))
+            return 0
+    
+        if args.command == "logs":
+            data = orchestrator.logs(args.run_id, args.limit)
+            print(json.dumps(data, indent=2, default=str))
+            return 0
+    
+        if args.command == "deferred-actions":
+            data = orchestrator.inspect_deferred_actions(args.run_id)
+            print(json.dumps(data, indent=2, default=str))
+            return 0
+    
+        if args.command == "approvals":
+>           data = orchestrator.list_pending_approvals(
+                run_id=args.run_id,
+                workflow=args.workflow,
+                pause_reason=args.pause_reason,
+                status=args.status,
+                older_than_days=args.older_than_days,
+                limit=args.limit,
+            )
+E           TypeError: StubOrchestrator.list_pending_approvals() got an unexpected keyword argument 'run_id'
+
+skyforce/cli.py:238: TypeError
+________________ test_cli_approvals_passes_run_id_age_and_limit ________________
+
+monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10ae74450>
+capsys = <_pytest.capture.CaptureFixture object at 0x10adcb770>
+
+    def test_cli_approvals_passes_run_id_age_and_limit(monkeypatch, capsys):
+        monkeypatch.setattr(cli, "Orchestrator", lambda repo_root: StubOrchestrator())
+        assert (
+>           cli.main(
+                ["approvals", "--run-id", "run-1", "--older-than-days", "7", "--limit", "2"]
+            )
+            == 0
+        )
+
+tests/test_cli.py:225: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+argv = ['approvals', '--run-id', 'run-1', '--older-than-days', '7', '--limit', ...]
+
+    def main(argv: list[str] | None = None) -> int:
+        parser = build_parser()
+        args = parser.parse_args(argv)
+        repo_root = Path(__file__).resolve().parent.parent
+        orchestrator = Orchestrator(repo_root)
+    
+        if args.command == "run":
+            if args.resume:
+                state = orchestrator.resume_run(args.resume)
+            else:
+                state = orchestrator.run_workflow(
+                    workflow_ref=args.workflow,
+                    mode=args.mode,
+                    seed_path=args.seed,
+                    repo_path=args.repo_path,
+                )
+            print(json.dumps(state.model_dump(mode="json"), indent=2))
+            return 0 if state.status in {"completed", "paused"} else 1
+    
+        if args.command == "resume":
+            state = orchestrator.resume_run(args.run_id)
+            print(json.dumps(state.model_dump(mode="json"), indent=2))
+            return 0 if state.status in {"completed", "paused"} else 1
+    
+        if args.command == "resume-paused-connectivity":
+            data = orchestrator.resume_connectivity_paused_runs(dry_run=args.dry_run)
+            print(json.dumps(data, indent=2, default=str))
+            return 0
+    
+        if args.command == "approve":
+            state = orchestrator.apply_approval(args.run_id, args.decision, args.reason)
+            print(json.dumps(state.model_dump(mode="json"), indent=2))
+            return 0 if state.status in {"completed", "paused"} else 1
+    
+        if args.command == "approve-runs":
+            data = orchestrator.batch_apply_approvals(
+                apply=args.apply,
+                decision=args.decision,
+                reason=args.reason,
+                run_id=args.run_id,
+                workflow=args.workflow,
+                older_than_days=args.older_than_days,
+                limit=args.limit,
+            )
+            print(json.dumps(data, indent=2, default=str))
+            return 0
+    
+        if args.command == "status":
+            data = orchestrator.status(args.run_id)
+            print(json.dumps(data, indent=2))
+            return 0
+    
+        if args.command == "logs":
+            data = orchestrator.logs(args.run_id, args.limit)
+            print(json.dumps(data, indent=2, default=str))
+            return 0
+    
+        if args.command == "deferred-actions":
+            data = orchestrator.inspect_deferred_actions(args.run_id)
+            print(json.dumps(data, indent=2, default=str))
+            return 0
+    
+        if args.command == "approvals":
+>           data = orchestrator.list_pending_approvals(
+                run_id=args.run_id,
+                workflow=args.workflow,
+                pause_reason=args.pause_reason,
+                status=args.status,
+                older_than_days=args.older_than_days,
+                limit=args.limit,
+            )
+E           TypeError: StubOrchestrator.list_pending_approvals() got an unexpected keyword argument 'run_id'
+
+skyforce/cli.py:238: TypeError
+=========================== short test summary info ============================
+FAILED tests/test_cli.py::test_cli_approvals - TypeError: StubOrchestrator.li...
+FAILED tests/test_cli.py::test_cli_approvals_passes_run_id_age_and_limit - Ty...
+2 failed, 17 passed in 0.18s

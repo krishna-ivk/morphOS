@@ -1,0 +1,23 @@
+{
+  "step_id": "review_execution_plan",
+  "overall_result": "pass",
+  "contracts": [
+    {
+      "name": "plan_review",
+      "result": "pass",
+      "details": "Artifact exists",
+      "evidence_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091138-69f1194e/artifacts/plan_review.json",
+      "schema_name": null
+    }
+  ],
+  "signals": [
+    {
+      "name": "plan_review_approved_signal",
+      "result": "pass",
+      "context_key": "plan_review_approved",
+      "value": true,
+      "expected": true,
+      "evidence_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091138-69f1194e/artifacts/plan_review.json"
+    }
+  ]
+}

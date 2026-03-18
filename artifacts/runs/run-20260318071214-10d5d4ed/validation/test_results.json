@@ -1,0 +1,146 @@
+{
+  "run_id": "run-20260318071214-10d5d4ed",
+  "timestamp": "2026-03-18T07:12:14.547190+00:00",
+  "summary": {
+    "total": 19,
+    "passed": 17,
+    "failed": 2,
+    "skipped": 0
+  },
+  "overall_result": "fail",
+  "tests": [
+    {
+      "name": "tests.test_cli::test_cli_paused_runs",
+      "result": "pass",
+      "duration_ms": 2,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_paused_runs_passes_filters",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_logs",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_resume_paused_connectivity_dry_run",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_approvals",
+      "result": "fail",
+      "duration_ms": 1,
+      "error_message": "TypeError: StubOrchestrator.list_pending_approvals() got an unexpected keyword argument 'run_id'",
+      "stack_trace": "monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10ae3bbd0>\ncapsys = <_pytest.capture.CaptureFixture object at 0x10aa39350>\n\n    def test_cli_approvals(monkeypatch, capsys):\n        monkeypatch.setattr(cli, \"Orchestrator\", lambda repo_root: StubOrchestrator())\n>       assert cli.main([\"approvals\"]) == 0\n               ^^^^^^^^^^^^^^^^^^^^^^^\n\ntests/test_cli.py:215: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nargv = ['approvals']\n\n    def main(argv: list[str] | None = None) -> int:\n        parser = build_parser()\n        args = parser.parse_args(argv)\n        repo_root = Path(__file__).resolve().parent.parent\n        orchestrator = Orchestrator(repo_root)\n    \n        if args.command == \"run\":\n            if args.resume:\n                state = orchestrator.resume_run(args.resume)\n            else:\n                state = orchestrator.run_workflow(\n                    workflow_ref=args.workflow,\n                    mode=args.mode,\n                    seed_path=args.seed,\n                    repo_path=args.repo_path,\n                )\n            print(json.dumps(state.model_dump(mode=\"json\"), indent=2))\n            return 0 if state.status in {\"completed\", \"paused\"} else 1\n    \n        if args.command == \"resume\":\n            state = orchestrator.resume_run(args.run_id)\n            print(json.dumps(state.model_dump(mode=\"json\"), indent=2))\n            return 0 if state.status in {\"completed\", \"paused\"} else 1\n    \n        if args.command == \"resume-paused-connectivity\":\n            data = orchestrator.resume_connectivity_paused_runs(dry_run=args.dry_run)\n            print(json.dumps(data, indent=2, default=str))\n            return 0\n    \n        if args.command == \"approve\":\n            state = orchestrator.apply_approval(args.run_id, args.decision, args.reason)\n            print(json.dumps(state.model_dump(mode=\"json\"), indent=2))\n            return 0 if state.status in {\"completed\", \"paused\"} else 1\n    \n        if args.command == \"approve-runs\":\n            data = orchestrator.batch_apply_approvals(\n                apply=args.apply,\n                decision=args.decision,\n                reason=args.reason,\n                run_id=args.run_id,\n                workflow=args.workflow,\n                older_than_days=args.older_than_days,\n                limit=args.limit,\n            )\n            print(json.dumps(data, indent=2, default=str))\n            return 0\n    \n        if args.command == \"status\":\n            data = orchestrator.status(args.run_id)\n            print(json.dumps(data, indent=2))\n            return 0\n    \n        if args.command == \"logs\":\n            data = orchestrator.logs(args.run_id, args.limit)\n            print(json.dumps(data, indent=2, default=str))\n            return 0\n    \n        if args.command == \"deferred-actions\":\n            data = orchestrator.inspect_deferred_actions(args.run_id)\n            print(json.dumps(data, indent=2, default=str))\n            return 0\n    \n        if args.command == \"approvals\":\n>           data = orchestrator.list_pending_approvals(\n                run_id=args.run_id,\n                workflow=args.workflow,\n                pause_reason=args.pause_reason,\n                status=args.status,\n                older_than_days=args.older_than_days,\n                limit=args.limit,\n            )\nE           TypeError: StubOrchestrator.list_pending_approvals() got an unexpected keyword argument 'run_id'\n\nskyforce/cli.py:238: TypeError"
+    },
+    {
+      "name": "tests.test_cli::test_cli_approvals_passes_run_id_age_and_limit",
+      "result": "fail",
+      "duration_ms": 1,
+      "error_message": "TypeError: StubOrchestrator.list_pending_approvals() got an unexpected keyword argument 'run_id'",
+      "stack_trace": "monkeypatch = <_pytest.monkeypatch.MonkeyPatch object at 0x10ae74450>\ncapsys = <_pytest.capture.CaptureFixture object at 0x10adcb770>\n\n    def test_cli_approvals_passes_run_id_age_and_limit(monkeypatch, capsys):\n        monkeypatch.setattr(cli, \"Orchestrator\", lambda repo_root: StubOrchestrator())\n        assert (\n>           cli.main(\n                [\"approvals\", \"--run-id\", \"run-1\", \"--older-than-days\", \"7\", \"--limit\", \"2\"]\n            )\n            == 0\n        )\n\ntests/test_cli.py:225: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nargv = ['approvals', '--run-id', 'run-1', '--older-than-days', '7', '--limit', ...]\n\n    def main(argv: list[str] | None = None) -> int:\n        parser = build_parser()\n        args = parser.parse_args(argv)\n        repo_root = Path(__file__).resolve().parent.parent\n        orchestrator = Orchestrator(repo_root)\n    \n        if args.command == \"run\":\n            if args.resume:\n                state = orchestrator.resume_run(args.resume)\n            else:\n                state = orchestrator.run_workflow(\n                    workflow_ref=args.workflow,\n                    mode=args.mode,\n                    seed_path=args.seed,\n                    repo_path=args.repo_path,\n                )\n            print(json.dumps(state.model_dump(mode=\"json\"), indent=2))\n            return 0 if state.status in {\"completed\", \"paused\"} else 1\n    \n        if args.command == \"resume\":\n            state = orchestrator.resume_run(args.run_id)\n            print(json.dumps(state.model_dump(mode=\"json\"), indent=2))\n            return 0 if state.status in {\"completed\", \"paused\"} else 1\n    \n        if args.command == \"resume-paused-connectivity\":\n            data = orchestrator.resume_connectivity_paused_runs(dry_run=args.dry_run)\n            print(json.dumps(data, indent=2, default=str))\n            return 0\n    \n        if args.command == \"approve\":\n            state = orchestrator.apply_approval(args.run_id, args.decision, args.reason)\n            print(json.dumps(state.model_dump(mode=\"json\"), indent=2))\n            return 0 if state.status in {\"completed\", \"paused\"} else 1\n    \n        if args.command == \"approve-runs\":\n            data = orchestrator.batch_apply_approvals(\n                apply=args.apply,\n                decision=args.decision,\n                reason=args.reason,\n                run_id=args.run_id,\n                workflow=args.workflow,\n                older_than_days=args.older_than_days,\n                limit=args.limit,\n            )\n            print(json.dumps(data, indent=2, default=str))\n            return 0\n    \n        if args.command == \"status\":\n            data = orchestrator.status(args.run_id)\n            print(json.dumps(data, indent=2))\n            return 0\n    \n        if args.command == \"logs\":\n            data = orchestrator.logs(args.run_id, args.limit)\n            print(json.dumps(data, indent=2, default=str))\n            return 0\n    \n        if args.command == \"deferred-actions\":\n            data = orchestrator.inspect_deferred_actions(args.run_id)\n            print(json.dumps(data, indent=2, default=str))\n            return 0\n    \n        if args.command == \"approvals\":\n>           data = orchestrator.list_pending_approvals(\n                run_id=args.run_id,\n                workflow=args.workflow,\n                pause_reason=args.pause_reason,\n                status=args.status,\n                older_than_days=args.older_than_days,\n                limit=args.limit,\n            )\nE           TypeError: StubOrchestrator.list_pending_approvals() got an unexpected keyword argument 'run_id'\n\nskyforce/cli.py:238: TypeError"
+    },
+    {
+      "name": "tests.test_cli::test_cli_approve_runs_dry_run",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_approve_runs_passes_age_and_limit",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_archive_runs",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_archive_runs_passes_age_and_limit",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_summary_json",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_summary_text",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_summary_uses_latest_matching_run",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_codex_smoke",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_cleanup_test_runs",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_policy::test_policy_engine_loads_enabled_policy_files",
+      "result": "pass",
+      "duration_ms": 0,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_policy::test_policy_engine_blocks_secret_output",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_policy::test_policy_engine_defers_for_connectivity",
+      "result": "pass",
+      "duration_ms": 0,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_task_split::test_task_split_emits_schema_valid_tasks",
+      "result": "pass",
+      "duration_ms": 91,
+      "error_message": null,
+      "stack_trace": null
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "name": "incident_triage",
+  "steps": [
+    {
+      "id": "scan_repo",
+      "type": "program",
+      "command": "bash programs/repo_scan.sh ${repo_path} ${artifacts_dir}"
+    },
+    {
+      "id": "architecture_review",
+      "type": "agent",
+      "agent": "architecture_agent",
+      "contracts": [
+        {
+          "name": "architecture_report",
+          "path": "${artifacts_dir}/architecture_report.json",
+          "kind": "json_schema",
+          "schema_name": "ArchitectureReport"
+        }
+      ]
+    },
+    {
+      "id": "run_tests",
+      "type": "program",
+      "command": "bash programs/run_tests.sh ${run_id} ${validation_dir}",
+      "contracts": [
+        {
+          "name": "test_results",
+          "path": "${validation_dir}/test_results.json",
+          "kind": "json_schema",
+          "schema_name": "TestResults"
+        }
+      ],
+      "signals": [
+        {
+          "name": "test_failure_signal",
+          "path": "${validation_dir}/test_results.json",
+          "json_path": "overall_result",
+          "equals": "fail",
+          "context_key": "test_failure"
+        }
+      ]
+    },
+    {
+      "id": "diagnose_failures",
+      "type": "agent",
+      "condition": "test_failure",
+      "agent": "debugging_agent"
+    },
+    {
+      "id": "rerun_tests",
+      "type": "program",
+      "condition": "test_failure",
+      "command": "bash programs/run_tests.sh ${run_id} ${validation_dir}",
+      "contracts": [
+        {
+          "name": "rerun_test_results",
+          "path": "${validation_dir}/test_results.json",
+          "kind": "json_schema",
+          "schema_name": "TestResults"
+        }
+      ],
+      "signals": [
+        {
+          "name": "persistent_test_failure_signal",
+          "path": "${validation_dir}/test_results.json",
+          "json_path": "overall_result",
+          "equals": "fail",
+          "context_key": "persistent_test_failure"
+        }
+      ]
+    },
+    {
+      "id": "request_incident_review",
+      "type": "approval",
+      "condition": "persistent_test_failure",
+      "message": "Incident triage still failing after one automated repair attempt. Human review required."
+    },
+    {
+      "id": "learn_from_run",
+      "type": "agent",
+      "agent": "learning_agent"
+    }
+  ]
+}

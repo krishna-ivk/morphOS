@@ -1,0 +1,17 @@
+{
+  "name": "connectivity",
+  "version": 1,
+  "priority": 900,
+  "enabled": true,
+  "rules": [
+    {
+      "id": "network_write_gate",
+      "description": "Network writes require online_write capability",
+      "trigger": {
+        "tool_permission": "network",
+        "tool_action": "write"
+      },
+      "action_on_fail": "defer"
+    }
+  ]
+}

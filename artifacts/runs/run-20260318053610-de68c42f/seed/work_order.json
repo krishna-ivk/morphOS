@@ -1,0 +1,16 @@
+{
+  "run_id": "run-20260318053610-de68c42f",
+  "workflow": "bug_fix_pipeline",
+  "mode": "factory",
+  "seed_type": "bug_report",
+  "seed_ref": "/private/var/folders/4g/p37065c55n33d7dw9j07lp700000gn/T/pytest-of-shivakrishnayadav/pytest-37/test_auto_workflow_selection_u0/bug.md",
+  "seed_title": "Login bug",
+  "seed_summary": "# Login bug Tests are failing with a traceback in auth flow.",
+  "seed_payload": {
+    "path": "/private/var/folders/4g/p37065c55n33d7dw9j07lp700000gn/T/pytest-of-shivakrishnayadav/pytest-37/test_auto_workflow_selection_u0/bug.md",
+    "line_count": 2,
+    "workflow_selection_reason": "Seed indicates a bug or failing validation."
+  },
+  "repo_path": "/Users/shivakrishnayadav/Documents/skyforce",
+  "created_at": "2026-03-18T05:36:10.732791Z"
+}

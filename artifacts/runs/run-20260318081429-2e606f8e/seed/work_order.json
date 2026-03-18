@@ -1,0 +1,17 @@
+{
+  "run_id": "run-20260318081429-2e606f8e",
+  "workflow": "feature_pipeline",
+  "mode": "factory",
+  "seed_type": "spec",
+  "seed_ref": "/Users/shivakrishnayadav/Documents/skyforce/docs/vision/product_vision.md",
+  "seed_title": "Product Vision \u2014 SkyForce Agentic OS",
+  "seed_summary": "# Product Vision \u2014 SkyForce Agentic OS ## What Is SkyForce? SkyForce is an **autonomous software engineering operating system** that",
+  "seed_payload": {
+    "path": "/Users/shivakrishnayadav/Documents/skyforce/docs/vision/product_vision.md",
+    "line_count": 49,
+    "workflow_selection_reason": "Defaulting to feature delivery for spec/product work."
+  },
+  "origin": "test",
+  "repo_path": "/Users/shivakrishnayadav/Documents/skyforce",
+  "created_at": "2026-03-18T08:14:29.162848Z"
+}

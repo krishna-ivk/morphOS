@@ -1,0 +1,11 @@
+[
+  {
+    "id": "REPAIR-001",
+    "task": "Repair failing test synthetic::failure",
+    "description": "Symptom: forced fail\nRoot cause: Automated debugger could not determine root cause from local evidence.\nFix strategy: Inspect the failing test and referenced source files, then retry.",
+    "status": "pending",
+    "assigned_agent": "coding_agent",
+    "feature_ref": "synthetic::failure",
+    "depends_on": []
+  }
+]

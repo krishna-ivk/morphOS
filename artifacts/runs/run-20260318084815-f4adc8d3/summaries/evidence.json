@@ -1,0 +1,16 @@
+{
+  "run_id": "run-20260318084815-f4adc8d3",
+  "workflow": "missing_contract",
+  "status": "failed",
+  "steps": [
+    {
+      "step_id": "noop",
+      "agent": "learning_agent",
+      "status": "failed",
+      "started_at": "2026-03-18T08:48:15.747361Z",
+      "ended_at": "2026-03-18T08:48:15.750027Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318084815-f4adc8d3/artifacts/noop_output.json",
+      "error": "Required contract failed for step `noop`"
+    }
+  ]
+}

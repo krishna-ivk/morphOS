@@ -1,0 +1,21 @@
+{
+  "repo_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091156-f91f2bac/workspace",
+  "timestamp": "2026-03-18T09:11:56.958117Z",
+  "overall_health": "concerns",
+  "findings": [
+    {
+      "category": "scalability",
+      "severity": "warning",
+      "description": "No root test suite was detected.",
+      "file_path": null,
+      "recommendation": "Add regression tests for workflow orchestration and artifact generation."
+    },
+    {
+      "category": "performance",
+      "severity": "info",
+      "description": "Scanned 0 active files in the repository.",
+      "file_path": null,
+      "recommendation": null
+    }
+  ]
+}

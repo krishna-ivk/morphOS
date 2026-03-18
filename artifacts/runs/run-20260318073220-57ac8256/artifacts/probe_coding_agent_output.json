@@ -1,0 +1,9 @@
+{
+  "task_id": "SMOKE-001",
+  "status": "completed",
+  "files_written": [
+    "work/SMOKE-001-codex-smoke-task.md"
+  ],
+  "tests_written": [],
+  "patch_path": null
+}

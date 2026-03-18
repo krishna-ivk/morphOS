@@ -1,0 +1,25 @@
+[
+  {
+    "id": "REPAIR-001",
+    "task": "Repair failing test sample::broken",
+    "description": "Symptom: AUTO_FIX|a.txt|oldA|newA\nAUTO_FIX|b.txt|oldB|newB\nRoot cause: Automated debugger could not determine root cause from local evidence.\nFix strategy: Inspect the failing test and referenced source files, then retry.",
+    "status": "pending",
+    "assigned_agent": "coding_agent",
+    "feature_ref": "sample::broken",
+    "depends_on": [],
+    "fix_directives": [
+      {
+        "action": "replace",
+        "target_file": "a.txt",
+        "search_text": "oldA",
+        "replace_text": "newA"
+      },
+      {
+        "action": "replace",
+        "target_file": "b.txt",
+        "search_text": "oldB",
+        "replace_text": "newB"
+      }
+    ]
+  }
+]

@@ -1,0 +1,13 @@
+{
+  "run_id": "run-20260318051434-149275c9",
+  "timestamp": "2026-03-18T05:14:34.585957Z",
+  "overall_result": "pass",
+  "checks": [
+    {
+      "name": "pytest",
+      "result": "pass",
+      "evidence_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318051434-149275c9/validation/test_results.json",
+      "details": "Executed 4 tests."
+    }
+  ]
+}

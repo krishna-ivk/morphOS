@@ -1,0 +1,9 @@
+{
+  "step_id": "dependency_scan",
+  "command": "bash programs/dependency_scan.sh /Users/shivakrishnayadav/Documents/skyforce /Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318075735-a6d4e0cc/artifacts",
+  "exit_code": 0,
+  "started_at": "2026-03-18T07:57:35.896654Z",
+  "ended_at": "2026-03-18T07:57:35.919210Z",
+  "stdout_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318075735-a6d4e0cc/artifacts/dependency_scan_stdout.txt",
+  "stderr_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318075735-a6d4e0cc/artifacts/dependency_scan_stderr.txt"
+}

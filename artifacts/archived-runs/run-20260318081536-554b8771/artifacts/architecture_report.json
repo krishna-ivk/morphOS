@@ -1,0 +1,14 @@
+{
+  "repo_path": "/Users/shivakrishnayadav/Documents/skyforce",
+  "timestamp": "2026-03-18T08:15:38.874261Z",
+  "overall_health": "healthy",
+  "findings": [
+    {
+      "category": "performance",
+      "severity": "info",
+      "description": "Scanned 75 active files in the repository.",
+      "file_path": null,
+      "recommendation": null
+    }
+  ]
+}

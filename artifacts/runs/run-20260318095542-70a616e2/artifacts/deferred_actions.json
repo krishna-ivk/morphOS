@@ -1,0 +1,11 @@
+[
+  {
+    "run_id": "run-20260318095542-70a616e2",
+    "step_id": "dependency_scan",
+    "step_index": 0,
+    "reason": "Network writes require online_write capability",
+    "required_connectivity": "online_read",
+    "command": "bash programs/dependency_scan.sh ${repo_path} ${artifacts_dir}",
+    "created_at": "2026-03-18T09:55:42.834195Z"
+  }
+]

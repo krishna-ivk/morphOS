@@ -1,0 +1,9 @@
+{
+  "step_id": "run_tests",
+  "command": "python3 -c \"import json,sys; from pathlib import Path; p=Path(sys.argv[1]); p.mkdir(parents=True, exist_ok=True); (p/'test_results.json').write_text('{\"run_id\": \"temp-run\", \"timestamp\": \"2026-03-18T08:33:06.256522+00:00\", \"summary\": {\"total\": 1, \"passed\": 0, \"failed\": 1, \"skipped\": 0}, \"overall_result\": \"fail\", \"tests\": [{\"name\": \"synthetic::failure\", \"result\": \"fail\", \"duration_ms\": 1, \"error_message\": \"forced fail\", \"stack_trace\": null}]}')\" /Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318083306-5c24bf06/validation",
+  "exit_code": 1,
+  "started_at": "2026-03-18T08:33:06.315634Z",
+  "ended_at": "2026-03-18T08:33:06.342445Z",
+  "stdout_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318083306-5c24bf06/artifacts/run_tests_stdout.txt",
+  "stderr_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318083306-5c24bf06/artifacts/run_tests_stderr.txt"
+}

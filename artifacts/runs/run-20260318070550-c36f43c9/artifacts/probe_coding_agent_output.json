@@ -1,0 +1,10 @@
+{
+  "task_id": "SMOKE-001",
+  "status": "completed",
+  "files_written": [],
+  "tests_written": [],
+  "patch_path": null,
+  "error": null,
+  "partial_output_ref": null,
+  "backend": "codex"
+}

@@ -1,0 +1,14 @@
+{
+  "step_id": "dependency_scan",
+  "overall_result": "pass",
+  "contracts": [
+    {
+      "name": "dependency_report",
+      "result": "pass",
+      "details": "Artifact exists",
+      "evidence_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318082815-32bc6401/artifacts/vuln_report.json",
+      "schema_name": null
+    }
+  ],
+  "signals": []
+}

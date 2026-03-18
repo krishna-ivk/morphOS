@@ -1,0 +1,38 @@
+{
+  "name": "bug_fix_pipeline",
+  "steps": [
+    {
+      "id": "run_tests",
+      "type": "program",
+      "command": "bash programs/run_tests.sh ${run_id} ${validation_dir}",
+      "contracts": [
+        {
+          "name": "test_results",
+          "path": "${validation_dir}/test_results.json",
+          "kind": "json_schema",
+          "schema_name": "TestResults"
+        }
+      ],
+      "signals": [
+        {
+          "name": "test_failure_signal",
+          "path": "${validation_dir}/test_results.json",
+          "json_path": "overall_result",
+          "equals": "fail",
+          "context_key": "test_failure"
+        }
+      ]
+    },
+    {
+      "id": "diagnose_failures",
+      "type": "conditional_agent",
+      "condition": "test_failure",
+      "agent": "debugging_agent"
+    },
+    {
+      "id": "learn_from_run",
+      "type": "agent",
+      "agent": "learning_agent"
+    }
+  ]
+}

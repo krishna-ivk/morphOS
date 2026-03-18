@@ -1,0 +1,14 @@
+{
+  "step_id": "probe_coding_agent",
+  "overall_result": "pass",
+  "contracts": [
+    {
+      "name": "coding_receipt",
+      "result": "pass",
+      "details": "Validated as CodingTaskReceipt",
+      "evidence_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091116-9ec77d7f/artifacts/probe_coding_agent_output.json",
+      "schema_name": "CodingTaskReceipt"
+    }
+  ],
+  "signals": []
+}

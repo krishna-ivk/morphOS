@@ -1,0 +1,13 @@
+{
+  "task_id": "TASK-006",
+  "status": "completed",
+  "files_written": [
+    "work/TASK-006-offline-first-online-amplified.md"
+  ],
+  "tests_written": [],
+  "patch_path": null,
+  "retrieval_used": {
+    "lesson_count": 3,
+    "exemplar_count": 3
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "name": "bounded_retry",
+  "steps": [
+    {
+      "id": "run_tests",
+      "type": "program",
+      "command": "python3 /private/var/folders/4g/p37065c55n33d7dw9j07lp700000gn/T/pytest-of-shivakrishnayadav/pytest-903/test_bounded_retry_loop_escala0/write_fail_results.py ${validation_dir}",
+      "contracts": [
+        {
+          "name": "test_results",
+          "path": "${validation_dir}/test_results.json",
+          "kind": "json_schema",
+          "schema_name": "TestResults"
+        }
+      ],
+      "signals": [
+        {
+          "name": "test_failure_signal",
+          "path": "${validation_dir}/test_results.json",
+          "json_path": "overall_result",
+          "equals": "fail",
+          "context_key": "test_failure"
+        }
+      ]
+    },
+    {
+      "id": "diagnose_failures",
+      "type": "agent",
+      "condition": "test_failure",
+      "agent": "debugging_agent"
+    },
+    {
+      "id": "rerun_tests",
+      "type": "program",
+      "condition": "test_failure",
+      "command": "python3 /private/var/folders/4g/p37065c55n33d7dw9j07lp700000gn/T/pytest-of-shivakrishnayadav/pytest-903/test_bounded_retry_loop_escala0/write_fail_results.py ${validation_dir}",
+      "contracts": [
+        {
+          "name": "rerun_test_results",
+          "path": "${validation_dir}/test_results.json",
+          "kind": "json_schema",
+          "schema_name": "TestResults"
+        }
+      ],
+      "signals": [
+        {
+          "name": "persistent_test_failure_signal",
+          "path": "${validation_dir}/test_results.json",
+          "json_path": "overall_result",
+          "equals": "fail",
+          "context_key": "persistent_test_failure"
+        }
+      ]
+    },
+    {
+      "id": "request_review",
+      "type": "approval",
+      "condition": "persistent_test_failure",
+      "message": "Human review required after bounded retry."
+    }
+  ]
+}

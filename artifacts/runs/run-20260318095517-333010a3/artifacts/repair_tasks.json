@@ -1,0 +1,23 @@
+[
+  {
+    "id": "REPAIR-001",
+    "task": "Repair failing test sample::broken",
+    "description": "Symptom: AUTO_FIX_APPEND|config.txt|beta\nAUTO_FIX_CREATE|created.txt|hello\nRoot cause: Automated debugger could not determine root cause from local evidence.\nFix strategy: Inspect the failing test and referenced source files, then retry.",
+    "status": "pending",
+    "assigned_agent": "coding_agent",
+    "feature_ref": "sample::broken",
+    "depends_on": [],
+    "fix_directives": [
+      {
+        "action": "append",
+        "target_file": "config.txt",
+        "append_text": "beta"
+      },
+      {
+        "action": "create",
+        "target_file": "created.txt",
+        "file_content": "hello"
+      }
+    ]
+  }
+]

@@ -1,0 +1,33 @@
+{
+  "run_id": "run-20260318082902-2adbbda9",
+  "workflow": "missing_contract",
+  "status": "failed",
+  "started_at": "2026-03-18T08:29:02.256220Z",
+  "ended_at": "2026-03-18T08:29:02.312007Z",
+  "connectivity_mode": "online_read",
+  "mode": "factory",
+  "pause_reason": null,
+  "current_step_index": 0,
+  "steps": [
+    {
+      "step_id": "noop",
+      "agent": "learning_agent",
+      "status": "failed",
+      "started_at": "2026-03-18T08:29:02.309336Z",
+      "ended_at": "2026-03-18T08:29:02.312005Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318082902-2adbbda9/artifacts/noop_output.json",
+      "error": "Required contract failed for step `noop`"
+    }
+  ],
+  "context": {
+    "repo_path": "/Users/shivakrishnayadav/Documents/skyforce",
+    "run_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318082902-2adbbda9",
+    "artifacts_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318082902-2adbbda9/artifacts",
+    "validation_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318082902-2adbbda9/validation",
+    "seed_path": "/Users/shivakrishnayadav/Documents/skyforce/docs/vision/product_vision.md",
+    "connectivity_mode": "online_read",
+    "contract_reports": {
+      "noop": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318082902-2adbbda9/validation/noop_contract_report.json"
+    }
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "run_id": "run-20260318091148-657582d4",
+  "workflow": "missing_contract",
+  "status": "failed",
+  "started_at": "2026-03-18T09:11:48.617092Z",
+  "ended_at": "2026-03-18T09:11:48.746179Z",
+  "connectivity_mode": "online_read",
+  "mode": "factory",
+  "pause_reason": null,
+  "current_step_index": 0,
+  "steps": [
+    {
+      "step_id": "noop",
+      "agent": "learning_agent",
+      "status": "failed",
+      "started_at": "2026-03-18T09:11:48.743119Z",
+      "ended_at": "2026-03-18T09:11:48.746178Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091148-657582d4/artifacts/noop_output.json",
+      "error": "Required contract failed for step `noop`"
+    }
+  ],
+  "context": {
+    "source_repo_path": "/Users/shivakrishnayadav/Documents/skyforce",
+    "repo_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091148-657582d4/workspace",
+    "workspace_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091148-657582d4/workspace",
+    "run_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091148-657582d4",
+    "artifacts_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091148-657582d4/artifacts",
+    "validation_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091148-657582d4/validation",
+    "seed_path": "/Users/shivakrishnayadav/Documents/skyforce/docs/vision/product_vision.md",
+    "connectivity_mode": "online_read",
+    "retrieval": {
+      "workflow": "missing_contract",
+      "lessons": [
+        {
+          "id": "lesson-run-20260318091113-ef348ef5",
+          "lesson": "Workflow missing_contract completed with status running",
+          "context": "Local MVP orchestration run",
+          "learned_from": "run-20260318091113-ef348ef5",
+          "timestamp": "2026-03-18T09:11:13.135688Z"
+        },
+        {
+          "id": "lesson-run-20260318090034-b6764bf9",
+          "lesson": "Workflow missing_contract completed with status running",
+          "context": "Local MVP orchestration run",
+          "learned_from": "run-20260318090034-b6764bf9",
+          "timestamp": "2026-03-18T09:00:34.964671Z"
+        },
+        {
+          "id": "lesson-run-20260318090004-25315ad4",
+          "lesson": "Workflow missing_contract completed with status running",
+          "context": "Local MVP orchestration run",
+          "learned_from": "run-20260318090004-25315ad4",
+          "timestamp": "2026-03-18T09:00:04.048577Z"
+        }
+      ],
+      "exemplars": [],
+      "lesson_count": 3,
+      "exemplar_count": 0
+    },
+    "contract_reports": {
+      "noop": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091148-657582d4/validation/noop_contract_report.json"
+    }
+  }
+}

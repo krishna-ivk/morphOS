@@ -1,0 +1,17 @@
+{
+  "name": "workspace_exec",
+  "steps": [
+    {
+      "id": "write_marker",
+      "type": "program",
+      "command": "python3 -c \"from pathlib import Path; Path('workspace_marker.txt').write_text('ok')\"",
+      "contracts": [
+        {
+          "name": "marker_exists",
+          "path": "${workspace_path}/workspace_marker.txt",
+          "kind": "file_exists"
+        }
+      ]
+    }
+  ]
+}

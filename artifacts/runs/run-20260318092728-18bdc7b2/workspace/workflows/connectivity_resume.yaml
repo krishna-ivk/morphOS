@@ -1,0 +1,15 @@
+{
+  "name": "connectivity_resume",
+  "steps": [
+    {
+      "id": "replay_deferred_work",
+      "type": "program",
+      "command": "python3 -m skyforce resume ${run_id}"
+    },
+    {
+      "id": "learn_from_resume",
+      "type": "agent",
+      "agent": "learning_agent"
+    }
+  ]
+}

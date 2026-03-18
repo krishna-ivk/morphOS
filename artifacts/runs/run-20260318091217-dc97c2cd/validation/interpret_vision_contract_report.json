@@ -1,0 +1,14 @@
+{
+  "step_id": "interpret_vision",
+  "overall_result": "pass",
+  "contracts": [
+    {
+      "name": "feature_plan",
+      "result": "pass",
+      "details": "Validated as FeaturePlan",
+      "evidence_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318091217-dc97c2cd/artifacts/feature_plan.json",
+      "schema_name": "FeaturePlan"
+    }
+  ],
+  "signals": []
+}

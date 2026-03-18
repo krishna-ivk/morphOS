@@ -1,0 +1,83 @@
+{
+  "run_id": "run-20260318060556-75839ca8",
+  "timestamp": "2026-03-18T06:05:57.193848+00:00",
+  "summary": {
+    "total": 10,
+    "passed": 10,
+    "failed": 0,
+    "skipped": 0
+  },
+  "overall_result": "pass",
+  "tests": [
+    {
+      "name": "tests.test_cli::test_cli_paused_runs",
+      "result": "pass",
+      "duration_ms": 2,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_logs",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_resume_paused_connectivity_dry_run",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_approvals",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_summary_json",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_cli::test_cli_summary_text",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_policy::test_policy_engine_loads_enabled_policy_files",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_policy::test_policy_engine_blocks_secret_output",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_policy::test_policy_engine_defers_for_connectivity",
+      "result": "pass",
+      "duration_ms": 0,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_task_split::test_task_split_emits_schema_valid_tasks",
+      "result": "pass",
+      "duration_ms": 96,
+      "error_message": null,
+      "stack_trace": null
+    }
+  ]
+}

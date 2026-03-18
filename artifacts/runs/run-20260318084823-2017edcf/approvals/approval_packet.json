@@ -1,0 +1,19 @@
+{
+  "run_id": "run-20260318084823-2017edcf",
+  "step_id": "request_release_approval",
+  "status": "pending",
+  "requested_action": "Release actions require human approval.",
+  "requested_by": "orchestrator",
+  "approver": null,
+  "reason": "Release actions require human approval.",
+  "evidence_refs": [
+    "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318084823-2017edcf/summaries/evidence.json"
+  ],
+  "policy_context": {
+    "workflow": "release_pipeline",
+    "connectivity_mode": "online_read"
+  },
+  "idempotency_key": "run-20260318084823-2017edcf:request_release_approval",
+  "requested_at": "2026-03-18T08:48:24.159811Z",
+  "decided_at": null
+}

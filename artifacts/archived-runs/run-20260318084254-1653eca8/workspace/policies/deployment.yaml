@@ -1,0 +1,16 @@
+{
+  "name": "deployment",
+  "version": 1,
+  "priority": 950,
+  "enabled": true,
+  "rules": [
+    {
+      "id": "deployment_gate",
+      "description": "Deployment requires passing tests and explicit approval",
+      "trigger": {
+        "step_type": "deploy"
+      },
+      "action_on_fail": "block"
+    }
+  ]
+}

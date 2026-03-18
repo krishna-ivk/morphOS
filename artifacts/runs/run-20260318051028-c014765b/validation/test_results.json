@@ -1,0 +1,27 @@
+{
+  "run_id": "run-20260318051028-c014765b",
+  "timestamp": "2026-03-18T05:10:28.861762+00:00",
+  "summary": {
+    "total": 2,
+    "passed": 2,
+    "failed": 0,
+    "skipped": 0
+  },
+  "overall_result": "pass",
+  "tests": [
+    {
+      "name": "tests.test_policy::test_policy_engine_blocks_secret_output",
+      "result": "pass",
+      "duration_ms": 1,
+      "error_message": null,
+      "stack_trace": null
+    },
+    {
+      "name": "tests.test_task_split::test_task_split_emits_schema_valid_tasks",
+      "result": "pass",
+      "duration_ms": 91,
+      "error_message": null,
+      "stack_trace": null
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "run_id": "run-20260318083254-6c2e9461",
+  "step_id": "request_release_approval",
+  "status": "approved",
+  "requested_action": "Release actions require human approval.",
+  "requested_by": "orchestrator",
+  "approver": "cli",
+  "reason": "Tests passed and release is approved.",
+  "evidence_refs": [
+    "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318083254-6c2e9461/summaries/evidence.json"
+  ],
+  "policy_context": {
+    "workflow": "release_pipeline",
+    "connectivity_mode": "deploy_enabled"
+  },
+  "idempotency_key": "run-20260318083254-6c2e9461:request_release_approval",
+  "requested_at": "2026-03-18T08:32:55.349105Z",
+  "decided_at": "2026-03-18T08:32:55.349705Z"
+}

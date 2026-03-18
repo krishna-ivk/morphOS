@@ -1,0 +1,9 @@
+{
+  "step_id": "rerun_tests",
+  "command": "python3 /private/var/folders/4g/p37065c55n33d7dw9j07lp700000gn/T/pytest-of-shivakrishnayadav/pytest-1225/test_bounded_retry_can_append_0/write_results_append_create.py /Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318095517-333010a3/workspace /Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318095517-333010a3/validation",
+  "exit_code": 0,
+  "started_at": "2026-03-18T09:55:17.494325Z",
+  "ended_at": "2026-03-18T09:55:17.515048Z",
+  "stdout_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318095517-333010a3/artifacts/rerun_tests_stdout.txt",
+  "stderr_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318095517-333010a3/artifacts/rerun_tests_stderr.txt"
+}

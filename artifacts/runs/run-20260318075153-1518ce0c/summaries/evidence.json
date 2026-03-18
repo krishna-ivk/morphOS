@@ -1,0 +1,52 @@
+{
+  "run_id": "run-20260318075153-1518ce0c",
+  "workflow": "release_pipeline",
+  "status": "completed",
+  "steps": [
+    {
+      "step_id": "dependency_scan",
+      "agent": null,
+      "status": "completed",
+      "started_at": "2026-03-18T07:51:53.791148Z",
+      "ended_at": "2026-03-18T07:51:53.815783Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318075153-1518ce0c/artifacts/dependency_scan_output.json",
+      "error": null
+    },
+    {
+      "step_id": "run_tests",
+      "agent": null,
+      "status": "completed",
+      "started_at": "2026-03-18T07:51:53.816320Z",
+      "ended_at": "2026-03-18T07:51:54.236949Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318075153-1518ce0c/artifacts/run_tests_output.json",
+      "error": null
+    },
+    {
+      "step_id": "request_release_approval",
+      "agent": null,
+      "status": "completed",
+      "started_at": "2026-03-18T07:51:54.237596Z",
+      "ended_at": "2026-03-18T07:51:54.365866Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318075153-1518ce0c/approvals/approval_packet.json",
+      "error": null
+    },
+    {
+      "step_id": "deploy",
+      "agent": null,
+      "status": "completed",
+      "started_at": "2026-03-18T07:51:54.366616Z",
+      "ended_at": "2026-03-18T07:51:54.391921Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318075153-1518ce0c/artifacts/deploy_output.json",
+      "error": null
+    },
+    {
+      "step_id": "learn_from_run",
+      "agent": "learning_agent",
+      "status": "completed",
+      "started_at": "2026-03-18T07:51:54.392666Z",
+      "ended_at": "2026-03-18T07:51:54.394729Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318075153-1518ce0c/artifacts/learn_from_run_output.json",
+      "error": null
+    }
+  ]
+}

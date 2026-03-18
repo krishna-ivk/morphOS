@@ -1,0 +1,9 @@
+{
+  "step_id": "write_marker",
+  "command": "python3 -c \"from pathlib import Path; Path('workspace_marker.txt').write_text('ok')\"",
+  "exit_code": 0,
+  "started_at": "2026-03-18T08:38:32.050602Z",
+  "ended_at": "2026-03-18T08:38:32.086102Z",
+  "stdout_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318083831-d2a70dc3/artifacts/write_marker_stdout.txt",
+  "stderr_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318083831-d2a70dc3/artifacts/write_marker_stderr.txt"
+}

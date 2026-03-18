@@ -1,0 +1,34 @@
+OpenAI Codex v0.114.0 (research preview)
+--------
+workdir: /Users/shivakrishnayadav/Documents/skyforce
+model: gpt-5.4
+provider: openai
+approval: never
+sandbox: workspace-write [workdir, /tmp, $TMPDIR, /Users/shivakrishnayadav/.codex/memories]
+reasoning effort: high
+reasoning summaries: none
+session id: 019cffc9-c995-76c1-a92d-a15451adb39d
+--------
+user
+You are the SkyForce coding_agent. Stay strictly within task scope. Return only one JSON object matching the requested receipt schema. Do not wrap the response in markdown fences or prose. If the task cannot be completed, still return valid JSON with status 'failed' or 'blocked' and an error field.
+
+Task payload:
+{
+  "id": "SMOKE-001",
+  "task": "Codex smoke task",
+  "description": "Do not modify repository files. Return a valid coding task receipt JSON for SMOKE-001. If edits would be needed, return status blocked.",
+  "status": "pending",
+  "assigned_agent": "coding_agent",
+  "feature_ref": "codex_smoke",
+  "depends_on": []
+}
+
+Repo root: /Users/shivakrishnayadav/Documents/skyforce
+Run dir: /Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318071218-e414057e
+Validation dir: /Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318071218-e414057e/validation
+
+mcp startup: no servers
+codex
+{"task_id":"SMOKE-001","status":"completed","files_written":[],"tests_written":[],"patch_path":null,"error":null,"partial_output_ref":null}
+tokens used
+8,498

@@ -1,0 +1,73 @@
+{
+  "run_id": "run-20260318043950-5b4a9d97",
+  "workflow": "feature_pipeline",
+  "status": "running",
+  "started_at": "2026-03-18T04:39:50.784368Z",
+  "ended_at": null,
+  "connectivity_mode": "offline",
+  "mode": "factory",
+  "current_step_index": 3,
+  "steps": [
+    {
+      "step_id": "interpret_vision",
+      "agent": "vision_agent",
+      "status": "completed",
+      "started_at": "2026-03-18T04:39:50.785420Z",
+      "ended_at": "2026-03-18T04:39:50.786425Z",
+      "output_ref": "{\"feature_plan_path\": \"/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318043950-5b4a9d97/artifacts/feature_plan.json\", \"feature_count\": 7}",
+      "error": null
+    },
+    {
+      "step_id": "split_tasks",
+      "agent": null,
+      "status": "completed",
+      "started_at": "2026-03-18T04:39:50.787104Z",
+      "ended_at": "2026-03-18T04:39:50.815598Z",
+      "output_ref": "{\"receipt_path\": \"/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318043950-5b4a9d97/artifacts/split_tasks_receipt.json\"}",
+      "error": null
+    },
+    {
+      "step_id": "implement_features",
+      "agent": "coding_agent",
+      "status": "completed",
+      "started_at": "2026-03-18T04:39:50.816390Z",
+      "ended_at": "2026-03-18T04:39:50.820288Z",
+      "output_ref": "{\"task_results\": [{\"task_id\": \"TASK-001\", \"status\": \"completed\", \"files_written\": [\"work/TASK-001-vision-to-feature-decomposition.md\"], \"tests_written\": [], \"patch_path\": null}, {\"task_id\": \"TASK-002\", \"status\": \"completed\", \"files_written\": [\"work/TASK-002-autonomous-implementation.md\"], \"tests_written\": [], \"patch_path\": null}, {\"task_id\": \"TASK-003\", \"status\": \"completed\", \"files_written\": [\"work/TASK-003-self-healing-test-loop.md\"], \"tests_written\": [], \"patch_path\": null}, {\"task_id\": \"TASK-004\", \"status\": \"completed\", \"files_written\": [\"work/TASK-004-architecture-review.md\"], \"tests_written\": [], \"patch_path\": null}, {\"task_id\": \"TASK-005\", \"status\": \"completed\", \"files_written\": [\"work/TASK-005-continuous-learning.md\"], \"tests_written\": [], \"patch_path\": null}, {\"task_id\": \"TASK-006\", \"status\": \"completed\", \"files_written\": [\"work/TASK-006-offline-first-online-amplified.md\"], \"tests_written\": [], \"patch_path\": null}, {\"task_id\": \"TASK-007\", \"status\": \"completed\", \"files_written\": [\"work/TASK-007-policy-governed-safety.md\"], \"tests_written\": [], \"patch_path\": null}], \"task_count\": 7}",
+      "error": null
+    },
+    {
+      "step_id": "run_tests",
+      "agent": null,
+      "status": "running",
+      "started_at": "2026-03-18T04:39:50.821067Z",
+      "ended_at": null,
+      "output_ref": null,
+      "error": null
+    },
+    {
+      "step_id": "fix_errors",
+      "agent": "debugging_agent",
+      "status": "pending",
+      "started_at": null,
+      "ended_at": null,
+      "output_ref": null,
+      "error": null
+    },
+    {
+      "step_id": "learn_from_run",
+      "agent": "learning_agent",
+      "status": "pending",
+      "started_at": null,
+      "ended_at": null,
+      "output_ref": null,
+      "error": null
+    }
+  ],
+  "context": {
+    "repo_path": "/Users/shivakrishnayadav/Documents/skyforce",
+    "run_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318043950-5b4a9d97",
+    "artifacts_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318043950-5b4a9d97/artifacts",
+    "validation_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318043950-5b4a9d97/validation",
+    "tasks_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318043950-5b4a9d97/artifacts/tasks.json"
+  }
+}

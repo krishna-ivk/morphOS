@@ -1,0 +1,77 @@
+[
+  {
+    "id": "TASK-001",
+    "task": "Vision to Feature Decomposition",
+    "description": "Accept a plain-language product vision and automatically decompose it into a prioritized, dependency-ordered feature plan.",
+    "status": "pending",
+    "assigned_agent": "coding_agent",
+    "feature_ref": "Vision to Feature Decomposition",
+    "depends_on": []
+  },
+  {
+    "id": "TASK-002",
+    "task": "Autonomous Implementation",
+    "description": "Assign features to coding agents that write modular, tested code following project conventions \u2014 in parallel where possible.",
+    "status": "pending",
+    "assigned_agent": "coding_agent",
+    "feature_ref": "Autonomous Implementation",
+    "depends_on": [
+      "TASK-001"
+    ]
+  },
+  {
+    "id": "TASK-003",
+    "task": "Self-Healing Test Loop",
+    "description": "When tests fail, a debugging agent diagnoses the root cause to propose and apply fixes, then re-validates \u2014 without human intervention.",
+    "status": "pending",
+    "assigned_agent": "coding_agent",
+    "feature_ref": "Self-Healing Test Loop",
+    "depends_on": [
+      "TASK-002"
+    ]
+  },
+  {
+    "id": "TASK-004",
+    "task": "Architecture Review",
+    "description": "An architecture agent continuously evaluates repository structure, dependencies, and security posture, producing actionable reports.",
+    "status": "pending",
+    "assigned_agent": "coding_agent",
+    "feature_ref": "Architecture Review",
+    "depends_on": [
+      "TASK-003"
+    ]
+  },
+  {
+    "id": "TASK-005",
+    "task": "Continuous Learning",
+    "description": "Every completed run feeds a learning agent that extracts reusable patterns, bug fixes, and architectural lessons into long-term memory.",
+    "status": "pending",
+    "assigned_agent": "coding_agent",
+    "feature_ref": "Continuous Learning",
+    "depends_on": [
+      "TASK-004"
+    ]
+  },
+  {
+    "id": "TASK-006",
+    "task": "Offline-First, Online-Amplified",
+    "description": "The system works locally without internet. When connectivity is available, it unlocks remote research, dependency scanning, and cloud deployment.",
+    "status": "pending",
+    "assigned_agent": "coding_agent",
+    "feature_ref": "Offline-First, Online-Amplified",
+    "depends_on": [
+      "TASK-005"
+    ]
+  },
+  {
+    "id": "TASK-007",
+    "task": "Policy-Governed Safety",
+    "description": "Every action \u2014 file writes, deployments, network access \u2014 passes through a policy engine that enforces safety rules, blocks secrets in code, and gates destructive operations. ## Non-Goals (What SkyForce Is Not) ## Success Criteria SkyForce is successful when: 1. A developer can describe a feature in plain English and receive a working, tested implementation without writing a single line of code 2. Test failures are automatically diagnosed and fixed in >70% of cases 3. No deployment can occur with failing tests or detected secrets 4. The system improves its own performance over time through learned patterns 5. Loss of internet does not stop local development work",
+    "status": "pending",
+    "assigned_agent": "coding_agent",
+    "feature_ref": "Policy-Governed Safety",
+    "depends_on": [
+      "TASK-006"
+    ]
+  }
+]

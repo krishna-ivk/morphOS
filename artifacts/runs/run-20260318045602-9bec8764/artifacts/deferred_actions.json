@@ -1,0 +1,10 @@
+[
+  {
+    "run_id": "run-20260318045602-9bec8764",
+    "step_id": "dependency_scan",
+    "reason": "Step requires connectivity `online_read` but current mode is `offline`",
+    "required_connectivity": "online_read",
+    "command": "bash programs/dependency_scan.sh ${repo_path} ${artifacts_dir}",
+    "created_at": "2026-03-18T04:56:02.613770Z"
+  }
+]

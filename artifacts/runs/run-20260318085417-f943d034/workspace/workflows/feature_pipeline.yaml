@@ -1,0 +1,123 @@
+{
+  "name": "feature_pipeline",
+  "steps": [
+    {
+      "id": "interpret_vision",
+      "type": "agent",
+      "agent": "vision_agent",
+      "contracts": [
+        {
+          "name": "feature_plan",
+          "path": "${artifacts_dir}/feature_plan.json",
+          "kind": "json_schema",
+          "schema_name": "FeaturePlan"
+        }
+      ]
+    },
+    {
+      "id": "split_tasks",
+      "type": "program",
+      "command": "python3 scripts/task_split.py ${artifacts_dir}/feature_plan.json ${artifacts_dir}/tasks.json",
+      "contracts": [
+        {
+          "name": "task_list",
+          "path": "${artifacts_dir}/tasks.json",
+          "kind": "json_schema",
+          "schema_name": "TaskList"
+        }
+      ]
+    },
+    {
+      "id": "implement_features",
+      "type": "parallel_agents",
+      "agent": "coding_agent",
+      "items_from": "tasks.json",
+      "max_parallel": 4
+    },
+    {
+      "id": "run_tests",
+      "type": "program",
+      "command": "bash programs/run_tests.sh ${run_id} ${validation_dir}",
+      "contracts": [
+        {
+          "name": "test_results",
+          "path": "${validation_dir}/test_results.json",
+          "kind": "json_schema",
+          "schema_name": "TestResults"
+        }
+      ],
+      "signals": [
+        {
+          "name": "test_failure_signal",
+          "path": "${validation_dir}/test_results.json",
+          "json_path": "overall_result",
+          "equals": "fail",
+          "context_key": "test_failure"
+        }
+      ]
+    },
+    {
+      "id": "fix_errors",
+      "type": "agent",
+      "condition": "test_failure",
+      "agent": "debugging_agent",
+      "contracts": [
+        {
+          "name": "repair_tasks",
+          "path": "${artifacts_dir}/repair_tasks.json",
+          "kind": "json_schema",
+          "schema_name": "TaskList"
+        }
+      ]
+    },
+    {
+      "id": "apply_fixes",
+      "type": "parallel_agents",
+      "condition": "test_failure",
+      "agent": "coding_agent",
+      "items_from": "repair_tasks.json",
+      "max_parallel": 1,
+      "contracts": [
+        {
+          "name": "applied_fix_results",
+          "path": "${artifacts_dir}/apply_fixes_output.json",
+          "kind": "file_exists"
+        }
+      ]
+    },
+    {
+      "id": "rerun_tests",
+      "type": "program",
+      "condition": "test_failure",
+      "command": "bash programs/run_tests.sh ${run_id} ${validation_dir}",
+      "contracts": [
+        {
+          "name": "rerun_test_results",
+          "path": "${validation_dir}/test_results.json",
+          "kind": "json_schema",
+          "schema_name": "TestResults"
+        }
+      ],
+      "signals": [
+        {
+          "name": "persistent_test_failure_signal",
+          "path": "${validation_dir}/test_results.json",
+          "json_path": "overall_result",
+          "equals": "fail",
+          "context_key": "persistent_test_failure"
+        }
+      ]
+    },
+    {
+      "id": "request_validation_review",
+      "type": "approval",
+      "condition": "persistent_test_failure",
+      "message": "Validation still failing after one automated repair attempt. Human review required."
+    },
+    {
+      "id": "learn_from_run",
+      "type": "agent",
+      "agent": "learning_agent"
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+{
+  "run_id": "run-20260318090004-c223c6b3",
+  "workflow": "workspace_exec",
+  "status": "completed",
+  "started_at": "2026-03-18T09:00:04.189874Z",
+  "ended_at": "2026-03-18T09:00:04.279615Z",
+  "connectivity_mode": "online_read",
+  "mode": "factory",
+  "pause_reason": null,
+  "current_step_index": 1,
+  "steps": [
+    {
+      "step_id": "write_marker",
+      "agent": null,
+      "status": "completed",
+      "started_at": "2026-03-18T09:00:04.258020Z",
+      "ended_at": "2026-03-18T09:00:04.279142Z",
+      "output_ref": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318090004-c223c6b3/artifacts/write_marker_output.json",
+      "error": null
+    }
+  ],
+  "context": {
+    "source_repo_path": "/Users/shivakrishnayadav/Documents/skyforce",
+    "repo_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318090004-c223c6b3/workspace",
+    "workspace_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318090004-c223c6b3/workspace",
+    "run_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318090004-c223c6b3",
+    "artifacts_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318090004-c223c6b3/artifacts",
+    "validation_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318090004-c223c6b3/validation",
+    "seed_path": "/Users/shivakrishnayadav/Documents/skyforce/docs/vision/product_vision.md",
+    "connectivity_mode": "online_read",
+    "retrieval": {
+      "workflow": "workspace_exec",
+      "lessons": [],
+      "exemplars": [
+        {
+          "run_id": "run-20260318085903-3018058f",
+          "workflow": "workspace_exec",
+          "summary_short": "Workflow `workspace_exec` is `completed` with 1 completed steps and 0 failures.",
+          "contract_reports": {
+            "write_marker": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318085903-3018058f/validation/write_marker_contract_report.json"
+          },
+          "evidence_refs": [
+            "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318085903-3018058f/summaries/evidence.json",
+            "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318085903-3018058f/validation/write_marker_contract_report.json"
+          ]
+        },
+        {
+          "run_id": "run-20260318085438-c99d4d1e",
+          "workflow": "workspace_exec",
+          "summary_short": "Workflow `workspace_exec` is `completed` with 1 completed steps and 0 failures.",
+          "contract_reports": {
+            "write_marker": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318085438-c99d4d1e/validation/write_marker_contract_report.json"
+          },
+          "evidence_refs": [
+            "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318085438-c99d4d1e/summaries/evidence.json",
+            "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318085438-c99d4d1e/validation/write_marker_contract_report.json"
+          ]
+        },
+        {
+          "run_id": "run-20260318085408-ce9c3bf7",
+          "workflow": "workspace_exec",
+          "summary_short": "Workflow `workspace_exec` is `completed` with 1 completed steps and 0 failures.",
+          "contract_reports": {
+            "write_marker": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318085408-ce9c3bf7/validation/write_marker_contract_report.json"
+          },
+          "evidence_refs": [
+            "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318085408-ce9c3bf7/summaries/evidence.json",
+            "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318085408-ce9c3bf7/validation/write_marker_contract_report.json"
+          ]
+        }
+      ],
+      "lesson_count": 0,
+      "exemplar_count": 3
+    },
+    "contract_reports": {
+      "write_marker": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318090004-c223c6b3/validation/write_marker_contract_report.json"
+    }
+  }
+}

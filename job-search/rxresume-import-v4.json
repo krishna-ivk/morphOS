@@ -1,0 +1,391 @@
+{
+  "basics": {
+    "name": "Shivakrishna Yadav",
+    "headline": "Senior AI Platform Engineer | Data & Decision Systems",
+    "email": "cs.shivakrishna@gmail.com",
+    "phone": "+91-88974-99334",
+    "location": "India",
+    "url": {
+      "label": "",
+      "href": ""
+    },
+    "customFields": [],
+    "picture": {
+      "url": "",
+      "size": 64,
+      "aspectRatio": 1,
+      "borderRadius": 0,
+      "effects": {
+        "hidden": false,
+        "border": false,
+        "grayscale": false
+      }
+    }
+  },
+  "sections": {
+    "summary": {
+      "name": "Summary",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": true,
+      "id": "summary",
+      "content": "<p>Senior AI Platform Engineer with 7.5 years of experience building and owning scalable data and AI-enabled platforms. Strong expertise in production-grade data pipelines, unstructured data processing, data quality frameworks, governance, and cost optimization. Proven ability to enable reliable AI-assisted decision systems with measurable business impact.</p>"
+    },
+    "awards": {
+      "name": "Awards",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": false,
+      "id": "awards",
+      "items": []
+    },
+    "certifications": {
+      "name": "Certifications",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": true,
+      "id": "certifications",
+      "items": [
+        {
+          "id": "j5x7s9f2m3k8q1r4t6v7w8y9",
+          "visible": true,
+          "name": "AWS Certified Solutions Architect - Associate",
+          "issuer": "Amazon Web Services",
+          "date": "",
+          "summary": "",
+          "url": {
+            "label": "",
+            "href": ""
+          }
+        },
+        {
+          "id": "m4n7p2q5r8s1t3v6w9x2y4z6",
+          "visible": true,
+          "name": "AI Blackbelt Program",
+          "issuer": "Analytics Vidhya",
+          "date": "",
+          "summary": "",
+          "url": {
+            "label": "",
+            "href": ""
+          }
+        }
+      ]
+    },
+    "education": {
+      "name": "Education",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": true,
+      "id": "education",
+      "items": [
+        {
+          "id": "p6q8r1s4t7v9w2x5y8z1a3b5",
+          "visible": true,
+          "institution": "Sreenidhi Institute of Science & Technology",
+          "studyType": "B.Tech",
+          "area": "Computer Science & Engineering",
+          "score": "",
+          "date": "2018",
+          "summary": "",
+          "url": {
+            "label": "",
+            "href": ""
+          }
+        }
+      ]
+    },
+    "experience": {
+      "name": "Experience",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": true,
+      "id": "experience",
+      "items": [
+        {
+          "id": "r2s5t8v1w4x7y9z2a5b8c1d4",
+          "visible": true,
+          "company": "Fractal.ai",
+          "position": "Senior Cloud Data Engineer",
+          "location": "India",
+          "date": "Dec 2024 to Present",
+          "summary": "<ul><li><p>Own the backend data platform for a central enterprise Software Hub serving 10+ teams across R&amp;D, Finance, Procurement, and Operations.</p></li><li><p>Design and operate Azure Databricks and Azure Data Factory pipelines managing 100+ curated datasets refreshed daily.</p></li><li><p>Define data schemas, SLAs, alerts, data quality checks, and domain or BU-level access controls.</p></li><li><p>Built AI-driven decision logic to detect duplicate and reusable software licenses, enabling multi-million-dollar cost avoidance.</p></li></ul>",
+          "url": {
+            "label": "",
+            "href": ""
+          }
+        },
+        {
+          "id": "u3v6w9x2y5z8a1b4c7d9e2f5",
+          "visible": true,
+          "company": "Fractal.ai",
+          "position": "Cloud Data Engineer",
+          "location": "India",
+          "date": "Jul 2024 to Dec 2024",
+          "summary": "<ul><li><p>Designed and implemented a custom data quality framework to detect missing, malformed, and unwanted data across ingestion pipelines.</p></li><li><p>Evaluated Great Expectations and built a lightweight framework tailored for performance and scale.</p></li><li><p>Enabled rapid reconciliation through automated alerts and stakeholder visibility, improving downstream data trust.</p></li></ul>",
+          "url": {
+            "label": "",
+            "href": ""
+          }
+        },
+        {
+          "id": "x4y7z1a3b6c8d2e5f7g9h1j3",
+          "visible": true,
+          "company": "Fractal.ai",
+          "position": "Cloud Data Engineer",
+          "location": "India",
+          "date": "Nov 2022 to Jul 2024",
+          "summary": "<ul><li><p>Built Spark-based pipelines processing TB-scale unstructured consumer survey data for global FMCG concept testing.</p></li><li><p>Integrated LLM-assisted workflows for insight summarization, pattern detection, and concept ideation.</p></li><li><p>Delivered curated datasets and dashboards enabling faster product concept evaluation and decision-making.</p></li></ul>",
+          "url": {
+            "label": "",
+            "href": ""
+          }
+        },
+        {
+          "id": "a5b8c2d4e7f9g1h3j5k7m9n1",
+          "visible": true,
+          "company": "Fractal.ai",
+          "position": "Cloud Data Engineer",
+          "location": "India",
+          "date": "Nov 2020 to Jul 2021",
+          "summary": "<ul><li><p>Built data pipelines supporting forecast models to automate order recommendations for product supply operations.</p></li><li><p>Enabled feature engineering and reliable data delivery for ML-driven demand forecasting workflows.</p></li></ul>",
+          "url": {
+            "label": "",
+            "href": ""
+          }
+        },
+        {
+          "id": "d6e9f2g5h8j1k4m7n9p2q4r6",
+          "visible": true,
+          "company": "Fractal.ai",
+          "position": "Cloud Data Engineer",
+          "location": "India",
+          "date": "Mar 2020 to Nov 2020",
+          "summary": "<ul><li><p>Worked closely with the Product Manager and engineering teams on Crux Intelligence, contributing to feature design and release readiness.</p></li><li><p>Designed and executed model validation scenarios to test deep learning model behavior, accuracy, and stability.</p></li><li><p>Identified model and data failure modes, improving AI reliability and production quality.</p></li></ul>",
+          "url": {
+            "label": "",
+            "href": ""
+          }
+        },
+        {
+          "id": "g7h1j3k6m8n2p5q7r9s2t4v6",
+          "visible": true,
+          "company": "Accenture",
+          "position": "Data Engineer Associate",
+          "location": "India",
+          "date": "Aug 2018 to Mar 2020",
+          "summary": "<ul><li><p>Supported and maintained Hadoop-based data platforms using HDFS and Hive for enterprise analytics workloads.</p></li><li><p>Performed data ingestion using Sqoop, wrote Hive queries and shell scripts, and scheduled batch jobs.</p></li><li><p>Built and maintained KPI dashboards and collaborated with client stakeholders to support data-driven decisions.</p></li></ul>",
+          "url": {
+            "label": "",
+            "href": ""
+          }
+        }
+      ]
+    },
+    "volunteer": {
+      "name": "Volunteering",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": false,
+      "id": "volunteer",
+      "items": []
+    },
+    "interests": {
+      "name": "Interests",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": false,
+      "id": "interests",
+      "items": []
+    },
+    "languages": {
+      "name": "Languages",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": false,
+      "id": "languages",
+      "items": []
+    },
+    "profiles": {
+      "name": "Profiles",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": true,
+      "id": "profiles",
+      "items": []
+    },
+    "projects": {
+      "name": "Projects",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": true,
+      "id": "projects",
+      "items": []
+    },
+    "publications": {
+      "name": "Publications",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": false,
+      "id": "publications",
+      "items": []
+    },
+    "references": {
+      "name": "References",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": false,
+      "id": "references",
+      "items": [
+        {
+          "id": "j8k2m5n7p1q4r6s8t1v3w5x7",
+          "visible": true,
+          "name": "Available upon request",
+          "description": "",
+          "summary": "",
+          "url": {
+            "label": "",
+            "href": ""
+          }
+        }
+      ]
+    },
+    "skills": {
+      "name": "Skills",
+      "columns": 1,
+      "separateLinks": true,
+      "visible": true,
+      "id": "skills",
+      "items": [
+        {
+          "id": "m9n3p6q8r2s5t7v9w2x4y6z8",
+          "visible": true,
+          "name": "Cloud Platforms",
+          "description": "Advanced",
+          "level": 0,
+          "keywords": [
+            "Azure Data Factory",
+            "Azure Databricks",
+            "ADLS Gen2",
+            "Synapse",
+            "Key Vault",
+            "AWS S3",
+            "AWS Athena",
+            "AWS EC2"
+          ]
+        },
+        {
+          "id": "p1q4r7s9t3v6w8x1y3z5a7b9",
+          "visible": true,
+          "name": "Distributed Processing",
+          "description": "Advanced",
+          "level": 0,
+          "keywords": [
+            "Apache Spark",
+            "Structured Streaming",
+            "Delta Lake",
+            "Delta Live Tables",
+            "Hadoop"
+          ]
+        },
+        {
+          "id": "s2t5v8w1x4y7z9a2b4c6d8e1",
+          "visible": true,
+          "name": "Programming",
+          "description": "Advanced",
+          "level": 0,
+          "keywords": [
+            "Python",
+            "PySpark",
+            "SQL"
+          ]
+        },
+        {
+          "id": "v3w6x9y2z5a8b1c4d6e8f1g3",
+          "visible": true,
+          "name": "Data Engineering",
+          "description": "Advanced",
+          "level": 0,
+          "keywords": [
+            "ETL",
+            "ELT",
+            "Data Modeling",
+            "SLAs",
+            "Data Quality",
+            "Governance",
+            "ACL-based Access"
+          ]
+        },
+        {
+          "id": "y4z7a1b3c6d9e2f5g7h9j2k4",
+          "visible": true,
+          "name": "AI & Analytics Enablement",
+          "description": "Advanced",
+          "level": 0,
+          "keywords": [
+            "AI-assisted Decision Systems",
+            "LLM-assisted Workflows",
+            "Feature Engineering",
+            "Time-series",
+            "Unstructured Data"
+          ]
+        }
+      ]
+    },
+    "custom": {}
+  },
+  "metadata": {
+    "template": "rhyhorn",
+    "layout": [
+      [
+        [
+          "summary",
+          "experience",
+          "education",
+          "projects",
+          "references"
+        ],
+        [
+          "profiles",
+          "skills",
+          "certifications",
+          "languages",
+          "interests"
+        ]
+      ]
+    ],
+    "css": {
+      "value": "",
+      "visible": false
+    },
+    "page": {
+      "margin": 18,
+      "format": "a4",
+      "options": {
+        "breakLine": true,
+        "pageNumbers": true
+      }
+    },
+    "theme": {
+      "background": "#ffffff",
+      "text": "#111827",
+      "primary": "#1e40af"
+    },
+    "typography": {
+      "font": {
+        "family": "IBM Plex Serif",
+        "subset": "latin",
+        "variants": [
+          "regular",
+          "italic",
+          "600"
+        ],
+        "size": 14
+      },
+      "lineHeight": 1.5,
+      "hideIcons": false,
+      "underlineLinks": true
+    },
+    "notes": ""
+  }
+}

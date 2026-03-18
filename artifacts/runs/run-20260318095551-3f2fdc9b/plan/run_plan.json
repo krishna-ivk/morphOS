@@ -1,0 +1,85 @@
+{
+  "name": "auto_fix_retry",
+  "steps": [
+    {
+      "id": "run_tests",
+      "type": "program",
+      "command": "python3 /private/var/folders/4g/p37065c55n33d7dw9j07lp700000gn/T/pytest-of-shivakrishnayadav/pytest-1258/test_bounded_retry_can_auto_fi0/write_results.py ${workspace_path} ${validation_dir}",
+      "contracts": [
+        {
+          "name": "test_results",
+          "path": "${validation_dir}/test_results.json",
+          "kind": "json_schema",
+          "schema_name": "TestResults"
+        }
+      ],
+      "signals": [
+        {
+          "name": "test_failure_signal",
+          "path": "${validation_dir}/test_results.json",
+          "json_path": "overall_result",
+          "equals": "fail",
+          "context_key": "test_failure"
+        }
+      ]
+    },
+    {
+      "id": "diagnose_failures",
+      "type": "agent",
+      "condition": "test_failure",
+      "agent": "debugging_agent",
+      "contracts": [
+        {
+          "name": "repair_tasks",
+          "path": "${artifacts_dir}/repair_tasks.json",
+          "kind": "json_schema",
+          "schema_name": "TaskList"
+        }
+      ]
+    },
+    {
+      "id": "apply_fixes",
+      "type": "parallel_agents",
+      "condition": "test_failure",
+      "agent": "coding_agent",
+      "items_from": "repair_tasks.json",
+      "max_parallel": 1,
+      "contracts": [
+        {
+          "name": "applied_fix_results",
+          "path": "${artifacts_dir}/apply_fixes_output.json",
+          "kind": "file_exists"
+        }
+      ]
+    },
+    {
+      "id": "rerun_tests",
+      "type": "program",
+      "condition": "test_failure",
+      "command": "python3 /private/var/folders/4g/p37065c55n33d7dw9j07lp700000gn/T/pytest-of-shivakrishnayadav/pytest-1258/test_bounded_retry_can_auto_fi0/write_results.py ${workspace_path} ${validation_dir}",
+      "contracts": [
+        {
+          "name": "rerun_test_results",
+          "path": "${validation_dir}/test_results.json",
+          "kind": "json_schema",
+          "schema_name": "TestResults"
+        }
+      ],
+      "signals": [
+        {
+          "name": "persistent_test_failure_signal",
+          "path": "${validation_dir}/test_results.json",
+          "json_path": "overall_result",
+          "equals": "fail",
+          "context_key": "persistent_test_failure"
+        }
+      ]
+    },
+    {
+      "id": "request_review",
+      "type": "approval",
+      "condition": "persistent_test_failure",
+      "message": "Human review required after bounded retry."
+    }
+  ]
+}

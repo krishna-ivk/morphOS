@@ -1,0 +1,21 @@
+{
+  "name": "bug_fix_pipeline",
+  "steps": [
+    {
+      "id": "run_tests",
+      "type": "program",
+      "command": "bash programs/run_tests.sh ${run_id} ${validation_dir}"
+    },
+    {
+      "id": "diagnose_failures",
+      "type": "conditional_agent",
+      "condition": "test_failure",
+      "agent": "debugging_agent"
+    },
+    {
+      "id": "learn_from_run",
+      "type": "agent",
+      "agent": "learning_agent"
+    }
+  ]
+}

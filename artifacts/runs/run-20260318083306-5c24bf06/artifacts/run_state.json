@@ -1,0 +1,57 @@
+{
+  "run_id": "run-20260318083306-5c24bf06",
+  "workflow": "bounded_retry",
+  "status": "failed",
+  "started_at": "2026-03-18T08:33:06.258464Z",
+  "ended_at": "2026-03-18T08:33:06.342962Z",
+  "connectivity_mode": "online_read",
+  "mode": "factory",
+  "pause_reason": null,
+  "current_step_index": 0,
+  "steps": [
+    {
+      "step_id": "run_tests",
+      "agent": null,
+      "status": "failed",
+      "started_at": "2026-03-18T08:33:06.314724Z",
+      "ended_at": "2026-03-18T08:33:06.342958Z",
+      "output_ref": null,
+      "error": "Command failed: python3 -c \"import json,sys; from pathlib import Path; p=Path(sys.argv[1]); p.mkdir(parents=True, exist_ok=True); (p/'test_results.json').write_text('{\"run_id\": \"temp-run\", \"timestamp\": \"2026-03-18T08:33:06.256522+00:00\", \"summary\": {\"total\": 1, \"passed\": 0, \"failed\": 1, \"skipped\": 0}, \"overall_result\": \"fail\", \"tests\": [{\"name\": \"synthetic::failure\", \"result\": \"fail\", \"duration_ms\": 1, \"error_message\": \"forced fail\", \"stack_trace\": null}]}')\" /Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318083306-5c24bf06/validation"
+    },
+    {
+      "step_id": "diagnose_failures",
+      "agent": "debugging_agent",
+      "status": "pending",
+      "started_at": null,
+      "ended_at": null,
+      "output_ref": null,
+      "error": null
+    },
+    {
+      "step_id": "rerun_tests",
+      "agent": null,
+      "status": "pending",
+      "started_at": null,
+      "ended_at": null,
+      "output_ref": null,
+      "error": null
+    },
+    {
+      "step_id": "request_review",
+      "agent": null,
+      "status": "pending",
+      "started_at": null,
+      "ended_at": null,
+      "output_ref": null,
+      "error": null
+    }
+  ],
+  "context": {
+    "repo_path": "/Users/shivakrishnayadav/Documents/skyforce",
+    "run_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318083306-5c24bf06",
+    "artifacts_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318083306-5c24bf06/artifacts",
+    "validation_dir": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318083306-5c24bf06/validation",
+    "seed_path": "/Users/shivakrishnayadav/Documents/skyforce/docs/vision/product_vision.md",
+    "connectivity_mode": "online_read"
+  }
+}

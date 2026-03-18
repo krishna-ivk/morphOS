@@ -1,0 +1,19 @@
+{
+  "run_id": "run-20260318085410-2a015f5b",
+  "step_id": "request_review",
+  "status": "pending",
+  "requested_action": "Human review required after bounded retry.",
+  "requested_by": "orchestrator",
+  "approver": null,
+  "reason": "Human review required after bounded retry.",
+  "evidence_refs": [
+    "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318085410-2a015f5b/summaries/evidence.json"
+  ],
+  "policy_context": {
+    "workflow": "bounded_retry",
+    "connectivity_mode": "online_read"
+  },
+  "idempotency_key": "run-20260318085410-2a015f5b:request_review",
+  "requested_at": "2026-03-18T08:54:11.075704Z",
+  "decided_at": null
+}

@@ -1,0 +1,14 @@
+{
+  "task_id": "REPAIR-001",
+  "status": "completed",
+  "files_written": [
+    "sample.txt",
+    "work/REPAIR-001-repair-failing-test-sample-broken.md"
+  ],
+  "tests_written": [],
+  "patch_path": null,
+  "retrieval_used": {
+    "lesson_count": 0,
+    "exemplar_count": 3
+  }
+}

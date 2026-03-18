@@ -1,0 +1,11 @@
+{
+  "backend": "codex",
+  "phase": "command",
+  "message": "codex command failed or CLI flags are incompatible",
+  "task_id": "SMOKE-001",
+  "returncode": 1,
+  "stdout_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318071619-e6dd08d2/artifacts/model_worker/SMOKE-001/stdout.txt",
+  "stderr_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318071619-e6dd08d2/artifacts/model_worker/SMOKE-001/stderr.txt",
+  "raw_output_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318071619-e6dd08d2/artifacts/model_worker/SMOKE-001/raw_output.txt",
+  "response_path": "/Users/shivakrishnayadav/Documents/skyforce/artifacts/runs/run-20260318071619-e6dd08d2/artifacts/model_worker/SMOKE-001/response.json"
+}

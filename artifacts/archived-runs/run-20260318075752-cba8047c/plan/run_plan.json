@@ -1,0 +1,20 @@
+{
+  "name": "repo_evaluation",
+  "steps": [
+    {
+      "id": "scan_repo",
+      "type": "program",
+      "command": "bash programs/repo_scan.sh ${repo_path} ${artifacts_dir}"
+    },
+    {
+      "id": "architecture_review",
+      "type": "agent",
+      "agent": "architecture_agent"
+    },
+    {
+      "id": "learn_from_run",
+      "type": "agent",
+      "agent": "learning_agent"
+    }
+  ]
+}
