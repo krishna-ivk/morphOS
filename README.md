@@ -50,7 +50,8 @@ If you are reading this as a human operator, builder, or collaborator, use this 
 11. [Software factory techniques for morphOS](docs/SOFTWARE_FACTORY_TECHNIQUES_FOR_MORPHOS.md)
 12. [Context architecture](docs/CONTEXT_ARCHITECTURE.md)
 13. [Context Hub evaluation](docs/CONTEXT_HUB_EVALUATION.md)
-14. [Roadmap](docs/ROADMAP.md)
+14. [Context Hub integration plan](docs/CONTEXT_HUB_INTEGRATION_PLAN.md)
+15. [Roadmap](docs/ROADMAP.md)
 
 ## What morphOS Owns
 
@@ -108,6 +109,7 @@ The Skyforce runtime already implements several `morphOS`-aligned pieces:
 - [Software factory techniques for morphOS](docs/SOFTWARE_FACTORY_TECHNIQUES_FOR_MORPHOS.md)
 - [Context architecture](docs/CONTEXT_ARCHITECTURE.md)
 - [Context Hub evaluation](docs/CONTEXT_HUB_EVALUATION.md)
+- [Context Hub integration plan](docs/CONTEXT_HUB_INTEGRATION_PLAN.md)
 
 ## Current Release
 

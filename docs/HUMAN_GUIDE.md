@@ -38,7 +38,8 @@ Use this repo when you need to understand:
 11. [Software factory techniques for morphOS](SOFTWARE_FACTORY_TECHNIQUES_FOR_MORPHOS.md)
 12. [Context architecture](CONTEXT_ARCHITECTURE.md)
 13. [Context Hub evaluation](CONTEXT_HUB_EVALUATION.md)
-14. [Roadmap](ROADMAP.md)
+14. [Context Hub integration plan](CONTEXT_HUB_INTEGRATION_PLAN.md)
+15. [Roadmap](ROADMAP.md)
 
 ## Human Mental Model
 

@@ -7,3 +7,5 @@ artifacts/quarantine/
 logs/
 runtime/
 .secrets/
+.venv/
+artifacts/
