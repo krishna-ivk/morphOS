@@ -3,8 +3,25 @@
 `morphOS` is the specification and operating-model repository for the long-term agentic system.
 
 It defines how the platform should think, coordinate, protect itself, and evolve.
-
 It is not the primary runtime.
+
+| Biological System | SkyForce Component | Specification |
+|---|---|---|
+| **Cell** (atomic unit) | Universal agent template | [cell_spec.md](docs/cell_spec.md) |
+| **DNA** (shared blueprint) | Data schemas and contracts | [schemas.md](docs/schemas.md) |
+| **Nervous system** | Event bus (inter-agent communication) | [event_bus_spec.md](docs/event_bus_spec.md) |
+| **Immune system** | Policy engine (safety enforcement) | [policy_engine_spec.md](docs/policy_engine_spec.md) |
+| **Brain** | Orchestrator (workflow coordination) | [agentic_os_architecture.md](docs/agentic_os_architecture.md) |
+| **Eyes** | Vision agent | [vision_agent.md](docs/agents/vision_agent.md) |
+| **Hands** | Coding agent | [coding_agent.md](docs/agents/coding_agent.md) |
+| **White blood cells** | Debugging agent | [debugging_agent.md](docs/agents/debugging_agent.md) |
+| **Skeleton inspector** | Architecture agent | [architecture_agent.md](docs/agents/architecture_agent.md) |
+| **Hippocampus** | Learning agent | [learning_agent.md](docs/agents/learning_agent.md) |
+| **Symbiont cells** | Human roles (21 roles) | [human_cell_spec.md](docs/human_cell_spec.md) |
+| **Genome** | Product vision | [product_vision.md](docs/vision/product_vision.md) |
+| **Muscles** | Programs and scripts | `programs/`, `scripts/` |
+| **Long-term memory** | Capability store | `memory/capability_store.json` |
+| **Circulatory system** | Workflow pipelines | `workflows/` |
 
 That role belongs to the Skyforce repos:
 
@@ -12,6 +29,9 @@ That role belongs to the Skyforce repos:
 - `skyforce-harness`: execution and adapter runtime
 - `skyforce-command-centre`: operator control plane
 - `skyforce-core`: shared contracts, CLI, and validation surface
+
+See [agentic_os_architecture.md](docs/agentic_os_architecture.md) for the full system design.
+Use [docs/README.md](docs/README.md) as the documentation index.
 
 ## Start Here
 

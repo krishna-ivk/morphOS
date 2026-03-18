@@ -6,7 +6,7 @@ steps:
     type: agent
     agent: vision_agent
     input:
-      file: vision/product_vision.md
+      file: docs/vision/product_vision.md
 
   - id: split_tasks
     type: program

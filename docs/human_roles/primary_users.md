@@ -217,7 +217,7 @@ interfaces:
   - name: vision_doc_editor
     type: file_system
     permission: write
-    description: Author and revise product_vision.md
+    description: Author and revise docs/vision/product_vision.md
 
   - name: feature_review_ui
     type: web_ui

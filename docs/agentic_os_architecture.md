@@ -26,7 +26,7 @@ This document defines the target architecture, component boundaries, and executi
 | Brain + Spinal cord | Orchestration layer | This document, §2 |
 | Sensory organs | Interaction layer | This document, §1 |
 | Endocrine system | Connectivity activation | This document, §3 |
-| Organs | Specialized agents | `agents/*.md` |
+| Organs | Specialized agents | `docs/agents/*.md` |
 | Muscles | Programs and scripts | `programs/`, `scripts/` |
 | Long-term memory | Memory layer | This document, §6 |
 | Skin + Skeleton | Project structure | `README.md` |
@@ -268,7 +268,7 @@ Recommended workflow types:
 
 ### Existing Components
 
-- agent definitions in `agents/`
+- agent definitions in `docs/agents/`
 - workflow definitions in `workflows/`
 - deterministic tools in `programs/` and `scripts/`
 - long-term memory seed in `memory/`

@@ -66,7 +66,7 @@ interfaces:
   - name: agent_file_editor
     type: file_system
     permission: write
-    description: Create/edit agents/*.md files
+    description: Create/edit docs/agents/*.md files
 
   - name: agent_test_runner
     type: cli

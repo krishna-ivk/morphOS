@@ -31,9 +31,9 @@ Agents don't call humans. Agents **emit events** (via event bus).
 The orchestrator matches events to subscribers.
 
 ```
-Human writes product_vision.md
+Human writes docs/vision/product_vision.md
     → file_watcher detects change
-    → emits: vision.updated {path: "vision/product_vision.md"}
+    → emits: vision.updated {path: "docs/vision/product_vision.md"}
     → orchestrator routes to vision_agent
 ```
 
@@ -74,7 +74,7 @@ Each role gets **only the interfaces it needs**:
 ### 6. Idempotent Human Actions
 
 Repeating a human action must not cause duplicate work:
-- Saving `product_vision.md` twice → only one vision_agent run
+- Saving `docs/vision/product_vision.md` twice → only one vision_agent run
 - Approving deployment twice → only one deploy
 - Answering an escalation twice → second answer is ignored with acknowledgment
 
@@ -541,7 +541,7 @@ Build the interaction layer in this order (each step enables the next):
 1. Pydantic models for EventEnvelope + all schemas from schemas.md
 2. In-process event bus (asyncio.Queue + NDJSON persistence)
 3. Basic CLI: skyforce run, skyforce status
-4. File watcher for product_vision.md
+4. File watcher for docs/vision/product_vision.md
 ```
 **After this:** You can type `skyforce run feature_pipeline` and see events flow.
 
