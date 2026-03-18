@@ -380,3 +380,97 @@ The MVP is done when a human can:
 6. rerun similar work with useful prior artifacts available
 
 If those six things work reliably, `morphOS` is functioning as a software factory operating model.
+
+## Current Implementation Status
+
+Status snapshot date:
+
+- `2026-03-18`
+
+Current milestone estimates:
+
+- local software-factory MVP: `80%`
+- workflow orchestration and task routing: `85%`
+- validation and approval loop: `80%`
+- real feature implementation into source code: `45%`
+- full Skyforce multi-repo production path: `55%`
+
+### What Is Already Working
+
+The local `morphOS` MVP runtime is now beyond pure planning and documentation.
+
+The current repository includes:
+
+- a runnable local orchestrator
+- a CLI for workflow execution and inspection
+- a workflow library for feature delivery, bug fix, release, incident triage, repo evaluation, and smoke runs
+- run directory creation with stored artifacts and summaries
+- contract validation and evidence generation
+- approval pause and resume behavior
+- connectivity-aware pause and replay behavior
+- retrieval context attached to runs
+
+Representative working paths:
+
+- `codex_smoke` completes end to end
+- `feature_pipeline` completes end to end
+- `release_pipeline` pauses correctly at approval gates and resumes after approval
+- local validation and policy tests are passing
+
+### What This Means
+
+`morphOS` now has a real software-factory execution loop for the local MVP:
+
+1. a seed is accepted
+2. a workflow is selected
+3. a workspace is created
+4. steps execute through programs and agents
+5. validation artifacts are generated
+6. summaries are emitted
+7. approvals can pause and resume the run
+
+This means the software-factory model is no longer only conceptual.
+
+### What Is Still Thin
+
+The current local MVP should still be treated as an early execution layer rather than a production-grade autonomous factory.
+
+Important gaps remain:
+
+- the default local `coding_agent` is still a bounded worker and not yet a strong general-purpose feature builder
+- workspace-to-source promotion is not yet the normal end state of every feature workflow
+- deployment is still simulated in the local MVP
+- local validation is real, but still scoped around the MVP runtime and its test harness
+- multi-repo operator integration is not yet the default path for all runs
+
+### Practical Interpretation
+
+Today, `morphOS` can credibly claim:
+
+- a working local software-factory MVP
+- working workflow execution semantics
+- working validation and approval gates
+- working run artifacts and summary outputs
+
+Today, `morphOS` cannot yet claim:
+
+- dependable direct feature delivery into real product repos as the default mode
+- a full production-ready Skyforce factory across `Symphony`, `Harness`, `Core`, and Command Centre
+- a mature autonomous coding backend with reliable merge-ready output
+
+### Next Milestone To Unlock
+
+The next major milestone is to move from:
+
+- `workflow executes successfully`
+
+to:
+
+- `workflow produces trustworthy source changes that can be promoted, reviewed, and landed`
+
+That requires:
+
+- a stronger coding backend by default
+- first-class workspace promotion
+- tighter integration with Skyforce operator surfaces
+- preservation of approval and validation gates as merge and release controls
