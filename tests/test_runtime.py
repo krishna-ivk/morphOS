@@ -16,6 +16,22 @@ from skyforce.runtime.io import write_json
 from skyforce.runtime.orchestrator import Orchestrator
 
 
+def init_git_repo(path: Path) -> None:
+    subprocess.run(["git", "init"], cwd=path, check=True, capture_output=True)
+    subprocess.run(
+        ["git", "config", "user.name", "Skyforce Test Harness"],
+        cwd=path,
+        check=True,
+        capture_output=True,
+    )
+    subprocess.run(
+        ["git", "config", "user.email", "skyforce-tests@example.invalid"],
+        cwd=path,
+        check=True,
+        capture_output=True,
+    )
+
+
 def test_feature_pipeline_creates_artifacts(repo_root):
     orchestrator = Orchestrator(repo_root)
     state = orchestrator.run_workflow(
@@ -36,8 +52,13 @@ def test_feature_pipeline_creates_artifacts(repo_root):
         run_dir / "validation" / "review_execution_plan_contract_report.json"
     ).exists()
     assert (run_dir / "validation" / "run_tests_contract_report.json").exists()
+    assert (run_dir / "artifacts" / "implement_features_source_handoff.json").exists()
     evidence = json.loads((run_dir / "summaries" / "evidence.json").read_text())
     assert evidence["workflow"] == "feature_pipeline"
+    summary = orchestrator.run_summary(state.run_id)
+    assert any(
+        path.endswith("_source_handoff.json") for path in summary["evidence_refs"]
+    )
     rerun = next(step for step in state.steps if step.step_id == "rerun_tests")
     review = next(
         step for step in state.steps if step.step_id == "request_validation_review"
@@ -586,6 +607,26 @@ def test_debugging_agent_writes_repair_tasks(repo_root, tmp_path):
     assert repair_tasks[0]["assigned_agent"] == "coding_agent"
 
 
+def test_debugging_agent_parses_multiple_auto_fix_directives(repo_root, tmp_path):
+    run_dir = tmp_path / "run"
+    (run_dir / "validation").mkdir(parents=True, exist_ok=True)
+    failing_results = {
+        "tests": [
+            {
+                "name": "tests::broken",
+                "result": "fail",
+                "error_message": "AUTO_FIX|a.txt|oldA|newA\nAUTO_FIX|b.txt|oldB|newB",
+            }
+        ]
+    }
+    (run_dir / "validation" / "test_results.json").write_text(
+        json.dumps(failing_results, indent=2) + "\n"
+    )
+    debugging_agent(run_dir)
+    repair_tasks = json.loads((run_dir / "artifacts" / "repair_tasks.json").read_text())
+    assert len(repair_tasks[0]["fix_directives"]) == 2
+
+
 def test_coding_agent_applies_text_replacement_in_workspace(repo_root, tmp_path):
     run_dir = tmp_path / "run"
     workspace = run_dir / "workspace"
@@ -611,6 +652,143 @@ def test_coding_agent_applies_text_replacement_in_workspace(repo_root, tmp_path)
     )
     assert target.read_text() == "fixed"
     assert "sample.txt" in receipt["files_written"]
+    assert receipt["patch_path"] is not None
+    assert receipt["cited_reference_context"] == []
+    patch_text = Path(receipt["patch_path"]).read_text()
+    assert "--- a/sample.txt" in patch_text
+    assert "+fixed" in patch_text
+
+
+def test_coding_agent_receipt_carries_reference_context(repo_root, tmp_path):
+    run_dir = tmp_path / "run"
+    workspace = run_dir / "workspace"
+    workspace.mkdir(parents=True, exist_ok=True)
+    target = workspace / "sample.txt"
+    target.write_text("broken")
+    receipt = coding_agent(
+        repo_root,
+        run_dir,
+        {
+            "id": "REPAIR-CTX-001",
+            "task": "Repair sample with references",
+            "description": "Apply safe replacement",
+            "status": "pending",
+            "assigned_agent": "coding_agent",
+            "feature_ref": "sample",
+            "depends_on": [],
+            "target_file": "sample.txt",
+            "search_text": "broken",
+            "replace_text": "fixed",
+        },
+        retrieval={
+            "reference_context": [
+                {
+                    "context_id": "repo-doc-1",
+                    "title": "Context Hub Guide",
+                    "uri": "docs/guide.md",
+                    "trust_label": "curated",
+                    "summary": "Guide for context-driven coding.",
+                },
+                {
+                    "context_id": "repo-doc-2",
+                    "title": "Release Notes",
+                    "uri": "docs/release.md",
+                    "trust_label": "curated",
+                    "summary": "Operational updates.",
+                },
+            ],
+            "reference_context_count": 2,
+        },
+        workspace_path=str(workspace),
+    )
+    cited_ids = [item["context_id"] for item in receipt["cited_reference_context"]]
+    assert "repo-doc-1" in cited_ids
+    assert "repo-doc-2" in cited_ids
+    assert len(receipt["cited_reference_context"]) == 2
+
+
+def test_coding_agent_applies_multiple_text_replacements(repo_root, tmp_path):
+    run_dir = tmp_path / "run"
+    workspace = run_dir / "workspace"
+    workspace.mkdir(parents=True, exist_ok=True)
+    a = workspace / "a.txt"
+    b = workspace / "b.txt"
+    a.write_text("oldA")
+    b.write_text("oldB")
+    receipt = coding_agent(
+        repo_root,
+        run_dir,
+        {
+            "id": "REPAIR-002",
+            "task": "Repair multiple files",
+            "description": "Apply grouped safe replacements",
+            "status": "pending",
+            "assigned_agent": "coding_agent",
+            "feature_ref": "sample",
+            "depends_on": [],
+            "fix_directives": [
+                {"target_file": "a.txt", "search_text": "oldA", "replace_text": "newA"},
+                {"target_file": "b.txt", "search_text": "oldB", "replace_text": "newB"},
+            ],
+        },
+        workspace_path=str(workspace),
+    )
+    assert a.read_text() == "newA"
+    assert b.read_text() == "newB"
+    assert "a.txt" in receipt["files_written"]
+    assert "b.txt" in receipt["files_written"]
+
+
+def test_coding_agent_appends_line_if_missing(repo_root, tmp_path):
+    run_dir = tmp_path / "run"
+    workspace = run_dir / "workspace"
+    workspace.mkdir(parents=True, exist_ok=True)
+    target = workspace / "append.txt"
+    target.write_text("alpha\n")
+    receipt = coding_agent(
+        repo_root,
+        run_dir,
+        {
+            "id": "REPAIR-003",
+            "task": "Append config",
+            "description": "Append safe line",
+            "status": "pending",
+            "assigned_agent": "coding_agent",
+            "feature_ref": "sample",
+            "depends_on": [],
+            "fix_directives": [
+                {"action": "append", "target_file": "append.txt", "append_text": "beta"}
+            ],
+        },
+        workspace_path=str(workspace),
+    )
+    assert target.read_text() == "alpha\nbeta"
+    assert "append.txt" in receipt["files_written"]
+
+
+def test_coding_agent_creates_missing_file(repo_root, tmp_path):
+    run_dir = tmp_path / "run"
+    workspace = run_dir / "workspace"
+    workspace.mkdir(parents=True, exist_ok=True)
+    receipt = coding_agent(
+        repo_root,
+        run_dir,
+        {
+            "id": "REPAIR-004",
+            "task": "Create file",
+            "description": "Create safe file",
+            "status": "pending",
+            "assigned_agent": "coding_agent",
+            "feature_ref": "sample",
+            "depends_on": [],
+            "fix_directives": [
+                {"action": "create", "target_file": "new.txt", "file_content": "hello"}
+            ],
+        },
+        workspace_path=str(workspace),
+    )
+    assert (workspace / "new.txt").read_text() == "hello"
+    assert "new.txt" in receipt["files_written"]
 
 
 def test_bug_fix_pipeline_skips_apply_fixes_when_tests_pass(repo_root):
@@ -736,6 +914,434 @@ def test_bounded_retry_can_auto_fix_and_complete(repo_root, tmp_path):
     assert state.context["persistent_test_failure"] is False
     run_dir = repo_root / "artifacts" / "runs" / state.run_id
     assert (run_dir / "workspace" / "sample.txt").read_text() == "fixed"
+    handoff = json.loads(
+        (run_dir / "artifacts" / "apply_fixes_source_handoff.json").read_text()
+    )
+    assert handoff["promotion_ready"] is True
+    assert "sample.txt" in handoff["workspace_files"]
+    assert Path(handoff["combined_patch_path"]).exists()
+
+
+def test_run_summary_includes_promotion_receipts(repo_root):
+    orchestrator = Orchestrator(repo_root)
+    run_dir = repo_root / "artifacts" / "runs" / "run-promo"
+    (run_dir / "summaries").mkdir(parents=True, exist_ok=True)
+    (run_dir / "validation").mkdir(parents=True, exist_ok=True)
+    (run_dir / "approvals").mkdir(parents=True, exist_ok=True)
+    (run_dir / "artifacts" / "promotions").mkdir(parents=True, exist_ok=True)
+    write_json(
+        run_dir / "artifacts" / "run_state.json",
+        {
+            "run_id": "run-promo",
+            "workflow": "feature_pipeline",
+            "status": "completed",
+            "started_at": "2026-03-18T00:00:00+00:00",
+            "ended_at": "2026-03-18T00:01:00+00:00",
+            "connectivity_mode": "offline",
+            "mode": "factory",
+            "pause_reason": None,
+            "current_step_index": 0,
+            "steps": [],
+            "context": {"contract_reports": {}},
+        },
+    )
+    (run_dir / "summaries" / "status.txt").write_text("COMPLETED\n")
+    (run_dir / "summaries" / "summary_short.md").write_text("done\n")
+    (run_dir / "summaries" / "summary_full.md").write_text("done full\n")
+    write_json(
+        run_dir / "summaries" / "evidence.json", {"workflow": "feature_pipeline"}
+    )
+    receipt_path = (
+        run_dir
+        / "artifacts"
+        / "promotions"
+        / "implement_features_promotion_receipt.json"
+    )
+    write_json(
+        receipt_path, {"step_id": "implement_features", "files_promoted": ["x.txt"]}
+    )
+    summary = orchestrator.run_summary("run-promo")
+    assert str(receipt_path) in summary["evidence_refs"]
+
+
+def test_promote_workspace_changes_skips_apply_when_source_repo_is_dirty(
+    tmp_path, repo_root
+):
+    orchestrator = Orchestrator(repo_root)
+    run_dir = repo_root / "artifacts" / "runs" / "run-dirty-promo"
+    (run_dir / "artifacts").mkdir(parents=True, exist_ok=True)
+    write_json(
+        run_dir / "artifacts" / "run_state.json",
+        {
+            "run_id": "run-dirty-promo",
+            "workflow": "feature_pipeline",
+            "status": "completed",
+            "started_at": "2026-03-18T00:00:00+00:00",
+            "ended_at": "2026-03-18T00:01:00+00:00",
+            "connectivity_mode": "offline",
+            "mode": "factory",
+            "pause_reason": None,
+            "current_step_index": 0,
+            "steps": [],
+            "context": {},
+        },
+    )
+    source_repo = tmp_path / "source-dirty"
+    workspace = run_dir / "workspace"
+    source_repo.mkdir(parents=True, exist_ok=True)
+    workspace.mkdir(parents=True, exist_ok=True)
+    (source_repo / "sample.txt").write_text("old")
+    (workspace / "sample.txt").write_text("new")
+    init_git_repo(source_repo)
+    (source_repo / "dirty.txt").write_text("dirty")
+    write_json(
+        run_dir / "artifacts" / "implement_features_source_handoff.json",
+        {
+            "step_id": "implement_features",
+            "workspace_path": str(workspace),
+            "source_repo_path": str(source_repo),
+            "workspace_files": ["sample.txt"],
+            "combined_patch_path": None,
+            "promotion_ready": True,
+        },
+    )
+    result = orchestrator.promote_workspace_changes("run-dirty-promo", apply=True)
+    assert result["candidates"][0]["source_dirty"] is True
+    assert result["promoted"] == []
+    assert (source_repo / "sample.txt").read_text() == "old"
+
+
+def test_promote_workspace_preview_includes_diff_snippet(tmp_path, repo_root):
+    orchestrator = Orchestrator(repo_root)
+    run_dir = repo_root / "artifacts" / "runs" / "run-preview-promo"
+    (run_dir / "artifacts").mkdir(parents=True, exist_ok=True)
+    write_json(
+        run_dir / "artifacts" / "run_state.json",
+        {
+            "run_id": "run-preview-promo",
+            "workflow": "feature_pipeline",
+            "status": "completed",
+            "started_at": "2026-03-18T00:00:00+00:00",
+            "ended_at": "2026-03-18T00:01:00+00:00",
+            "connectivity_mode": "offline",
+            "mode": "factory",
+            "pause_reason": None,
+            "current_step_index": 0,
+            "steps": [],
+            "context": {},
+        },
+    )
+    source_repo = tmp_path / "source-preview"
+    workspace = run_dir / "workspace"
+    source_repo.mkdir(parents=True, exist_ok=True)
+    workspace.mkdir(parents=True, exist_ok=True)
+    (source_repo / "sample.txt").write_text("old\nline2\n")
+    (workspace / "sample.txt").write_text("new\nline2\n")
+    write_json(
+        run_dir / "artifacts" / "implement_features_source_handoff.json",
+        {
+            "step_id": "implement_features",
+            "workspace_path": str(workspace),
+            "source_repo_path": str(source_repo),
+            "workspace_files": ["sample.txt"],
+            "combined_patch_path": None,
+            "promotion_ready": True,
+        },
+    )
+    preview = orchestrator.promote_workspace_changes("run-preview-promo")
+    snippet = preview["candidates"][0]["file_statuses"][0]["preview"]
+    assert "-old" in snippet
+    assert "+new" in snippet
+
+
+def test_promote_workspace_can_filter_selected_files(tmp_path, repo_root):
+    orchestrator = Orchestrator(repo_root)
+    run_dir = repo_root / "artifacts" / "runs" / "run-filter-promo"
+    (run_dir / "artifacts").mkdir(parents=True, exist_ok=True)
+    write_json(
+        run_dir / "artifacts" / "run_state.json",
+        {
+            "run_id": "run-filter-promo",
+            "workflow": "feature_pipeline",
+            "status": "completed",
+            "started_at": "2026-03-18T00:00:00+00:00",
+            "ended_at": "2026-03-18T00:01:00+00:00",
+            "connectivity_mode": "offline",
+            "mode": "factory",
+            "pause_reason": None,
+            "current_step_index": 0,
+            "steps": [],
+            "context": {},
+        },
+    )
+    source_repo = tmp_path / "source-filter"
+    workspace = run_dir / "workspace"
+    source_repo.mkdir(parents=True, exist_ok=True)
+    workspace.mkdir(parents=True, exist_ok=True)
+    (source_repo / "a.txt").write_text("oldA")
+    (source_repo / "b.txt").write_text("oldB")
+    (workspace / "a.txt").write_text("newA")
+    (workspace / "b.txt").write_text("newB")
+    write_json(
+        run_dir / "artifacts" / "implement_features_source_handoff.json",
+        {
+            "step_id": "implement_features",
+            "workspace_path": str(workspace),
+            "source_repo_path": str(source_repo),
+            "workspace_files": ["a.txt", "b.txt"],
+            "combined_patch_path": None,
+            "promotion_ready": True,
+        },
+    )
+    preview = orchestrator.promote_workspace_changes(
+        "run-filter-promo", only_files=["b.txt"]
+    )
+    assert preview["candidates"][0]["selected_files"] == ["b.txt"]
+    applied = orchestrator.promote_workspace_changes(
+        "run-filter-promo", apply=True, only_files=["b.txt"]
+    )
+    assert applied["promoted"][0]["files_promoted"] == ["b.txt"]
+    assert (source_repo / "a.txt").read_text() == "oldA"
+    assert (source_repo / "b.txt").read_text() == "newB"
+
+
+def test_bounded_retry_can_apply_multiple_fixes(repo_root, tmp_path):
+    source_repo = tmp_path / "source_multi"
+    source_repo.mkdir(parents=True, exist_ok=True)
+    (source_repo / "a.txt").write_text("oldA")
+    (source_repo / "b.txt").write_text("oldB")
+    writer_path = tmp_path / "write_results_multi.py"
+    writer_path.write_text(
+        "from pathlib import Path\n"
+        "import json, sys\n"
+        "workspace = Path(sys.argv[1])\n"
+        "validation = Path(sys.argv[2])\n"
+        "validation.mkdir(parents=True, exist_ok=True)\n"
+        "a = (workspace / 'a.txt').read_text().strip()\n"
+        "b = (workspace / 'b.txt').read_text().strip()\n"
+        "if a == 'newA' and b == 'newB':\n"
+        "    payload = {'run_id':'temp','timestamp':'2026-03-18T00:00:00+00:00','summary':{'total':1,'passed':1,'failed':0,'skipped':0},'overall_result':'pass','tests':[{'name':'sample::fixed','result':'pass','duration_ms':1,'error_message':None,'stack_trace':None}]}\n"
+        "else:\n"
+        "    payload = {'run_id':'temp','timestamp':'2026-03-18T00:00:00+00:00','summary':{'total':1,'passed':0,'failed':1,'skipped':0},'overall_result':'fail','tests':[{'name':'sample::broken','result':'fail','duration_ms':1,'error_message':'AUTO_FIX|a.txt|oldA|newA\\nAUTO_FIX|b.txt|oldB|newB','stack_trace':None}]}\n"
+        "(validation / 'test_results.json').write_text(json.dumps(payload))\n"
+    )
+    workflow = (
+        json.loads((tmp_path / "auto_fix_retry.json").read_text())
+        if (tmp_path / "auto_fix_retry.json").exists()
+        else None
+    )
+    if workflow is None:
+        workflow = {
+            "name": "auto_fix_retry_multi",
+            "steps": [
+                {
+                    "id": "run_tests",
+                    "type": "program",
+                    "command": f"python3 {writer_path} ${{workspace_path}} ${{validation_dir}}",
+                    "contracts": [
+                        {
+                            "name": "test_results",
+                            "path": "${validation_dir}/test_results.json",
+                            "kind": "json_schema",
+                            "schema_name": "TestResults",
+                        }
+                    ],
+                    "signals": [
+                        {
+                            "name": "test_failure_signal",
+                            "path": "${validation_dir}/test_results.json",
+                            "json_path": "overall_result",
+                            "equals": "fail",
+                            "context_key": "test_failure",
+                        }
+                    ],
+                },
+                {
+                    "id": "diagnose_failures",
+                    "type": "agent",
+                    "condition": "test_failure",
+                    "agent": "debugging_agent",
+                    "contracts": [
+                        {
+                            "name": "repair_tasks",
+                            "path": "${artifacts_dir}/repair_tasks.json",
+                            "kind": "json_schema",
+                            "schema_name": "TaskList",
+                        }
+                    ],
+                },
+                {
+                    "id": "apply_fixes",
+                    "type": "parallel_agents",
+                    "condition": "test_failure",
+                    "agent": "coding_agent",
+                    "items_from": "repair_tasks.json",
+                    "max_parallel": 1,
+                    "contracts": [
+                        {
+                            "name": "applied_fix_results",
+                            "path": "${artifacts_dir}/apply_fixes_output.json",
+                            "kind": "file_exists",
+                        }
+                    ],
+                },
+                {
+                    "id": "rerun_tests",
+                    "type": "program",
+                    "condition": "test_failure",
+                    "command": f"python3 {writer_path} ${{workspace_path}} ${{validation_dir}}",
+                    "contracts": [
+                        {
+                            "name": "rerun_test_results",
+                            "path": "${validation_dir}/test_results.json",
+                            "kind": "json_schema",
+                            "schema_name": "TestResults",
+                        }
+                    ],
+                    "signals": [
+                        {
+                            "name": "persistent_test_failure_signal",
+                            "path": "${validation_dir}/test_results.json",
+                            "json_path": "overall_result",
+                            "equals": "fail",
+                            "context_key": "persistent_test_failure",
+                        }
+                    ],
+                },
+                {
+                    "id": "request_review",
+                    "type": "approval",
+                    "condition": "persistent_test_failure",
+                    "message": "Human review required after bounded retry.",
+                },
+            ],
+        }
+    workflow_path = tmp_path / "auto_fix_retry_multi.json"
+    workflow_path.write_text(json.dumps(workflow, indent=2) + "\n")
+    orchestrator = Orchestrator(repo_root)
+    state = orchestrator.run_workflow(
+        str(workflow_path), mode="factory", seed_path=None, repo_path=str(source_repo)
+    )
+    assert state.status == "completed"
+    run_dir = repo_root / "artifacts" / "runs" / state.run_id
+    assert (run_dir / "workspace" / "a.txt").read_text() == "newA"
+    assert (run_dir / "workspace" / "b.txt").read_text() == "newB"
+
+
+def test_bounded_retry_can_append_and_create(repo_root, tmp_path):
+    source_repo = tmp_path / "source_append_create"
+    source_repo.mkdir(parents=True, exist_ok=True)
+    (source_repo / "config.txt").write_text("alpha\n")
+    writer_path = tmp_path / "write_results_append_create.py"
+    writer_path.write_text(
+        "from pathlib import Path\n"
+        "import json, sys\n"
+        "workspace = Path(sys.argv[1])\n"
+        "validation = Path(sys.argv[2])\n"
+        "validation.mkdir(parents=True, exist_ok=True)\n"
+        "config = (workspace / 'config.txt').read_text()\n"
+        "created = (workspace / 'created.txt').exists()\n"
+        "if 'beta' in config and created:\n"
+        "    payload = {'run_id':'temp','timestamp':'2026-03-18T00:00:00+00:00','summary':{'total':1,'passed':1,'failed':0,'skipped':0},'overall_result':'pass','tests':[{'name':'sample::fixed','result':'pass','duration_ms':1,'error_message':None,'stack_trace':None}]}\n"
+        "else:\n"
+        "    payload = {'run_id':'temp','timestamp':'2026-03-18T00:00:00+00:00','summary':{'total':1,'passed':0,'failed':1,'skipped':0},'overall_result':'fail','tests':[{'name':'sample::broken','result':'fail','duration_ms':1,'error_message':'AUTO_FIX_APPEND|config.txt|beta\\nAUTO_FIX_CREATE|created.txt|hello','stack_trace':None}]}\n"
+        "(validation / 'test_results.json').write_text(json.dumps(payload))\n"
+    )
+    workflow = {
+        "name": "auto_fix_append_create",
+        "steps": [
+            {
+                "id": "run_tests",
+                "type": "program",
+                "command": f"python3 {writer_path} ${{workspace_path}} ${{validation_dir}}",
+                "contracts": [
+                    {
+                        "name": "test_results",
+                        "path": "${validation_dir}/test_results.json",
+                        "kind": "json_schema",
+                        "schema_name": "TestResults",
+                    }
+                ],
+                "signals": [
+                    {
+                        "name": "test_failure_signal",
+                        "path": "${validation_dir}/test_results.json",
+                        "json_path": "overall_result",
+                        "equals": "fail",
+                        "context_key": "test_failure",
+                    }
+                ],
+            },
+            {
+                "id": "diagnose_failures",
+                "type": "agent",
+                "condition": "test_failure",
+                "agent": "debugging_agent",
+                "contracts": [
+                    {
+                        "name": "repair_tasks",
+                        "path": "${artifacts_dir}/repair_tasks.json",
+                        "kind": "json_schema",
+                        "schema_name": "TaskList",
+                    }
+                ],
+            },
+            {
+                "id": "apply_fixes",
+                "type": "parallel_agents",
+                "condition": "test_failure",
+                "agent": "coding_agent",
+                "items_from": "repair_tasks.json",
+                "max_parallel": 1,
+                "contracts": [
+                    {
+                        "name": "applied_fix_results",
+                        "path": "${artifacts_dir}/apply_fixes_output.json",
+                        "kind": "file_exists",
+                    }
+                ],
+            },
+            {
+                "id": "rerun_tests",
+                "type": "program",
+                "condition": "test_failure",
+                "command": f"python3 {writer_path} ${{workspace_path}} ${{validation_dir}}",
+                "contracts": [
+                    {
+                        "name": "rerun_test_results",
+                        "path": "${validation_dir}/test_results.json",
+                        "kind": "json_schema",
+                        "schema_name": "TestResults",
+                    }
+                ],
+                "signals": [
+                    {
+                        "name": "persistent_test_failure_signal",
+                        "path": "${validation_dir}/test_results.json",
+                        "json_path": "overall_result",
+                        "equals": "fail",
+                        "context_key": "persistent_test_failure",
+                    }
+                ],
+            },
+            {
+                "id": "request_review",
+                "type": "approval",
+                "condition": "persistent_test_failure",
+                "message": "Human review required after bounded retry.",
+            },
+        ],
+    }
+    workflow_path = tmp_path / "auto_fix_append_create.json"
+    workflow_path.write_text(json.dumps(workflow, indent=2) + "\n")
+    orchestrator = Orchestrator(repo_root)
+    state = orchestrator.run_workflow(
+        str(workflow_path), mode="factory", seed_path=None, repo_path=str(source_repo)
+    )
+    assert state.status == "completed"
+    run_dir = repo_root / "artifacts" / "runs" / state.run_id
+    assert "beta" in (run_dir / "workspace" / "config.txt").read_text()
+    assert (run_dir / "workspace" / "created.txt").read_text() == "hello"
 
 
 def test_archive_runs_dry_run_and_apply(repo_root):
