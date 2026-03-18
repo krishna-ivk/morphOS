@@ -1,65 +1,23 @@
 {
-  "name": "feature_pipeline",
+  "name": "incident_triage",
   "steps": [
     {
-      "id": "interpret_vision",
+      "id": "scan_repo",
+      "type": "program",
+      "command": "bash programs/repo_scan.sh ${repo_path} ${artifacts_dir}"
+    },
+    {
+      "id": "architecture_review",
       "type": "agent",
-      "agent": "vision_agent",
+      "agent": "architecture_agent",
       "contracts": [
         {
-          "name": "feature_plan",
-          "path": "${artifacts_dir}/feature_plan.json",
+          "name": "architecture_report",
+          "path": "${artifacts_dir}/architecture_report.json",
           "kind": "json_schema",
-          "schema_name": "FeaturePlan"
+          "schema_name": "ArchitectureReport"
         }
       ]
-    },
-    {
-      "id": "build_execution_plan",
-      "type": "agent",
-      "agent": "planning_agent",
-      "contracts": [
-        {
-          "name": "task_list",
-          "path": "${artifacts_dir}/tasks.json",
-          "kind": "json_schema",
-          "schema_name": "TaskList"
-        },
-        {
-          "name": "execution_plan",
-          "path": "${artifacts_dir}/execution_plan.json",
-          "kind": "file_exists"
-        }
-      ]
-    },
-    {
-      "id": "review_execution_plan",
-      "type": "agent",
-      "agent": "reviewer_agent",
-      "contracts": [
-        {
-          "name": "plan_review",
-          "path": "${artifacts_dir}/plan_review.json",
-          "kind": "file_exists"
-        }
-      ],
-      "signals": [
-        {
-          "name": "plan_review_approved_signal",
-          "path": "${artifacts_dir}/plan_review.json",
-          "json_path": "approved",
-          "equals": true,
-          "context_key": "plan_review_approved"
-        }
-      ]
-    },
-    {
-      "id": "implement_features",
-      "type": "parallel_agents",
-      "condition": "plan_review_approved",
-      "agent": "coding_agent",
-      "items_from": "tasks.json",
-      "max_parallel": 4
     },
     {
       "id": "run_tests",
@@ -84,7 +42,7 @@
       ]
     },
     {
-      "id": "fix_errors",
+      "id": "diagnose_failures",
       "type": "agent",
       "condition": "test_failure",
       "agent": "debugging_agent",
@@ -136,10 +94,10 @@
       ]
     },
     {
-      "id": "request_validation_review",
+      "id": "request_incident_review",
       "type": "approval",
       "condition": "persistent_test_failure",
-      "message": "Validation still failing after one automated repair attempt. Human review required."
+      "message": "Incident triage still failing after one automated repair attempt. Human review required."
     },
     {
       "id": "learn_from_run",

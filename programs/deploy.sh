@@ -1,6 +1,7 @@
 #!/bin/bash
+set -euo pipefail
 
-echo "Deploying application..."
+RUN_ID="${1:-local-run}"
+OUT_DIR="${2:-artifacts/current}"
 
-docker build -t app .
-docker run -d -p 8080:8080 app
+python3 scripts/deploy.py "$RUN_ID" "$OUT_DIR"

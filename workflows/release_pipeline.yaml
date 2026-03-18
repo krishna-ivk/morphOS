@@ -1,19 +1,64 @@
-name: release_pipeline
-
-steps:
-
-  - id: dependency_scan
-    type: program
-    command: programs/dependency_scan.sh
-
-  - id: run_tests
-    type: program
-    command: programs/run_tests.sh
-
-  - id: approve_release
-    type: approval
-    label: release_readiness
-
-  - id: deploy
-    type: program
-    command: programs/deploy.sh
+{
+  "name": "release_pipeline",
+  "steps": [
+    {
+      "id": "dependency_scan",
+      "type": "program",
+      "command": "bash programs/dependency_scan.sh ${repo_path} ${artifacts_dir}",
+      "requires_connectivity": "online_read",
+      "contracts": [
+        {
+          "name": "dependency_report",
+          "path": "${artifacts_dir}/vuln_report.json",
+          "kind": "file_exists"
+        }
+      ]
+    },
+    {
+      "id": "run_tests",
+      "type": "program",
+      "command": "bash programs/run_tests.sh ${run_id} ${validation_dir}",
+      "contracts": [
+        {
+          "name": "test_results",
+          "path": "${validation_dir}/test_results.json",
+          "kind": "json_schema",
+          "schema_name": "TestResults"
+        }
+      ],
+      "signals": [
+        {
+          "name": "test_failure_signal",
+          "path": "${validation_dir}/test_results.json",
+          "json_path": "overall_result",
+          "equals": "fail",
+          "context_key": "test_failure"
+        }
+      ]
+    },
+    {
+      "id": "request_release_approval",
+      "type": "approval",
+      "message": "Release actions require human approval."
+    },
+    {
+      "id": "deploy",
+      "type": "program",
+      "step_type": "deploy",
+      "command": "bash programs/deploy.sh ${run_id} ${artifacts_dir}",
+      "requires_connectivity": "deploy_enabled",
+      "contracts": [
+        {
+          "name": "deploy_receipt",
+          "path": "${artifacts_dir}/deploy_receipt.json",
+          "kind": "file_exists"
+        }
+      ]
+    },
+    {
+      "id": "learn_from_run",
+      "type": "agent",
+      "agent": "learning_agent"
+    }
+  ]
+}

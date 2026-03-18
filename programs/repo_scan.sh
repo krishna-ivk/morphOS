@@ -1,9 +1,7 @@
 #!/bin/bash
-repo=$1
+set -euo pipefail
 
-echo "Scanning repository..."
+REPO="${1:-.}"
+OUT_DIR="${2:-artifacts/current}"
 
-tree -L 3 $repo > repo_tree.txt
-cloc $repo > repo_metrics.txt
-
-echo "scan_complete"
+python3 scripts/repo_scan.py "$REPO" "$OUT_DIR"
