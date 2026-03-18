@@ -99,3 +99,23 @@ evolution:
 3. **No direct agent manipulation** — humans interact through interfaces, not by editing agent state mid-run
 4. **No undocumented contributions** — if a human changes something, it must flow through a defined input
 5. **No single-owner dependency** — the organism should degrade gracefully if any single human role is temporarily absent
+
+## Initial Governance Roles To Standardize
+
+The first human authority model for the software-factory stack should include:
+
+1. `workspace_admin`
+   - category: `operator`
+   - owns one workspace or repo group
+   - approves risky local actions
+   - reviews blocked runs
+   - curates local rules, exemplars, and allowed capabilities
+
+2. `super_admin`
+   - category: `escalation_target`
+   - owns global policy and cross-workspace governance
+   - assigns workspace admins
+   - handles approval overrides and high-risk exceptions
+   - controls rollout of globally risky skills, tools, or agent capabilities
+
+These roles should be treated as first-class symbiont cells, not ad hoc UI permissions.
