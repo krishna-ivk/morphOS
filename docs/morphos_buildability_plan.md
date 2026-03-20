@@ -1,6 +1,7 @@
 # morphOS Buildability Plan
 
 Canonical priority note: for the current cross-repo implementation order, see [MORPHOS_V0_IMPLEMENTATION_BOARD.md](/Users/shivakrishnayadav/Documents/skyforce/docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md).
+For parallel execution planning across multiple agents, see [MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md](/Users/shivakrishnayadav/Documents/Software Factory/morphOS/docs/MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md).
 
 This document translates the current `morphOS` specification set into a practical Skyforce implementation plan.
 
