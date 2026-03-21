@@ -1,0 +1,10 @@
+{
+  "name": "program_smoke",
+  "steps": [
+    {
+      "id": "run_program_smoke",
+      "type": "program",
+      "command": "node -e \"process.stdout.write('PROGRAM_SMOKE_OK\\n')\""
+    }
+  ]
+}
