@@ -115,6 +115,7 @@ Canonical priority note: use [MORPHOS_V0_IMPLEMENTATION_BOARD.md](/Users/shivakr
 - `PROFILE_DOCTRINE_PORTFOLIO_SCORECARD_CAPACITY_RECOVERY_SPEC.md` - recovery model for sustained scorecard-queue overload, including intake control, bottleneck handling, restoration, and exit rules
 - `PROFILE_DOCTRINE_PORTFOLIO_SCORECARD_LOAD_SHEDDING_SPEC.md` - explicit load-shedding model for intentionally reducing lower-value scorecard work under overload with visible risk labels and recovery rules
 - `PROFILE_DOCTRINE_PORTFOLIO_SHED_BACKLOG_REACTIVATION_SPEC.md` - controlled reactivation model for restoring intentionally shed doctrine work through filtering, refresh, rate limits, and queue-safe re-entry
+- `P0_GOLDEN_PATH_SEED_PACKET.md` - concrete first factory-spine seed tying work-order intake to Symphony planning, Harness execution, receipt generation, and operator-facing next actions
 - `cell_spec.md` - shared template for all agent definitions
 - `schemas.md` - data contracts and shared structures
 - `interaction_layer_spec.md` - how humans and agents communicate

@@ -228,6 +228,7 @@ The Skyforce runtime already implements several `morphOS`-aligned pieces:
 - [Profile doctrine portfolio scorecard capacity recovery spec](docs/PROFILE_DOCTRINE_PORTFOLIO_SCORECARD_CAPACITY_RECOVERY_SPEC.md)
 - [Profile doctrine portfolio scorecard load shedding spec](docs/PROFILE_DOCTRINE_PORTFOLIO_SCORECARD_LOAD_SHEDDING_SPEC.md)
 - [Profile doctrine portfolio shed backlog reactivation spec](docs/PROFILE_DOCTRINE_PORTFOLIO_SHED_BACKLOG_REACTIVATION_SPEC.md)
+- [P0 golden path seed packet](docs/P0_GOLDEN_PATH_SEED_PACKET.md)
 
 ## Current Release
 
