@@ -51,6 +51,11 @@ Canonical priority note: use [MORPHOS_V0_IMPLEMENTATION_BOARD.md](/Users/shivakr
 - `UPSTREAM_DRIFT_MONITORING_SPEC.md` - monitoring model for detecting when upstream docs, contracts, behavior, or twin assumptions drift enough to require reevaluation
 - `REFERENCE_CONTEXT_PROMOTION_SPEC.md` - governed path for promoting repeatedly useful reference-context lessons and annotations into persistent memory without losing provenance or drift linkage
 - `WORKFLOW_ACCEPTANCE_PROFILE_SPEC.md` - reusable acceptance contract attached to workflow templates so validation, review, and promotion criteria do not have to be reinvented each run
+- `WORK_ORDER_SCHEMA_SPEC.md` - normalized intake schema for turning raw seeds into one durable work-order artifact for the software factory MVP
+- `AGENT_ARCHETYPES_SPEC.md` - role contract for the 6 MVP factory archetypes: planner, coder, reviewer, validator, releaser, and operator liaison
+- `APPROVAL_PACKET_SCHEMA_SPEC.md` - structured approval artifact schema for governed decisions so review and approval stay evidence-backed rather than UI-only
+- `EXECUTION_RECEIPT_SCHEMA_SPEC.md` - structured execution proof schema for what a workflow step or archetype actually did, changed, and validated
+- `MVP_WORKFLOW_BEHAVIOR_SPEC.md` - behavioral contract for the 5 MVP workflows: feature delivery, bug fix, repo evaluation, release preparation, and incident triage
 - `DRIFT_RESPONSE_PLAYBOOK_SPEC.md` - operational playbook for classifying, containing, reevaluating, remediating, and resolving upstream drift without improvising trust decisions
 - `MEMORY_GOVERNANCE_AND_RETENTION_SPEC.md` - lifecycle model for retaining, cooling, archiving, demoting, expiring, holding, and deleting memory with trust, drift, and governance awareness
 - `WORKFLOW_PROFILE_COMPATIBILITY_SPEC.md` - compatibility layer for composing workflow templates, acceptance profiles, tool families, runtime features, modes, and governance expectations safely
