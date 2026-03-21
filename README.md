@@ -2,7 +2,7 @@
 
 `morphOS` is the specification and operating-model repository for the long-term agentic system.
 
-Canonical build-priority note: treat [docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md](/Users/shivakrishnayadav/Documents/skyforce/docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md) as the source of truth for what to build next across `morphOS` and Skyforce.
+Canonical build-priority note: treat [docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md](docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md) as the source of truth for what to build next across `morphOS` and Skyforce.
 
 It defines how the platform should think, coordinate, protect itself, and evolve.
 It is not the primary runtime.
@@ -188,6 +188,11 @@ The Skyforce runtime already implements several `morphOS`-aligned pieces:
 - [MVP workflow behavior spec](docs/MVP_WORKFLOW_BEHAVIOR_SPEC.md)
 - [P0 factory spine recovery plan](docs/P0_FACTORY_SPINE_RECOVERY_PLAN.md)
 - [P0 factory spine implementation checklist](docs/P0_FACTORY_SPINE_IMPLEMENTATION_CHECKLIST.md)
+- [P1 event taxonomy spec](docs/P1_EVENT_TAXONOMY_SPEC.md)
+- [P1 policy hooks spec](docs/P1_POLICY_HOOKS_SPEC.md)
+- [P1 safe promotion spec](docs/P1_SAFE_PROMOTION_SPEC.md)
+- [P1 summary pyramid spec](docs/P1_SUMMARY_PYRAMID_SPEC.md)
+- [P1 universal terminology spec](docs/P1_UNIVERSAL_TERMINOLOGY_SPEC.md)
 - [Software factory techniques for morphOS](docs/SOFTWARE_FACTORY_TECHNIQUES_FOR_MORPHOS.md)
 - [Context architecture](docs/CONTEXT_ARCHITECTURE.md)
 - [Context Hub evaluation](docs/CONTEXT_HUB_EVALUATION.md)

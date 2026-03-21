@@ -7,6 +7,8 @@
 ## Core Concept
 This spec defines the minimum believable software-factory loop. The core value of `morphOS` is not any single agent, but the continuous, strictly-gated pipeline that an agent traverses.
 
+This document defines the target-state `P0` spine. During early proving runs, the pragmatic exception remains the recovery/checklist path in `P0_FACTORY_SPINE_RECOVERY_PLAN.md` and `P0_FACTORY_SPINE_IMPLEMENTATION_CHECKLIST.md`, where a run may stop at approval-ready state or manual merge while the full factory line is still being hardened.
+
 ## The Spine
 1. **Ticket (`Intake`)**: A `work_order.json` is generated from an upstream source (Slack, GitHub Issue, Linear).
 2. **Workflow (`Planning`)**: `skyforce-symphony` selects a workflow template based on the heuristic of the ticket.
@@ -19,3 +21,6 @@ This spec defines the minimum believable software-factory loop. The core value o
 ## Rules of Engagement
 - No phase can be skipped unless explicitly bypassed by a **Super Admin**.
 - `skyforce-symphony` is exclusively responsible for routing the state transitions between these phases.
+
+## Bottom Line
+The `morphOS` delivery spine is a conveyor belt. Agents do not orchestrate; they are simply workers stationed along the belt evaluating components. `Symphony` controls the belt, and `Command Centre` controls the emergency stop button.

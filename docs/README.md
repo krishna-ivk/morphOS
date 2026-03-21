@@ -2,7 +2,7 @@
 
 Use this folder as the main entry point for SkyForce specifications.
 
-Canonical priority note: use [MORPHOS_V0_IMPLEMENTATION_BOARD.md](/Users/shivakrishnayadav/Documents/skyforce/docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md) when you need the authoritative cross-repo build order.
+Canonical priority note: use [MORPHOS_V0_IMPLEMENTATION_BOARD.md](MORPHOS_V0_IMPLEMENTATION_BOARD.md) when you need the authoritative cross-repo build order.
 
 ## Sections
 
@@ -116,6 +116,11 @@ Canonical priority note: use [MORPHOS_V0_IMPLEMENTATION_BOARD.md](/Users/shivakr
 - `PROFILE_DOCTRINE_PORTFOLIO_SCORECARD_LOAD_SHEDDING_SPEC.md` - explicit load-shedding model for intentionally reducing lower-value scorecard work under overload with visible risk labels and recovery rules
 - `PROFILE_DOCTRINE_PORTFOLIO_SHED_BACKLOG_REACTIVATION_SPEC.md` - controlled reactivation model for restoring intentionally shed doctrine work through filtering, refresh, rate limits, and queue-safe re-entry
 - `P0_GOLDEN_PATH_SEED_PACKET.md` - concrete first factory-spine seed tying work-order intake to Symphony planning, Harness execution, receipt generation, and operator-facing next actions
+- `P1_EVENT_TAXONOMY_SPEC.md` - small universal event language for run, step, validation, approval, and promotion transitions across the factory
+- `P1_POLICY_HOOKS_SPEC.md` - first post-P0 runtime policy boundaries for intake, execution, validation, approval, and promotion transitions
+- `P1_SAFE_PROMOTION_SPEC.md` - governed model for moving validated output from isolated workspaces back into the source repository safely
+- `P1_SUMMARY_PYRAMID_SPEC.md` - first operator-facing summary hierarchy for compressing receipts and logs into readable delivery views
+- `P1_UNIVERSAL_TERMINOLOGY_SPEC.md` - operator language mapping that keeps delivery surfaces readable while preserving internal precision
 - `cell_spec.md` - shared template for all agent definitions
 - `schemas.md` - data contracts and shared structures
 - `interaction_layer_spec.md` - how humans and agents communicate
