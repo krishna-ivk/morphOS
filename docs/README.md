@@ -57,6 +57,7 @@ Canonical priority note: use [MORPHOS_V0_IMPLEMENTATION_BOARD.md](/Users/shivakr
 - `EXECUTION_RECEIPT_SCHEMA_SPEC.md` - structured execution proof schema for what a workflow step or archetype actually did, changed, and validated
 - `MVP_WORKFLOW_BEHAVIOR_SPEC.md` - behavioral contract for the 5 MVP workflows: feature delivery, bug fix, repo evaluation, release preparation, and incident triage
 - `P0_FACTORY_SPINE_RECOVERY_PLAN.md` - execution reset plan that freezes most new doctrine work and focuses the platform on one complete end-to-end factory transaction
+- `P0_FACTORY_SPINE_IMPLEMENTATION_CHECKLIST.md` - concrete cross-repo checklist for delivering the first real intake-to-merge software factory transaction
 - `DRIFT_RESPONSE_PLAYBOOK_SPEC.md` - operational playbook for classifying, containing, reevaluating, remediating, and resolving upstream drift without improvising trust decisions
 - `MEMORY_GOVERNANCE_AND_RETENTION_SPEC.md` - lifecycle model for retaining, cooling, archiving, demoting, expiring, holding, and deleting memory with trust, drift, and governance awareness
 - `WORKFLOW_PROFILE_COMPATIBILITY_SPEC.md` - compatibility layer for composing workflow templates, acceptance profiles, tool families, runtime features, modes, and governance expectations safely

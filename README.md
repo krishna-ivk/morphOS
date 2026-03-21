@@ -187,6 +187,7 @@ The Skyforce runtime already implements several `morphOS`-aligned pieces:
 - [Execution receipt schema spec](docs/EXECUTION_RECEIPT_SCHEMA_SPEC.md)
 - [MVP workflow behavior spec](docs/MVP_WORKFLOW_BEHAVIOR_SPEC.md)
 - [P0 factory spine recovery plan](docs/P0_FACTORY_SPINE_RECOVERY_PLAN.md)
+- [P0 factory spine implementation checklist](docs/P0_FACTORY_SPINE_IMPLEMENTATION_CHECKLIST.md)
 - [Software factory techniques for morphOS](docs/SOFTWARE_FACTORY_TECHNIQUES_FOR_MORPHOS.md)
 - [Context architecture](docs/CONTEXT_ARCHITECTURE.md)
 - [Context Hub evaluation](docs/CONTEXT_HUB_EVALUATION.md)
