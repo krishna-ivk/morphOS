@@ -2,8 +2,8 @@
 
 This document is the operating board for running multiple implementation agents across waves.
 
-Use [MORPHOS_V0_IMPLEMENTATION_BOARD.md](/Users/shivakrishnayadav/Documents/Software Factory/morphOS/docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md) for priority.
-Use [MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md](/Users/shivakrishnayadav/Documents/Software Factory/morphOS/docs/MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md) for dependency and exclusivity rules.
+Use [MORPHOS_V0_IMPLEMENTATION_BOARD.md](MORPHOS_V0_IMPLEMENTATION_BOARD.md) for priority.
+Use [MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md](MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md) for dependency and exclusivity rules.
 Use this file to track live ownership, handoffs, and blockers.
 
 ## How To Operate This Board

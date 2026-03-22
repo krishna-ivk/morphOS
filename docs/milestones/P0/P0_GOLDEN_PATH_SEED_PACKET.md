@@ -97,7 +97,7 @@ The golden-path seed should minimally include:
 
 Reference example:
 
-- [P0_GOLDEN_PATH_WORK_ORDER.json](/home/vashista/skyforce/morphOS/docs/examples/P0_GOLDEN_PATH_WORK_ORDER.json)
+- [P0_GOLDEN_PATH_WORK_ORDER.json](../../examples/P0_GOLDEN_PATH_WORK_ORDER.json)
 
 ## Required Runtime Outputs
 

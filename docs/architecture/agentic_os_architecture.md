@@ -4,7 +4,7 @@
 
 Skyforce is an agentic operating system modeled as a **living organism**. Every
 component maps to a biological system, and every agent is grown from a shared
-cellular template (see [cell_spec.md](cell_spec.md)).
+cellular template (see [cell_spec.md](../cell_spec.md)).
 
 The system can:
 
@@ -19,10 +19,10 @@ This document defines the target architecture, component boundaries, and executi
 
 | Biological System | Architecture Component | Specification |
 |---|---|---|
-| Cell | Universal agent template | [cell_spec.md](cell_spec.md) |
+| Cell | Universal agent template | [cell_spec.md](../cell_spec.md) |
 | DNA | Shared data schemas | [schemas.md](schemas.md) |
 | Nervous system | Event bus | [event_bus_spec.md](event_bus_spec.md) |
-| Immune system | Policy engine | [policy_engine_spec.md](policy_engine_spec.md) |
+| Immune system | Policy engine | [policy_engine_spec.md](../policy_engine_spec.md) |
 | Brain + Spinal cord | Orchestration layer | This document, §2 |
 | Sensory organs | Interaction layer | This document, §1 |
 | Endocrine system | Connectivity activation | This document, §3 |

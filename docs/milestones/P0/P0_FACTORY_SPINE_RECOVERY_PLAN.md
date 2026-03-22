@@ -174,11 +174,11 @@ Still allowed during this phase:
 
 - corrections to MVP contract docs
 - implementation-aligned updates to:
-  - [WORK_ORDER_SCHEMA_SPEC.md](/home/vashista/skyforce/morphOS/docs/WORK_ORDER_SCHEMA_SPEC.md)
-  - [AGENT_ARCHETYPES_SPEC.md](/home/vashista/skyforce/morphOS/docs/AGENT_ARCHETYPES_SPEC.md)
-  - [APPROVAL_PACKET_SCHEMA_SPEC.md](/home/vashista/skyforce/morphOS/docs/APPROVAL_PACKET_SCHEMA_SPEC.md)
-  - [EXECUTION_RECEIPT_SCHEMA_SPEC.md](/home/vashista/skyforce/morphOS/docs/EXECUTION_RECEIPT_SCHEMA_SPEC.md)
-  - [MVP_WORKFLOW_BEHAVIOR_SPEC.md](/home/vashista/skyforce/morphOS/docs/MVP_WORKFLOW_BEHAVIOR_SPEC.md)
+  - [WORK_ORDER_SCHEMA_SPEC.md](../../core-mechanics/WORK_ORDER_SCHEMA_SPEC.md)
+  - [AGENT_ARCHETYPES_SPEC.md](../../architecture/AGENT_ARCHETYPES_SPEC.md)
+  - [APPROVAL_PACKET_SCHEMA_SPEC.md](../../core-mechanics/APPROVAL_PACKET_SCHEMA_SPEC.md)
+  - [EXECUTION_RECEIPT_SCHEMA_SPEC.md](../../core-mechanics/EXECUTION_RECEIPT_SCHEMA_SPEC.md)
+  - [MVP_WORKFLOW_BEHAVIOR_SPEC.md](../../core-mechanics/MVP_WORKFLOW_BEHAVIOR_SPEC.md)
 
 ## Exit Criteria
 

@@ -1,6 +1,6 @@
 # morphOS v0 Core Stack
 
-Canonical priority note: this file defines the mandatory stack; use [MORPHOS_V0_IMPLEMENTATION_BOARD.md](/Users/shivakrishnayadav/Documents/skyforce/docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md) for the prioritized implementation order.
+Canonical priority note: this file defines the mandatory stack; use [MORPHOS_V0_IMPLEMENTATION_BOARD.md](MORPHOS_V0_IMPLEMENTATION_BOARD.md) for the prioritized implementation order.
 
 This document defines the non-negotiable runtime stack for `morphOS v0`.
 
@@ -270,7 +270,7 @@ Should own:
 - memory architecture
 - role definitions
 
-### [skyforce-symphony](../../skyforce-symphony)
+### [skyforce-symphony](../../../../skyforce-symphony)
 
 Should own:
 
@@ -280,7 +280,7 @@ Should own:
 - directive routing
 - workflow observability
 
-### [skyforce-core](../../skyforce-core)
+### [skyforce-core](../../../../skyforce-core)
 
 Should own:
 
@@ -289,8 +289,8 @@ Should own:
 - validation and publish contract layer
 - cross-runtime schemas
 
-### [skyforce-command-centre](../../skyforce-command-centre)
-### [skyforce-command-centre-live](../../skyforce-command-centre-live)
+### [skyforce-command-centre](../../../../skyforce-command-centre)
+### [skyforce-command-centre-live](../../../../skyforce-command-centre-live)
 
 Should own:
 
@@ -476,8 +476,8 @@ After this document, the next architecture work should be:
 
 ## Related Docs
 
-- [README.md](../README.md)
-- [HUMAN_GUIDE.md](HUMAN_GUIDE.md)
-- [CONTEXT_ARCHITECTURE.md](CONTEXT_ARCHITECTURE.md)
-- [CONTEXT_HUB_EVALUATION.md](CONTEXT_HUB_EVALUATION.md)
-- [morphos_vs_skyforce_evaluation.md](morphos_vs_skyforce_evaluation.md)
+- [README.md](../../README.md)
+- [HUMAN_GUIDE.md](../../HUMAN_GUIDE.md)
+- [CONTEXT_ARCHITECTURE.md](../../architecture/CONTEXT_ARCHITECTURE.md)
+- [CONTEXT_HUB_EVALUATION.md](../../core-mechanics/CONTEXT_HUB_EVALUATION.md)
+- [morphos_vs_skyforce_evaluation.md](../../morphos_vs_skyforce_evaluation.md)

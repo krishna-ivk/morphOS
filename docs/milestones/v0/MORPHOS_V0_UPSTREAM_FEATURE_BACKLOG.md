@@ -1,6 +1,6 @@
 # morphOS v0 Upstream Feature Backlog
 
-Canonical priority note: this file explains upstream slices; use [MORPHOS_V0_IMPLEMENTATION_BOARD.md](/Users/shivakrishnayadav/Documents/skyforce/docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md) for the final prioritized build order.
+Canonical priority note: this file explains upstream slices; use [MORPHOS_V0_IMPLEMENTATION_BOARD.md](MORPHOS_V0_IMPLEMENTATION_BOARD.md) for the final prioritized build order.
 
 This document turns the upstream adoption map into an actionable implementation
 backlog.
@@ -14,9 +14,9 @@ It answers:
 
 Read this alongside:
 
-- `docs/MORPHOS_V0_UPSTREAM_ADOPTION_MAP.md`
-- `docs/MORPHOS_V0_CORE_STACK.md`
-- `docs/MORPHOS_V0_RUNTIME_CONTRACTS.md`
+- `docs/milestones/v0/MORPHOS_V0_UPSTREAM_ADOPTION_MAP.md`
+- `docs/milestones/v0/MORPHOS_V0_CORE_STACK.md`
+- `docs/milestones/v0/MORPHOS_V0_RUNTIME_CONTRACTS.md`
 
 ## Status Labels
 

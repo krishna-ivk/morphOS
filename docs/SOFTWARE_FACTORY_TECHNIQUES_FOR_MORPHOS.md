@@ -1,6 +1,6 @@
 # Software Factory Techniques For morphOS
 
-Canonical priority note: this file explains the operating methods; use [MORPHOS_V0_IMPLEMENTATION_BOARD.md](/Users/shivakrishnayadav/Documents/skyforce/docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md) for the actual build sequence.
+Canonical priority note: this file explains the operating methods; use [MORPHOS_V0_IMPLEMENTATION_BOARD.md](milestones/v0/MORPHOS_V0_IMPLEMENTATION_BOARD.md) for the actual build sequence.
 
 This document translates the StrongDM Software Factory techniques into
 `morphOS` doctrine.
@@ -15,10 +15,10 @@ It treats them as practical operating methods for a system that must:
 
 Read this alongside:
 
-- `docs/MORPHOS_V0_CORE_STACK.md`
-- `docs/MORPHOS_V0_RUNTIME_CONTRACTS.md`
-- `docs/SYMPHONY_DURABLE_AUTHORITY_BOUNDARY.md`
-- `docs/DURABLE_EXECUTION_HANDOFF_CONTRACTS.md`
+- `docs/milestones/v0/MORPHOS_V0_CORE_STACK.md`
+- `docs/milestones/v0/MORPHOS_V0_RUNTIME_CONTRACTS.md`
+- `docs/architecture/SYMPHONY_DURABLE_AUTHORITY_BOUNDARY.md`
+- `docs/architecture/DURABLE_EXECUTION_HANDOFF_CONTRACTS.md`
 
 ## Core Position
 

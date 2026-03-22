@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This checklist turns the [P0 factory spine recovery plan](/home/vashista/skyforce/morphOS/docs/P0_FACTORY_SPINE_RECOVERY_PLAN.md) into concrete implementation work across the active Skyforce repos.
+This checklist turns the [P0 factory spine recovery plan](P0_FACTORY_SPINE_RECOVERY_PLAN.md) into concrete implementation work across the active Skyforce repos.
 
 The target is one successful end-to-end transaction:
 
@@ -51,7 +51,7 @@ This checklist is done only when:
 
 ### `morphOS`
 
-- use [WORK_ORDER_SCHEMA_SPEC.md](/home/vashista/skyforce/morphOS/docs/WORK_ORDER_SCHEMA_SPEC.md) as the intake contract
+- use [WORK_ORDER_SCHEMA_SPEC.md](../../core-mechanics/WORK_ORDER_SCHEMA_SPEC.md) as the intake contract
 - keep the schema minimal for the first run
 
 ### `skyforce-core`
@@ -86,7 +86,7 @@ This checklist is done only when:
 
 ### `morphOS`
 
-- use [AGENT_ARCHETYPES_SPEC.md](/home/vashista/skyforce/morphOS/docs/AGENT_ARCHETYPES_SPEC.md) only as role constraint
+- use [AGENT_ARCHETYPES_SPEC.md](../../architecture/AGENT_ARCHETYPES_SPEC.md) only as role constraint
 - do not expand archetype doctrine during this phase
 
 ### Exit Condition
@@ -138,7 +138,7 @@ This checklist is done only when:
 
 ### `morphOS`
 
-- use [EXECUTION_RECEIPT_SCHEMA_SPEC.md](/home/vashista/skyforce/morphOS/docs/EXECUTION_RECEIPT_SCHEMA_SPEC.md) as the target contract
+- use [EXECUTION_RECEIPT_SCHEMA_SPEC.md](../../core-mechanics/EXECUTION_RECEIPT_SCHEMA_SPEC.md) as the target contract
 - do not widen receipt doctrine beyond what the code path consumes
 
 ### Exit Condition
@@ -162,7 +162,7 @@ This checklist is done only when:
 
 ### `morphOS`
 
-- use [APPROVAL_PACKET_SCHEMA_SPEC.md](/home/vashista/skyforce/morphOS/docs/APPROVAL_PACKET_SCHEMA_SPEC.md) as the minimum packet contract
+- use [APPROVAL_PACKET_SCHEMA_SPEC.md](../../core-mechanics/APPROVAL_PACKET_SCHEMA_SPEC.md) as the minimum packet contract
 
 ### Exit Condition
 

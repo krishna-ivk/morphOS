@@ -2,7 +2,7 @@
 
 This document translates the canonical board into a parallel execution plan for multiple agents working across `morphOS` and the Skyforce repos.
 
-Use [MORPHOS_V0_IMPLEMENTATION_BOARD.md](/Users/shivakrishnayadav/Documents/Software Factory/morphOS/docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md) for final priority order.
+Use [MORPHOS_V0_IMPLEMENTATION_BOARD.md](MORPHOS_V0_IMPLEMENTATION_BOARD.md) for final priority order.
 Use this document when you need to answer different questions:
 
 - which workstreams can run in parallel
@@ -400,7 +400,7 @@ Use lineage to avoid re-deriving intent.
 
 ### Delivery spine lineage
 
-- board: `docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md`
+- board: `docs/milestones/v0/MORPHOS_V0_IMPLEMENTATION_BOARD.md`
 - design: `docs/morphos-software-factory-mvp.md`
 - runtime owner: `skyforce-symphony`
 - execution owner: `skyforce-harness`
@@ -409,23 +409,23 @@ Use lineage to avoid re-deriving intent.
 
 ### Durable lineage
 
-- board: `docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md`
-- design: `docs/SYMPHONY_DURABLE_AUTHORITY_BOUNDARY.md`
-- design: `docs/DURABLE_EXECUTION_HANDOFF_CONTRACTS.md`
+- board: `docs/milestones/v0/MORPHOS_V0_IMPLEMENTATION_BOARD.md`
+- design: `docs/architecture/SYMPHONY_DURABLE_AUTHORITY_BOUNDARY.md`
+- design: `docs/architecture/DURABLE_EXECUTION_HANDOFF_CONTRACTS.md`
 - contract owner: `skyforce-core`
 - runtime owner: `skyforce-symphony`
 
 ### Filesystem and memory lineage
 
-- board: `docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md`
+- board: `docs/milestones/v0/MORPHOS_V0_IMPLEMENTATION_BOARD.md`
 - design: `docs/morphos-software-factory-mvp.md`
-- design: `docs/CONTEXT_ARCHITECTURE.md`
+- design: `docs/architecture/CONTEXT_ARCHITECTURE.md`
 - contract owner: `skyforce-core`
 - runtime owner: `skyforce-symphony`
 
 ### Governance lineage
 
-- board: `docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md`
+- board: `docs/milestones/v0/MORPHOS_V0_IMPLEMENTATION_BOARD.md`
 - design: `docs/human_cell_spec.md`
 - design: `docs/policy_engine_spec.md`
 - contract owner: `skyforce-core`
@@ -434,7 +434,7 @@ Use lineage to avoid re-deriving intent.
 
 ### Language and observability lineage
 
-- board: `docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md`
+- board: `docs/milestones/v0/MORPHOS_V0_IMPLEMENTATION_BOARD.md`
 - design: `docs/UNIVERSAL_DELIVERY_TERMINOLOGY.md`
 - design: `docs/event_bus_spec.md`
 - design: `docs/morphos-software-factory-mvp.md`
@@ -443,7 +443,7 @@ Use lineage to avoid re-deriving intent.
 
 ### Promotion lineage
 
-- board: `docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md`
+- board: `docs/milestones/v0/MORPHOS_V0_IMPLEMENTATION_BOARD.md`
 - design: `docs/morphos-software-factory-mvp.md`
 - contract owner: `skyforce-core`
 - runtime owner: `skyforce-symphony`

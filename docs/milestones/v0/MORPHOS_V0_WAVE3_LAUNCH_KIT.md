@@ -60,7 +60,7 @@ Inputs:
 - Wave 1 runner receipt examples
 - Wave 2 governance state handoff
 - morphOS/docs/morphos-software-factory-mvp.md
-- morphOS/docs/MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md
+- morphOS/docs/milestones/v0/MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md
 
 Forbidden surfaces:
 - contract redesign

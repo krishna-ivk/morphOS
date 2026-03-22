@@ -624,6 +624,6 @@ After this document, the next architecture layer should be:
 ## Related Docs
 
 - [MORPHOS_V0_CORE_STACK.md](MORPHOS_V0_CORE_STACK.md)
-- [schemas.md](schemas.md)
-- [CONTEXT_ARCHITECTURE.md](CONTEXT_ARCHITECTURE.md)
-- [morphos_vs_skyforce_evaluation.md](morphos_vs_skyforce_evaluation.md)
+- [schemas.md](../../architecture/schemas.md)
+- [CONTEXT_ARCHITECTURE.md](../../architecture/CONTEXT_ARCHITECTURE.md)
+- [morphos_vs_skyforce_evaluation.md](../../morphos_vs_skyforce_evaluation.md)

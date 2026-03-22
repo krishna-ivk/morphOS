@@ -11,10 +11,10 @@ It focuses on three slices:
 
 This should be read alongside:
 
-- `docs/CONTEXT_ARCHITECTURE.md`
-- `docs/CONTEXT_HUB_EVALUATION.md`
-- `docs/MORPHOS_V0_UPSTREAM_ADOPTION_MAP.md`
-- `docs/MORPHOS_V0_UPSTREAM_FEATURE_BACKLOG.md`
+- `docs/architecture/CONTEXT_ARCHITECTURE.md`
+- `docs/core-mechanics/CONTEXT_HUB_EVALUATION.md`
+- `docs/milestones/v0/MORPHOS_V0_UPSTREAM_ADOPTION_MAP.md`
+- `docs/milestones/v0/MORPHOS_V0_UPSTREAM_FEATURE_BACKLOG.md`
 
 ## Goal
 

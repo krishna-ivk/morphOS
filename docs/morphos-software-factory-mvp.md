@@ -1,6 +1,6 @@
 # morphOS Software Factory MVP
 
-Canonical priority note: for the authoritative feature order and repo ownership, see [MORPHOS_V0_IMPLEMENTATION_BOARD.md](/Users/shivakrishnayadav/Documents/skyforce/docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md).
+Canonical priority note: for the authoritative feature order and repo ownership, see [MORPHOS_V0_IMPLEMENTATION_BOARD.md](milestones/v0/MORPHOS_V0_IMPLEMENTATION_BOARD.md).
 
 ## Goal
 

@@ -259,11 +259,11 @@ The main freeze delta is:
   - froze shared names and minimum fields for Wave 1
 - `files_changed`
   - `morphOS/docs/contract_freeze_notes.md`
-  - `morphOS/docs/MORPHOS_V0_MULTI_AGENT_STATUS_BOARD.md`
+  - `morphOS/docs/milestones/v0/MORPHOS_V0_MULTI_AGENT_STATUS_BOARD.md`
   - `morphOS/docs/README.md`
 - `contracts_relied_on`
   - `skyforce-core/packages/contracts/src/index.ts`
-  - `morphOS/docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md`
+  - `morphOS/docs/milestones/v0/MORPHOS_V0_IMPLEMENTATION_BOARD.md`
   - `morphOS/docs/morphos-software-factory-mvp.md`
   - `morphOS/docs/human_cell_spec.md`
   - `morphOS/docs/policy_engine_spec.md`

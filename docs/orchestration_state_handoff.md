@@ -94,8 +94,8 @@ Passed targeted tests:
   - `skyforce-symphony/elixir/test/symphony_elixir/extensions_test.exs`
 - `contracts_relied_on`
   - `morphOS/docs/contract_freeze_notes.md`
-  - `morphOS/docs/DURABLE_EXECUTION_HANDOFF_CONTRACTS.md`
-  - `morphOS/docs/SYMPHONY_DURABLE_AUTHORITY_BOUNDARY.md`
+- `morphOS/docs/architecture/DURABLE_EXECUTION_HANDOFF_CONTRACTS.md`
+- `morphOS/docs/architecture/SYMPHONY_DURABLE_AUTHORITY_BOUNDARY.md`
 - `events_changed`
   - none yet; this handoff focused on state payload and directive shape alignment
 - `artifacts_emitted`

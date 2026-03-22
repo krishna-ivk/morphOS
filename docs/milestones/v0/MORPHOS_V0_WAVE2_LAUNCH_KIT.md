@@ -2,7 +2,7 @@
 
 Wave 2 begins only after Wave 1 has produced stable contracts, runtime states, receipts, and artifacts.
 
-Use [MORPHOS_V0_WAVE1_LAUNCH_KIT.md](/Users/shivakrishnayadav/Documents/Software Factory/morphOS/docs/MORPHOS_V0_WAVE1_LAUNCH_KIT.md) for the first batch.
+Use [MORPHOS_V0_WAVE1_LAUNCH_KIT.md](MORPHOS_V0_WAVE1_LAUNCH_KIT.md) for the first batch.
 Use this file when the runtime backbone is ready and governance plus full operator rollout should begin.
 
 ## Wave 2 Goal
@@ -70,8 +70,8 @@ Required outputs:
 Inputs:
 - Wave 1 contract freeze notes
 - Wave 1 orchestration state handoff
-- morphOS/docs/MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md
-- morphOS/docs/MORPHOS_V0_AGENT_DISPATCH_PACKETS.md
+- morphOS/docs/milestones/v0/MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md
+- morphOS/docs/milestones/v0/MORPHOS_V0_AGENT_DISPATCH_PACKETS.md
 
 Forbidden surfaces:
 - harness runner internals
@@ -147,7 +147,7 @@ Required outputs:
 Inputs:
 - Wave 1 contract freeze notes
 - Wave 2 blocker report from Agent B or Agent D
-- morphOS/docs/MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md
+- morphOS/docs/milestones/v0/MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md
 
 Forbidden surfaces:
 - runtime logic

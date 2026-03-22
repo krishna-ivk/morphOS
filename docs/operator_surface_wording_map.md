@@ -133,7 +133,7 @@ Wave 1 inventory should only prepare the map, not mutate stable technical interf
   - inventoried current command-centre and CLI wording and mapped the highest-value delivery-language upgrades
 - `files_changed`
   - `morphOS/docs/operator_surface_wording_map.md`
-  - `morphOS/docs/MORPHOS_V0_MULTI_AGENT_STATUS_BOARD.md`
+  - `morphOS/docs/milestones/v0/MORPHOS_V0_MULTI_AGENT_STATUS_BOARD.md`
   - `morphOS/docs/README.md`
   - `skyforce-core/packages/contracts/src/index.ts`
 - `contracts_relied_on`

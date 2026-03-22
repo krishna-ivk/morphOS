@@ -1,7 +1,7 @@
 # morphOS Buildability Plan
 
-Canonical priority note: for the current cross-repo implementation order, see [MORPHOS_V0_IMPLEMENTATION_BOARD.md](/Users/shivakrishnayadav/Documents/skyforce/docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md).
-For parallel execution planning across multiple agents, see [MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md](/Users/shivakrishnayadav/Documents/Software Factory/morphOS/docs/MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md).
+Canonical priority note: for the current cross-repo implementation order, see [MORPHOS_V0_IMPLEMENTATION_BOARD.md](milestones/v0/MORPHOS_V0_IMPLEMENTATION_BOARD.md).
+For parallel execution planning across multiple agents, see [MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md](milestones/v0/MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md).
 
 This document translates the current `morphOS` specification set into a practical Skyforce implementation plan.
 
@@ -460,7 +460,7 @@ Approval and escalation logic should not be guessed into existence.
 For someone new to the platform, read in this order:
 
 1. `README.md`
-2. `docs/SKYFORCE_RUNTIME_OVERVIEW.md`
+2. `docs/HUMAN_GUIDE.md`
 3. `docs/morphos_vs_skyforce_evaluation.md`
 4. this buildability plan
 5. `docs/ROADMAP.md`

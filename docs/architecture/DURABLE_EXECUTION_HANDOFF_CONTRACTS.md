@@ -9,7 +9,7 @@ for real durable execution in `morphOS v0`.
 
 It is the concrete follow-up to:
 
-- [morphOS v0 runtime contracts](MORPHOS_V0_RUNTIME_CONTRACTS.md)
+- [morphOS v0 runtime contracts](../milestones/v0/MORPHOS_V0_RUNTIME_CONTRACTS.md)
 - [Symphony and Durable authority boundary](SYMPHONY_DURABLE_AUTHORITY_BOUNDARY.md)
 
 Those docs define the objects and the ownership split.
@@ -348,6 +348,6 @@ These should be distinct from, but linked to:
 
 ## Related Docs
 
-- [MORPHOS_V0_CORE_STACK.md](MORPHOS_V0_CORE_STACK.md)
-- [MORPHOS_V0_RUNTIME_CONTRACTS.md](MORPHOS_V0_RUNTIME_CONTRACTS.md)
+- [MORPHOS_V0_CORE_STACK.md](../milestones/v0/MORPHOS_V0_CORE_STACK.md)
+- [MORPHOS_V0_RUNTIME_CONTRACTS.md](../milestones/v0/MORPHOS_V0_RUNTIME_CONTRACTS.md)
 - [SYMPHONY_DURABLE_AUTHORITY_BOUNDARY.md](SYMPHONY_DURABLE_AUTHORITY_BOUNDARY.md)

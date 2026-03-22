@@ -12,10 +12,10 @@ It answers a practical question:
 
 This should be read alongside:
 
-- `docs/MORPHOS_V0_CORE_STACK.md`
-- `docs/MORPHOS_V0_RUNTIME_CONTRACTS.md`
-- `docs/SYMPHONY_DURABLE_AUTHORITY_BOUNDARY.md`
-- `docs/DURABLE_EXECUTION_HANDOFF_CONTRACTS.md`
+- `docs/milestones/v0/MORPHOS_V0_CORE_STACK.md`
+- `docs/milestones/v0/MORPHOS_V0_RUNTIME_CONTRACTS.md`
+- `docs/architecture/SYMPHONY_DURABLE_AUTHORITY_BOUNDARY.md`
+- `docs/architecture/DURABLE_EXECUTION_HANDOFF_CONTRACTS.md`
 - `docs/SOFTWARE_FACTORY_TECHNIQUES_FOR_MORPHOS.md`
 
 ## Core Rule

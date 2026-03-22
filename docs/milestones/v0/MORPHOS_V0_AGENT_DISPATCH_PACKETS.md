@@ -2,7 +2,7 @@
 
 This document turns the multi-agent implementation plan into ready-to-assign packets.
 
-Use [MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md](/Users/shivakrishnayadav/Documents/Software Factory/morphOS/docs/MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md) for workstream rules, exclusivity, and wave order.
+Use [MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md](MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md) for workstream rules, exclusivity, and wave order.
 Use this file when you want to launch multiple agents without repeating system context.
 
 ## How To Use This File
@@ -62,8 +62,8 @@ Freeze the shared shapes so downstream runtime and UI work can proceed without r
 
 ### Inputs
 
-- `docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md`
-- `docs/MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md`
+- `docs/milestones/v0/MORPHOS_V0_IMPLEMENTATION_BOARD.md`
+- `docs/milestones/v0/MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md`
 - `docs/human_cell_spec.md`
 - `docs/policy_engine_spec.md`
 - `docs/event_bus_spec.md`
@@ -117,9 +117,9 @@ Implement the orchestration-side runtime semantics for program, approval, durabi
 ### Inputs
 
 - Agent A contract freeze notes
-- `docs/SYMPHONY_DURABLE_AUTHORITY_BOUNDARY.md`
-- `docs/DURABLE_EXECUTION_HANDOFF_CONTRACTS.md`
-- `docs/MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md`
+- `docs/architecture/SYMPHONY_DURABLE_AUTHORITY_BOUNDARY.md`
+- `docs/architecture/DURABLE_EXECUTION_HANDOFF_CONTRACTS.md`
+- `docs/milestones/v0/MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md`
 
 ### File scope
 
@@ -170,7 +170,7 @@ Make `program` steps execute natively and emit stable receipts, artifacts, and v
 - Agent A contract freeze notes
 - Agent B orchestration state handoff for expected runner inputs and outputs
 - `docs/morphos-software-factory-mvp.md`
-- `docs/MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md`
+- `docs/milestones/v0/MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md`
 
 ### File scope
 
@@ -222,7 +222,7 @@ Make the operator-facing surfaces consistent, delivery-first, and summary-pyrami
 - Agent A terminology and summary contract freeze
 - Agent B stable workflow states
 - `docs/UNIVERSAL_DELIVERY_TERMINOLOGY.md`
-- `docs/MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md`
+- `docs/milestones/v0/MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md`
 
 ### File scope
 
@@ -275,7 +275,7 @@ Close the loop back to source repos with safe promotion, deterministic closeout,
 - Agent B stable completion and approval states
 - Agent C stable validation outputs and receipts
 - `docs/morphos-software-factory-mvp.md`
-- `docs/MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md`
+- `docs/milestones/v0/MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md`
 
 ### File scope
 

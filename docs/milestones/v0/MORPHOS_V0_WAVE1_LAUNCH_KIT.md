@@ -2,8 +2,8 @@
 
 This document is the fastest way to start the first parallel implementation wave.
 
-Use [MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md](/Users/shivakrishnayadav/Documents/Software Factory/morphOS/docs/MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md) for system coordination rules.
-Use [MORPHOS_V0_AGENT_DISPATCH_PACKETS.md](/Users/shivakrishnayadav/Documents/Software Factory/morphOS/docs/MORPHOS_V0_AGENT_DISPATCH_PACKETS.md) for the full packet definitions.
+Use [MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md](MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md) for system coordination rules.
+Use [MORPHOS_V0_AGENT_DISPATCH_PACKETS.md](MORPHOS_V0_AGENT_DISPATCH_PACKETS.md) for the full packet definitions.
 
 This file is intentionally narrower.
 It only covers the first launch batch and the minimum prompts needed to begin work.
@@ -85,9 +85,9 @@ Required outputs:
 - contract_freeze_notes.md
 
 Inputs:
-- morphOS/docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md
-- morphOS/docs/MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md
-- morphOS/docs/MORPHOS_V0_AGENT_DISPATCH_PACKETS.md
+- morphOS/docs/milestones/v0/MORPHOS_V0_IMPLEMENTATION_BOARD.md
+- morphOS/docs/milestones/v0/MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md
+- morphOS/docs/milestones/v0/MORPHOS_V0_AGENT_DISPATCH_PACKETS.md
 - morphOS/docs/human_cell_spec.md
 - morphOS/docs/policy_engine_spec.md
 - morphOS/docs/event_bus_spec.md
@@ -131,10 +131,10 @@ Required outputs:
 
 Inputs:
 - Agent A contract_freeze_notes.md
-- morphOS/docs/SYMPHONY_DURABLE_AUTHORITY_BOUNDARY.md
-- morphOS/docs/DURABLE_EXECUTION_HANDOFF_CONTRACTS.md
-- morphOS/docs/MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md
-- morphOS/docs/MORPHOS_V0_AGENT_DISPATCH_PACKETS.md
+- morphOS/docs/architecture/SYMPHONY_DURABLE_AUTHORITY_BOUNDARY.md
+- morphOS/docs/architecture/DURABLE_EXECUTION_HANDOFF_CONTRACTS.md
+- morphOS/docs/milestones/v0/MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md
+- morphOS/docs/milestones/v0/MORPHOS_V0_AGENT_DISPATCH_PACKETS.md
 
 Forbidden surfaces:
 - skyforce-harness runner internals
@@ -175,8 +175,8 @@ Inputs:
 - Agent A contract_freeze_notes.md
 - Agent B orchestration_state_handoff.md
 - morphOS/docs/morphos-software-factory-mvp.md
-- morphOS/docs/MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md
-- morphOS/docs/MORPHOS_V0_AGENT_DISPATCH_PACKETS.md
+- morphOS/docs/milestones/v0/MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md
+- morphOS/docs/milestones/v0/MORPHOS_V0_AGENT_DISPATCH_PACKETS.md
 
 Forbidden surfaces:
 - Symphony workflow progression semantics
@@ -216,8 +216,8 @@ Required outputs:
 Inputs:
 - Agent A contract_freeze_notes.md
 - morphOS/docs/UNIVERSAL_DELIVERY_TERMINOLOGY.md
-- morphOS/docs/MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md
-- morphOS/docs/MORPHOS_V0_AGENT_DISPATCH_PACKETS.md
+- morphOS/docs/milestones/v0/MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md
+- morphOS/docs/milestones/v0/MORPHOS_V0_AGENT_DISPATCH_PACKETS.md
 
 Forbidden surfaces:
 - runtime logic
