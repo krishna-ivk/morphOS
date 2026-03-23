@@ -1,0 +1,56 @@
+{
+  "schema_version": "1.0",
+  "work_order_id": "wo_linear_sync_program_smoke",
+  "created_at": "2026-03-21T00:00:00Z",
+  "source": {
+    "seed_kind": "issue",
+    "origin_system": "linear",
+    "origin_ref": "PLAT-101"
+  },
+  "request": {
+    "title": "Run program smoke lane for Linear sync envelope path",
+    "summary": "Prove Symphony can emit a program-smoke execution envelope that Harness can consume and report.",
+    "work_type": "feature_delivery",
+    "desired_outcome": "approval_ready_receipt"
+  },
+  "scope": {
+    "target_repos": [
+      "skyforce-symphony",
+      "skyforce-harness",
+      "skyforce-command-centre"
+    ],
+    "expected_change_types": [
+      "workflow_orchestration",
+      "execution_receipt",
+      "operator_sync"
+    ]
+  },
+  "constraints": {
+    "execution_mode": "factory"
+  },
+  "acceptance": {
+    "required_outputs": [
+      "execution_envelope",
+      "execution_receipt",
+      "linear_sync_intent"
+    ],
+    "done_definition": "One program_runner step completes and yields an approval-ready packet."
+  },
+  "governance": {
+    "approval_posture": "workspace_review",
+    "requires_human_review": true,
+    "authority_scope": "workspace",
+    "required_approver_role": "workspace_admin",
+    "workspace_id": "workspace-PLAT-101",
+    "workspace_admin_id": "operator-1"
+  },
+  "routing": {
+    "suggested_workflow": "program_smoke",
+    "suggested_archetypes": [
+      "planner",
+      "coder",
+      "validator"
+    ],
+    "delivery_lane": "golden_path"
+  }
+}

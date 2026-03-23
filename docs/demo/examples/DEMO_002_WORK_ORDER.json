@@ -1,0 +1,30 @@
+{
+    "schema_version": "1.0",
+    "work_order_id": "wo_demo_build_001",
+    "created_at": "2026-03-23T00:00:00Z",
+    "source": {
+        "seed_kind": "issue",
+        "origin_system": "manual",
+        "origin_ref": "DEMO-001"
+    },
+    "request": {
+        "title": "Run a simple program smoke task",
+        "summary": "Validate the software factory can execute a simple program workflow and produce approval-ready artifacts.",
+        "work_type": "feature_delivery",
+        "desired_outcome": "approval_ready_receipt"
+    },
+    "scope": {
+        "target_repos": [
+            "skyforce-symphony",
+            "skyforce-harness",
+            "skyforce-command-centre"
+        ]
+    },
+    "governance": {
+        "workspace_id": "workspace-DEMO-001",
+        "workspace_admin_id": "operator-1"
+    },
+    "routing": {
+        "suggested_workflow": "program_smoke"
+    }
+}

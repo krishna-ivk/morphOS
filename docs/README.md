@@ -15,6 +15,68 @@ Canonical priority note: use [MORPHOS_V0_IMPLEMENTATION_BOARD.md](milestones/v0/
 
 - `architecture/agentic_os_architecture.md` - overall operating system design
 - `milestones/v0/MORPHOS_V0_IMPLEMENTATION_BOARD.md` - canonical prioritized build board
+- `milestones/P1/P1_IMPLEMENTATION_STATUS.md` - practical bridge between `P1` doctrine and what is actually implemented in code right now
+- `examples/P0_GOLDEN_PATH_WORK_ORDER.json` - canonical sample work-order packet for the first factory-spine proving run
+
+## Runtime-Critical
+
+These are the most important documents when the goal is to keep implementation and
+operator behavior aligned to the real factory spine.
+
+- `milestones/P0/P0_FACTORY_SPINE_RECOVERY_PLAN.md` - recovery posture for proving the first real end-to-end factory transaction before expanding doctrine again
+- `milestones/P0/P0_FACTORY_SPINE_IMPLEMENTATION_CHECKLIST.md` - concrete cross-repo build order for the first intake-to-approval transaction
+- `milestones/P0/P0_GOLDEN_PATH_SEED_PACKET.md` - narrow golden-path seed used to prove Symphony, Harness, and Command Centre integration
+- `core-mechanics/WORK_ORDER_SCHEMA_SPEC.md` - normalized intake contract
+- `core-mechanics/EXECUTION_RECEIPT_SCHEMA_SPEC.md` - execution proof contract
+- `core-mechanics/APPROVAL_PACKET_SCHEMA_SPEC.md` - approval artifact contract
+- `core-mechanics/PYRAMID_SUMMARY_RENDERING_SPEC.md` - shared summary model for operator and approval surfaces
+- `core-mechanics/POLICY_HOOKS_AT_WORKFLOW_BOUNDARIES_SPEC.md` - named runtime policy gates
+- `architecture/AGENT_ARCHETYPES_SPEC.md` - core MVP archetype contract
+
+## P0 Proven Spine
+
+These docs describe the currently prioritized proving path and its immediately
+adjacent governance model.
+
+- `milestones/P0/P0_DURABLE_LIFECYCLE_SPEC.md`
+- `milestones/P0/P0_END_TO_END_DELIVERY_SPINE_SPEC.md`
+- `milestones/P0/P0_INTERACTIVE_VS_FACTORY_MODE_SPEC.md`
+- `milestones/P0/P0_PROGRAM_AND_APPROVAL_EXECUTION_SPEC.md`
+- `milestones/P0/P0_SUPER_ADMIN_MODEL_SPEC.md`
+- `milestones/P0/P0_WORKSPACE_ADMIN_MODEL_SPEC.md`
+
+## P1 In Flight
+
+These are the next-layer specs that should be read as `post-P0` runtime shaping
+documents, not as claims that every behavior is already fully implemented.
+
+- `milestones/P1/P1_IMPLEMENTATION_STATUS.md`
+- `milestones/P1/P1_EVENT_TAXONOMY_SPEC.md`
+- `milestones/P1/P1_POLICY_HOOKS_SPEC.md`
+- `milestones/P1/P1_SAFE_PROMOTION_SPEC.md`
+- `milestones/P1/P1_SUMMARY_PYRAMID_SPEC.md`
+- `milestones/P1/P1_OPERATOR_LOGIN_SURFACE_SPEC.md`
+- `milestones/P1/P1_UNIVERSAL_TERMINOLOGY_SPEC.md`
+
+## Canonical Examples
+
+Use `docs/examples/` for stable reference packets, not for operator scratch output
+or ad hoc runtime experiments.
+
+- `examples/P0_GOLDEN_PATH_WORK_ORDER.json` - canonical `P0` work order
+
+## Long-Horizon Doctrine
+
+The doctrine stack is still useful, but it should be read after the spine and
+runtime-critical specs, not before them.
+
+- `doctrines/` - long-horizon portfolio doctrine, freeze, maturity, scorecard, and governance documents
+
+## Broader Catalog
+
+The remaining lists below provide the fuller catalog of architecture, workflow,
+handoff, and doctrine materials.
+
 - `milestones/v0/MORPHOS_V0_MULTI_AGENT_IMPLEMENTATION_PLAN.md` - cross-repo parallel execution plan with dependencies, lineage, and exclusivity rules
 - `milestones/v0/MORPHOS_V0_AGENT_DISPATCH_PACKETS.md` - ready-to-assign packets and dependency matrix for parallel agent execution
 - `milestones/v0/MORPHOS_V0_MULTI_AGENT_STATUS_BOARD.md` - live ownership, gate, and handoff board for running parallel agents
@@ -124,6 +186,8 @@ Canonical priority note: use [MORPHOS_V0_IMPLEMENTATION_BOARD.md](milestones/v0/
 - `milestones/P1/P1_POLICY_HOOKS_SPEC.md` - first post-P0 runtime policy boundaries for intake, execution, validation, approval, and promotion transitions
 - `milestones/P1/P1_SAFE_PROMOTION_SPEC.md` - governed model for moving validated output from isolated workspaces back into the source repository safely
 - `milestones/P1/P1_SUMMARY_PYRAMID_SPEC.md` - first operator-facing summary hierarchy for compressing receipts and logs into readable delivery views
+- `milestones/P1/P1_OPERATOR_LOGIN_SURFACE_SPEC.md` - first production login surface for Command Centre Live, including operator session shape, route protection, UI copy, and acceptance criteria
+- `milestones/P1/P1_IMPLEMENTATION_STATUS.md` - current `P1` implementation bridge showing which `P1` specs are specified only, partially implemented, or already live in code
 - `milestones/P1/P1_UNIVERSAL_TERMINOLOGY_SPEC.md` - operator language mapping that keeps delivery surfaces readable while preserving internal precision
 - `cell_spec.md` - shared template for all agent definitions
 - `architecture/schemas.md` - data contracts and shared structures
