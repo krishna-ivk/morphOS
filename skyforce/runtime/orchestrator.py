@@ -4,6 +4,9 @@ import json
 import re
 import shutil
 import subprocess
+import hashlib
+import fnmatch
+import difflib
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
@@ -368,6 +371,9 @@ class Orchestrator:
             str(path)
             for path in (run_dir / "artifacts" / "promotions").glob("*_promotion_receipt.json")
         )
+        source_handoffs = sorted(
+            str(path) for path in (run_dir / "artifacts").glob("*_source_handoff.json")
+        )
         return {
             "run_id": run_id,
             "workflow": state.workflow,
@@ -381,7 +387,7 @@ class Orchestrator:
             "pending_approval": pending,
             "deferred_actions": read_json(run_dir / "artifacts" / "deferred_actions.json", []),
             "evidence": evidence,
-            "evidence_refs": [str(run_dir / "summaries" / "evidence.json"), *promotion_receipts],
+            "evidence_refs": [str(run_dir / "summaries" / "evidence.json"), *source_handoffs, *promotion_receipts],
             "contract_reports": sorted(
                 path.name.replace("_contract_report.json", "")
                 for path in (run_dir / "validation").glob("*_contract_report.json")
@@ -543,6 +549,135 @@ class Orchestrator:
             "candidates": [] if apply else candidates,
             "results": results,
             "skipped": [],
+        }
+
+    def promote_workspace_changes(
+        self,
+        run_id: str,
+        apply: bool = False,
+        only_files: list[str] | None = None,
+        exclude_files: list[str] | None = None,
+    ) -> dict[str, Any]:
+        run_dir = self.repo_root / "artifacts" / "runs" / run_id
+        state_payload = read_json(run_dir / "artifacts" / "run_state.json", None)
+        state = (
+            RunState.from_dict(state_payload)
+            if isinstance(state_payload, dict) and state_payload.get("run_id")
+            else RunState(
+                run_id=run_id,
+                workflow="unknown",
+                mode="factory",
+                status="completed",
+                pause_reason=None,
+                steps=[],
+                context={},
+                started_at=_now(),
+            )
+        )
+        handoff_paths = sorted((run_dir / "artifacts").glob("*_source_handoff.json"))
+        candidates = []
+        promoted = []
+
+        for handoff_path in handoff_paths:
+            handoff = read_json(handoff_path, {})
+            workspace_path = Path(handoff["workspace_path"])
+            source_repo_path = Path(handoff["source_repo_path"])
+            workspace_files = handoff.get("workspace_files", [])
+            selected_files = self._select_workspace_files(workspace_files, only_files, exclude_files)
+            file_statuses = []
+            checksums = []
+            for rel_path in selected_files:
+                workspace_file = workspace_path / rel_path
+                source_file = source_repo_path / rel_path
+                workspace_text = workspace_file.read_text(encoding="utf-8") if workspace_file.exists() else ""
+                source_text = source_file.read_text(encoding="utf-8") if source_file.exists() else ""
+                status = "create" if not source_file.exists() else ("overwrite" if source_text != workspace_text else "unchanged")
+                preview = "".join(
+                    difflib.unified_diff(
+                        source_text.splitlines(keepends=True),
+                        workspace_text.splitlines(keepends=True),
+                        fromfile=f"a/{rel_path}",
+                        tofile=f"b/{rel_path}",
+                        n=2,
+                    )
+                )
+                checksum_entry = {
+                    "path": rel_path,
+                    "source": self._checksum_text(source_text) if source_file.exists() else None,
+                    "workspace": self._checksum_text(workspace_text) if workspace_file.exists() else None,
+                }
+                checksums.append(checksum_entry)
+                file_statuses.append(
+                    {
+                        "path": rel_path,
+                        "status": status,
+                        "preview": preview,
+                        "checksums": checksum_entry,
+                    }
+                )
+
+            source_dirty = self._is_git_dirty(source_repo_path)
+            candidate = {
+                "run_id": run_id,
+                "step_id": handoff.get("step_id"),
+                "workspace_path": str(workspace_path),
+                "source_repo_path": str(source_repo_path),
+                "promotion_ready": handoff.get("promotion_ready", False),
+                "changed_file_count": len(selected_files),
+                "workspace_files": workspace_files,
+                "selected_files": selected_files,
+                "selection": {
+                    "only_files": only_files or [],
+                    "exclude_files": exclude_files or [],
+                },
+                "file_statuses": file_statuses,
+                "source_dirty": source_dirty,
+            }
+            candidates.append(candidate)
+
+            if apply and selected_files and not source_dirty:
+                promoted_files = []
+                promoted_checksums = []
+                for rel_path in selected_files:
+                    workspace_file = workspace_path / rel_path
+                    source_file = source_repo_path / rel_path
+                    source_file.parent.mkdir(parents=True, exist_ok=True)
+                    content = workspace_file.read_text(encoding="utf-8")
+                    source_file.write_text(content, encoding="utf-8")
+                    promoted_files.append(rel_path)
+                    promoted_checksums.append(
+                        {
+                            "path": rel_path,
+                            "source_after": self._checksum_text(content),
+                        }
+                    )
+                receipt_path = run_dir / "artifacts" / "promotions" / f"{handoff.get('step_id')}_promotion_receipt.json"
+                write_json(
+                    receipt_path,
+                    {
+                        "run_id": run_id,
+                        "step_id": handoff.get("step_id"),
+                        "files_promoted": promoted_files,
+                        "checksums": promoted_checksums,
+                    },
+                )
+                promoted.append(
+                    {
+                        "run_id": run_id,
+                        "step_id": handoff.get("step_id"),
+                        "files_promoted": promoted_files,
+                        "checksums": promoted_checksums,
+                        "receipt_path": str(receipt_path),
+                    }
+                )
+
+        return {
+            "dry_run": not apply,
+            "run_id": run_id,
+            "workflow": state.workflow,
+            "candidates": candidates,
+            "matched": len(candidates),
+            "promoted": promoted,
         }
 
     def run_codex_smoke(self, repo_path: str = ".") -> dict[str, Any]:
@@ -830,6 +965,43 @@ class Orchestrator:
                     "cited_reference_context": state.context.get("retrieval", {}).get("reference_context", [])[:3],
                 },
             )
+
+    def _select_workspace_files(
+        self,
+        workspace_files: list[str],
+        only_files: list[str] | None,
+        exclude_files: list[str] | None,
+    ) -> list[str]:
+        selected = list(workspace_files)
+        if only_files:
+            selected = [
+                path
+                for path in selected
+                if any(fnmatch.fnmatch(path, pattern) for pattern in only_files)
+            ]
+        if exclude_files:
+            selected = [
+                path
+                for path in selected
+                if not any(fnmatch.fnmatch(path, pattern) for pattern in exclude_files)
+            ]
+        return selected
+
+    def _checksum_text(self, content: str) -> str:
+        return hashlib.sha256(content.encode("utf-8")).hexdigest()
+
+    def _is_git_dirty(self, repo_path: Path) -> bool:
+        git_dir = repo_path / ".git"
+        if not git_dir.exists():
+            return False
+        completed = subprocess.run(
+            ["git", "status", "--porcelain"],
+            cwd=repo_path,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        return bool(completed.stdout.strip())
 
     def _load_workflow(self, workflow: str) -> dict[str, Any]:
         path = Path(workflow)

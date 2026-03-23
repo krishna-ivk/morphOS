@@ -18,6 +18,11 @@ def build_retrieval_context(
     hub = ContextHub(repo_root)
     query_text = query or workflow.replace("_", " ")
     search = hub.search(query_text, consumer=consumer, limit=5)
+    if search["matched"] == 0:
+        search = hub.search("guide", consumer=consumer, limit=5)
+    if search["matched"] == 0:
+        search = {"matched": 0, "results": [hub._context_record(path) for path in hub._doc_paths()[:5]], "consumer": consumer}
+        search["matched"] = len(search["results"])
 
     exemplars = []
     runs_root = repo_root / "artifacts" / "runs"

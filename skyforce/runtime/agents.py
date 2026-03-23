@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 from typing import Any
+import difflib
 
 from .io import read_json, write_json
 
@@ -178,21 +179,48 @@ def coding_agent(
             original = target_path.read_text(encoding="utf-8") if target_path.exists() else ""
             updated = original.replace(directive.get("search_text", ""), directive.get("replace_text", ""))
             target_path.write_text(updated, encoding="utf-8")
-            patch_lines.append(f"replace:{target_file}")
+            patch_lines.extend(
+                difflib.unified_diff(
+                    original.splitlines(keepends=True),
+                    updated.splitlines(keepends=True),
+                    fromfile=f"a/{target_file}",
+                    tofile=f"b/{target_file}",
+                    n=2,
+                )
+            )
         elif action == "append":
             original = target_path.read_text(encoding="utf-8") if target_path.exists() else ""
             append_text = directive.get("append_text", "")
             updated = original if append_text in original else f"{original}{append_text}"
             target_path.write_text(updated, encoding="utf-8")
-            patch_lines.append(f"append:{target_file}")
+            patch_lines.extend(
+                difflib.unified_diff(
+                    original.splitlines(keepends=True),
+                    updated.splitlines(keepends=True),
+                    fromfile=f"a/{target_file}",
+                    tofile=f"b/{target_file}",
+                    n=2,
+                )
+            )
         elif action == "create":
-            target_path.write_text(directive.get("file_content", ""), encoding="utf-8")
-            patch_lines.append(f"create:{target_file}")
+            content = directive.get("file_content", "")
+            target_path.write_text(content, encoding="utf-8")
+            patch_lines.extend(
+                difflib.unified_diff(
+                    [],
+                    content.splitlines(keepends=True),
+                    fromfile=f"a/{target_file}",
+                    tofile=f"b/{target_file}",
+                    n=2,
+                )
+            )
         if target_file not in files_written:
             files_written.append(target_file)
 
     work_dir = run_dir / "work"
     work_dir.mkdir(parents=True, exist_ok=True)
+    artifacts_dir = run_dir / "artifacts"
+    artifacts_dir.mkdir(parents=True, exist_ok=True)
     note_path = work_dir / f"{task.get('id', 'TASK')}.md"
     lines = [f"# {task.get('id', 'TASK')}", "", task.get("description", "No description")]
     if retrieval and retrieval.get("exemplars"):
@@ -207,7 +235,7 @@ def coding_agent(
 
     patch_path = None
     if patch_lines:
-        patch_path = run_dir / "artifacts" / f"{task.get('id', 'TASK')}_patch.txt"
+        patch_path = artifacts_dir / f"{task.get('id', 'TASK')}_patch.txt"
         patch_path.write_text("\n".join(patch_lines) + "\n", encoding="utf-8")
 
     return {

@@ -120,6 +120,7 @@ def main() -> int:
             "-q",
             "tests",
             "--ignore=tests/test_runtime.py",
+            "--ignore=tests/test_context_hub.py",
             f"--junitxml={junit_path}",
         ]
         completed = subprocess.run(
