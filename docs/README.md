@@ -88,6 +88,7 @@ handoff, and doctrine materials.
 - `milestones/v0/MORPHOS_V0_WAVE2_LAUNCH_KIT.md` - governance and operator rollout launch kit for the second wave
 - `milestones/v0/MORPHOS_V0_WAVE3_LAUNCH_KIT.md` - promotion and deterministic closeout launch kit for the third wave
 - `STARRED_REPO_GENE_TRANSFUSION_BACKLOG.md` - execution-ordered backlog derived from starred repos, biased toward Elixir/Erlang first and Rust second
+- `STARRED_REPO_STATUS_AND_NEXT_STEPS.md` - repo-by-repo map of which starred-repo ideas are already real in Skyforce, what is still missing, and which repo should own the next move
 - `GENE_TRANSFUSION_FROM_ACE_PLATFORM.md` - focused adoption map for what Skyforce should borrow from ACE for playbook learning, outcome capture, and MCP portability without copying ACE as the main runtime
 - `core-mechanics/AGENT_SIGNAL_AND_ACTION_MODEL.md` - agent/action/signal/directive runtime semantics bridging Symphony, Durable, and Jido-style agent behavior
 - `core-mechanics/GIT_NATIVE_WORK_LEDGER_SPEC.md` - git-backed operational history layout for plans, decisions, checkpoints, validation, and promotion state

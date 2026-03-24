@@ -105,6 +105,7 @@ The Skyforce runtime already implements several `morphOS`-aligned pieces:
 - [morphOS v0 upstream adoption map](docs/milestones/v0/MORPHOS_V0_UPSTREAM_ADOPTION_MAP.md)
 - [morphOS v0 upstream feature backlog](docs/milestones/v0/MORPHOS_V0_UPSTREAM_FEATURE_BACKLOG.md)
 - [Starred repo gene transfusion backlog](docs/STARRED_REPO_GENE_TRANSFUSION_BACKLOG.md)
+- [Starred repo status and next steps](docs/STARRED_REPO_STATUS_AND_NEXT_STEPS.md)
 - [Agent signal and action model](docs/core-mechanics/AGENT_SIGNAL_AND_ACTION_MODEL.md)
 - [Git native work ledger spec](docs/core-mechanics/GIT_NATIVE_WORK_LEDGER_SPEC.md)
 - [Filesystem memory topology spec](docs/core-mechanics/FILESYSTEM_MEMORY_TOPOLOGY_SPEC.md)
