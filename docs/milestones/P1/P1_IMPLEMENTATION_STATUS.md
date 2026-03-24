@@ -20,7 +20,8 @@ This document should stay short, practical, and regularly updated.
 - status: `partially_implemented`
 - current proof:
   - Harness timelines now emit explicit event types such as summary, evidence, approval, and sync events
-  - Command Centre and Command Centre Live consume those event types in run views
+  - Command Centre now classifies normalized event-taxonomy families and stages for run summaries, run bundles, audit events, and operator action receipts
+  - Command Centre Live consumes taxonomy-backed event state in the issue operator snapshot
 - remaining gap:
   - no fully shared cross-repo event registry yet
   - taxonomy is still runtime-shaped rather than centrally enforced
@@ -30,19 +31,22 @@ This document should stay short, practical, and regularly updated.
 - status: `partially_implemented`
 - current proof:
   - backend role checks exist for manual runs, approvals, directive actions, durable actions, and publish actions
-  - the `P0` spine has named approval and authority boundaries
+  - Command Centre now evaluates policy-hook verdicts for manual runs, approvals, directive actions, durable actions, and publish actions through a shared hook evaluator
+  - operator action receipts now persist policy-hook verdict data instead of only the action result
 - remaining gap:
-  - command-boundary hook enforcement is not yet unified across all runtime surfaces
-  - policy verdicts are not yet surfaced from one shared hook engine
+  - command-boundary hook enforcement is not yet unified across all runtime repos
+  - policy hooks are still Command Centre-centric rather than shared across the full factory spine
 
 ### `P1_SAFE_PROMOTION_SPEC`
 
-- status: `specified`
+- status: `partially_implemented`
 - current proof:
-  - promotion posture and approval semantics exist doctrinally
-  - approval packets and resolution flows are now real
+  - Command Centre now exposes promotion preview and apply actions
+  - promotion readiness is derived from the run bundle, approval state, and work-order scope
+  - promotion actions now produce policy-hook verdicts, audit events, operator action receipts, and operator-facing issue-state updates
 - remaining gap:
   - no complete, production-grade promotion/merge execution path is yet proven end to end
+  - promotion execution is still a control-plane slice, not a real `skyforce-core` execution seam
 
 ### `P1_SUMMARY_PYRAMID_SPEC`
 
@@ -66,10 +70,11 @@ This document should stay short, practical, and regularly updated.
 
 - status: `partially_implemented`
 - current proof:
-  - operator wording in run, approval, summary, and issue surfaces has improved materially
-  - Login and operator-scope surfaces now use a more consistent control-plane vocabulary
+  - backend run summaries and run bundles now project operator-facing labels for receipt, approval, sync, and promotion state
+  - Command Centre Live issue and dashboard views now prefer normalized human-facing labels instead of raw machine state
+  - login and operator-scope surfaces now use a more consistent control-plane vocabulary
 - remaining gap:
-  - terminology is not yet uniformly normalized across all repos and operator surfaces
+  - terminology is not yet uniformly normalized across all repos, CLI surfaces, and runtime artifacts
 
 ## Reading Guidance
 
