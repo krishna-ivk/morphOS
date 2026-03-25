@@ -15,6 +15,7 @@ Canonical priority note: use [MORPHOS_V0_IMPLEMENTATION_BOARD.md](milestones/v0/
 
 - `architecture/agentic_os_architecture.md` - overall operating system design
 - `milestones/v0/MORPHOS_V0_IMPLEMENTATION_BOARD.md` - canonical prioritized build board
+- `milestones/v0/MORPHOS_V0_IMPLEMENTATION_REPO_REVIEW.md` - repo-wise architectural and testing reality check across the active Skyforce implementation repos
 - `milestones/P1/P1_IMPLEMENTATION_STATUS.md` - practical bridge between `P1` doctrine and what is actually implemented in code right now
 - `examples/P0_GOLDEN_PATH_WORK_ORDER.json` - canonical sample work-order packet for the first factory-spine proving run
 
@@ -26,6 +27,7 @@ operator behavior aligned to the real factory spine.
 - `milestones/P0/P0_FACTORY_SPINE_RECOVERY_PLAN.md` - recovery posture for proving the first real end-to-end factory transaction before expanding doctrine again
 - `milestones/P0/P0_FACTORY_SPINE_IMPLEMENTATION_CHECKLIST.md` - concrete cross-repo build order for the first intake-to-approval transaction
 - `milestones/P0/P0_GOLDEN_PATH_SEED_PACKET.md` - narrow golden-path seed used to prove Symphony, Harness, and Command Centre integration
+- `milestones/v0/MORPHOS_V0_IMPLEMENTATION_REPO_REVIEW.md` - implementation-repo review that records which stack layers are currently strong, transitional, or still prototype-grade
 - `core-mechanics/WORK_ORDER_SCHEMA_SPEC.md` - normalized intake contract
 - `core-mechanics/EXECUTION_RECEIPT_SCHEMA_SPEC.md` - execution proof contract
 - `core-mechanics/APPROVAL_PACKET_SCHEMA_SPEC.md` - approval artifact contract
