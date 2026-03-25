@@ -7,6 +7,18 @@ This roadmap tracks how `morphOS` should evolve from a strong specification repo
 It is intentionally scoped around definition, contracts, and integration.
 It does not turn `morphOS` into a second runtime platform.
 
+## Release Direction
+
+Aim for:
+
+- `v1.0` as the first real release target
+
+Interpretation:
+
+- the active `v0` work is the proving track
+- `v1.0` is the first release bar
+- use [milestones/v1/MORPHOS_V1_RELEASE_TARGET.md](milestones/v1/MORPHOS_V1_RELEASE_TARGET.md) as the release-definition document
+
 ## Roadmap Principles
 
 1. `morphOS` defines, Skyforce implements.
@@ -245,3 +257,13 @@ Do not build next:
 
 1. autonomous self-modification
 2. separate runtime infrastructure inside `morphOS`
+
+## v1.0 Release Gate
+
+The roadmap should now be read with one practical question in mind:
+
+- does this work move the stack closer to the `v1.0` release target?
+
+For the current release bar, see:
+
+- [milestones/v1/MORPHOS_V1_RELEASE_TARGET.md](milestones/v1/MORPHOS_V1_RELEASE_TARGET.md)
