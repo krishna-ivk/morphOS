@@ -54,6 +54,8 @@ If you are reading this as a human operator, builder, or collaborator, use this 
 13. [Context Hub evaluation](docs/CONTEXT_HUB_EVALUATION.md)
 14. [Context Hub integration plan](docs/CONTEXT_HUB_INTEGRATION_PLAN.md)
 15. [Roadmap](docs/ROADMAP.md)
+16. [GitHub 2.0 from starred repos](docs/GITHUB_2_0_FROM_STARRED_REPOS.md)
+17. [morphOS gap analysis from starred repos](docs/MORPHOS_GAP_ANALYSIS_FROM_GITHUB_STARS.md)
 
 ## What morphOS Owns
 
@@ -112,6 +114,8 @@ The Skyforce runtime already implements several `morphOS`-aligned pieces:
 - [Context architecture](docs/CONTEXT_ARCHITECTURE.md)
 - [Context Hub evaluation](docs/CONTEXT_HUB_EVALUATION.md)
 - [Context Hub integration plan](docs/CONTEXT_HUB_INTEGRATION_PLAN.md)
+- [GitHub 2.0 from starred repos](docs/GITHUB_2_0_FROM_STARRED_REPOS.md)
+- [morphOS gap analysis from starred repos](docs/MORPHOS_GAP_ANALYSIS_FROM_GITHUB_STARS.md)
 
 ## Current Release
 
