@@ -2,7 +2,7 @@
 
 Use this folder as the main entry point for SkyForce specifications.
 
-Canonical priority note: use [MORPHOS_V0_IMPLEMENTATION_BOARD.md](/Users/shivakrishnayadav/Documents/skyforce/docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md) when you need the authoritative cross-repo build order.
+Canonical priority note: use [MORPHOS_V0_IMPLEMENTATION_BOARD.md](MORPHOS_V0_IMPLEMENTATION_BOARD.md) when you need the authoritative cross-repo build order.
 
 ## Sections
 
@@ -19,8 +19,15 @@ Canonical priority note: use [MORPHOS_V0_IMPLEMENTATION_BOARD.md](/Users/shivakr
 - `schemas.md` — data contracts and shared structures
 - `interaction_layer_spec.md` — how humans and agents communicate
 - `policy_engine_spec.md` — safety and approval model
-- `GITHUB_2_0_FROM_STARRED_REPOS.md` — starred-repo inspiration mapped into a software-factory GitHub direction
-- `MORPHOS_GAP_ANALYSIS_FROM_GITHUB_STARS.md` — concrete gaps between current morphOS plans and star-driven inspiration
+
+## Research Inputs
+
+These docs are synthesis inputs that help sharpen the canonical backlog and
+implementation board. They should not be read as top-level architecture
+commitments by themselves.
+
+- `GITHUB_2_0_FROM_STARRED_REPOS.md` — starred-repo product synthesis
+- `MORPHOS_GAP_ANALYSIS_FROM_GITHUB_STARS.md` — starred-repo gap synthesis against the current morphOS plan
 
 ## Authoring Conventions
 

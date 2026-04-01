@@ -2,7 +2,7 @@
 
 `morphOS` is the specification and operating-model repository for the long-term agentic system.
 
-Canonical build-priority note: treat [docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md](/Users/shivakrishnayadav/Documents/skyforce/docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md) as the source of truth for what to build next across `morphOS` and Skyforce.
+Canonical build-priority note: treat [docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md](docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md) as the source of truth for what to build next across `morphOS` and Skyforce.
 
 It defines how the platform should think, coordinate, protect itself, and evolve.
 It is not the primary runtime.
@@ -54,8 +54,10 @@ If you are reading this as a human operator, builder, or collaborator, use this 
 13. [Context Hub evaluation](docs/CONTEXT_HUB_EVALUATION.md)
 14. [Context Hub integration plan](docs/CONTEXT_HUB_INTEGRATION_PLAN.md)
 15. [Roadmap](docs/ROADMAP.md)
-16. [GitHub 2.0 from starred repos](docs/GITHUB_2_0_FROM_STARRED_REPOS.md)
-17. [morphOS gap analysis from starred repos](docs/MORPHOS_GAP_ANALYSIS_FROM_GITHUB_STARS.md)
+16. [Starred repo gene transfusion backlog](docs/STARRED_REPO_GENE_TRANSFUSION_BACKLOG.md)
+17. [Starred repo status and next steps](docs/STARRED_REPO_STATUS_AND_NEXT_STEPS.md)
+18. [GitHub 2.0 from starred repos](docs/GITHUB_2_0_FROM_STARRED_REPOS.md)
+19. [morphOS gap analysis from starred repos](docs/MORPHOS_GAP_ANALYSIS_FROM_GITHUB_STARS.md)
 
 ## What morphOS Owns
 
@@ -114,6 +116,8 @@ The Skyforce runtime already implements several `morphOS`-aligned pieces:
 - [Context architecture](docs/CONTEXT_ARCHITECTURE.md)
 - [Context Hub evaluation](docs/CONTEXT_HUB_EVALUATION.md)
 - [Context Hub integration plan](docs/CONTEXT_HUB_INTEGRATION_PLAN.md)
+- [Starred repo gene transfusion backlog](docs/STARRED_REPO_GENE_TRANSFUSION_BACKLOG.md)
+- [Starred repo status and next steps](docs/STARRED_REPO_STATUS_AND_NEXT_STEPS.md)
 - [GitHub 2.0 from starred repos](docs/GITHUB_2_0_FROM_STARRED_REPOS.md)
 - [morphOS gap analysis from starred repos](docs/MORPHOS_GAP_ANALYSIS_FROM_GITHUB_STARS.md)
 

@@ -1,6 +1,6 @@
 # morphOS Gap Analysis From GitHub Stars
 
-Canonical priority note: use [MORPHOS_V0_IMPLEMENTATION_BOARD.md](/Users/shivakrishnayadav/Documents/skyforce/docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md) for the authoritative build order. This document exists to sharpen that board using patterns observed in the public GitHub stars retrieved for `krishna-ivk` on March 25, 2026.
+Canonical priority note: use [MORPHOS_V0_IMPLEMENTATION_BOARD.md](MORPHOS_V0_IMPLEMENTATION_BOARD.md) for the authoritative build order. This document is a starred-repo synthesis input intended to sharpen that board using patterns observed in the public GitHub stars retrieved for `krishna-ivk` on March 25, 2026.
 
 This document translates the starred-repo signal into `morphOS`-style product
 and architecture gaps.
@@ -21,6 +21,11 @@ Read this alongside:
 - `docs/MORPHOS_V0_CORE_STACK.md`
 - `docs/CONTEXT_ARCHITECTURE.md`
 - `docs/morphos-software-factory-mvp.md`
+- `docs/STARRED_REPO_GENE_TRANSFUSION_BACKLOG.md`
+- `docs/STARRED_REPO_STATUS_AND_NEXT_STEPS.md`
+
+This document should be treated as synthesis and prioritization input.
+It does not replace the existing starred-repo backlog or status map.
 
 ## Executive Summary
 
@@ -622,9 +627,10 @@ without displacing the existing `P0` work.
 
 ## Recommended Relationship To The Current Board
 
-This document should not replace the existing implementation board.
+This document should not replace the existing implementation board, the starred
+repo backlog, or the starred repo status map.
 
-It should be used to sharpen it in three ways:
+It should be used to sharpen them in three ways:
 
 1. Pull several items from vague `planned` language into contract families
 

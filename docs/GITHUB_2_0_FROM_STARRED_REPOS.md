@@ -1,12 +1,18 @@
 # GitHub 2.0 From Starred Repos
 
-Canonical priority note: use [MORPHOS_V0_IMPLEMENTATION_BOARD.md](/Users/shivakrishnayadav/Documents/skyforce/docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md) for the authoritative implementation order. This document captures the higher-level product thesis implied by the public GitHub stars retrieved for `krishna-ivk` on March 25, 2026.
+Canonical priority note: use [MORPHOS_V0_IMPLEMENTATION_BOARD.md](MORPHOS_V0_IMPLEMENTATION_BOARD.md) for the authoritative implementation order. This document is a starred-repo synthesis input, not a canonical architecture commitment. It captures a higher-level product thesis implied by the public GitHub stars retrieved for `krishna-ivk` on March 25, 2026.
 
 Read this alongside:
 
 - `docs/MORPHOS_GAP_ANALYSIS_FROM_GITHUB_STARS.md`
 - `docs/MORPHOS_V0_IMPLEMENTATION_BOARD.md`
 - `docs/morphos-software-factory-mvp.md`
+- `docs/STARRED_REPO_GENE_TRANSFUSION_BACKLOG.md`
+- `docs/STARRED_REPO_STATUS_AND_NEXT_STEPS.md`
+
+This note should be read as synthesis.
+It is meant to sharpen backlog and roadmap conversations, not to override the
+existing starred-repo backlog or implementation board.
 
 The working hypothesis is simple:
 
@@ -100,22 +106,30 @@ The core platform objects should therefore be:
 - validation receipts
 - promotion proposals
 
-## What To Build Next Here
+## What This Suggests Next
 
-For this repo, the immediate concrete move is:
+For this repo, the immediate concrete move is still to feed these observations
+into the existing backlog and implementation board, not to replace them with a
+new top-level roadmap:
 
 - sync starred repos into the local Context Hub
 - let retrieval use those repos as inspiration context
 - keep the inspiration inspectable as a filesystem artifact
 - use that context when defining future software-factory workflows
 
-That is now partially implemented through the GitHub-star snapshot path:
+The current repo already has a stronger execution-ordered translation in:
+
+- `docs/STARRED_REPO_GENE_TRANSFUSION_BACKLOG.md`
+- `docs/STARRED_REPO_STATUS_AND_NEXT_STEPS.md`
+
+The GitHub-star snapshot path remains useful as supporting evidence:
 
 - `artifacts/context_hub/github_starred_repos.json`
 
 ## Design Standard
 
-If we keep pushing this direction, a change is “GitHub 2.0 aligned” when it:
+If we keep using these starred-repo signals as a synthesis input, a change is
+“GitHub 2.0 aligned” when it:
 
 - starts from a spec or structured intent
 - produces or updates tests before trusting implementation
