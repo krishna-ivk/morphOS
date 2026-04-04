@@ -44,9 +44,13 @@ This document should stay short, practical, and regularly updated.
   - Command Centre now exposes promotion preview and apply actions
   - promotion readiness is derived from the run bundle, approval state, and work-order scope
   - promotion actions now produce policy-hook verdicts, audit events, operator action receipts, and operator-facing issue-state updates
+  - `skyforce-core` land execution now records explicit pre-land invariants before merge is allowed
+  - governed land now includes rollback-safe restore behavior when merge or post-land verification fails
+  - land receipts now include post-land verification data instead of only merge success/failure state
+  - Command Centre Live issue merge surfaces now expose land-safety telemetry when those receipt fields are present
 - remaining gap:
-  - no complete, production-grade promotion/merge execution path is yet proven end to end
-  - promotion execution is still a control-plane slice, not a real `skyforce-core` execution seam
+  - the promotion lane is stronger, but it is not yet proven as a fully clean-environment end-to-end production path across the whole stack
+  - promotion/merge safety fields are additive and not yet uniformly normalized across every producer and consumer
 
 ### `P1_SUMMARY_PYRAMID_SPEC`
 
