@@ -15,7 +15,8 @@
           "name": "architecture_report",
           "path": "${artifacts_dir}/architecture_report.json",
           "kind": "json_schema",
-          "schema_name": "ArchitectureReport"
+          "schema_name": "ArchitectureReport",
+          "required": true
         }
       ]
     },

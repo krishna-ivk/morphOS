@@ -4,6 +4,23 @@ from skyforce import cli
 
 
 class StubOrchestrator:
+    def run_workflow(self, workflow, mode="factory", seed_path=None, repo_path=None):
+        return {
+            "run_id": "run-new",
+            "workflow": workflow,
+            "status": "completed",
+            "mode": mode,
+            "connectivity_mode": "deploy_enabled",
+            "pause_reason": None,
+            "summary_short": f"Workflow `{workflow}` is `completed`.",
+            "status_line": "COMPLETED 1/1 steps completed",
+            "steps": [],
+            "validation": None,
+            "pending_approval": None,
+            "deferred_actions": [],
+            "evidence_refs": [],
+        }
+
     def resume_connectivity_paused_runs(self, dry_run=False):
         return {"dry_run": dry_run, "runs": []}
 
@@ -173,6 +190,15 @@ class StubOrchestrator:
             "skipped": [],
         }
 
+    def cancel_run(self, run_id, reason=None):
+        return {
+            "run_id": run_id,
+            "status": "cancelled",
+            "pause_reason": "cancelled",
+            "ended_at": "2026-03-01T00:11:00+00:00",
+            "context": {"cancel_reason": reason},
+        }
+
     def cleanup_test_runs(self, **kwargs):
         return {
             "dry_run": not kwargs.get("apply", False),
@@ -203,6 +229,7 @@ class StubOrchestrator:
             "mode": "factory",
             "connectivity_mode": "deploy_enabled",
             "pause_reason": "approval",
+            "checkpoint": {"step_id": "request_release_approval"},
             "summary_short": "Workflow `release_pipeline` is `paused`.",
             "steps": [
                 {"step_id": "run_tests", "status": "completed", "output_ref": None}
@@ -227,6 +254,23 @@ class StubOrchestrator:
             "backend_used": "codex",
             "model_worker_error_path": None,
             "task_result": {"task_id": "SMOKE-001", "backend": "codex"},
+        }
+
+    def status(self, run_id):
+        data = self.run_summary(run_id)
+        data.update(
+            {
+                "run_status": "paused",
+                "current_step_index": 1,
+                "execution_checkpoint_id": "cp-1",
+            }
+        )
+        return data
+
+    def list_workflows(self):
+        return {
+            "count": 1,
+            "workflows": [{"name": "release_pipeline", "path": "workflows/release_pipeline.yaml"}],
         }
 
     def context_search(self, query, consumer="operator", limit=5):
@@ -426,6 +470,29 @@ def test_cli_resume_paused_connectivity_dry_run(monkeypatch, capsys):
     assert output["dry_run"] is True
 
 
+def test_cli_run_uses_workflow_argument(monkeypatch, capsys):
+    monkeypatch.setattr(cli, "Orchestrator", lambda repo_root: StubOrchestrator())
+    assert cli.main(["run", "release_pipeline"]) == 0
+    output = json.loads(capsys.readouterr().out)
+    assert output["workflow"] == "release_pipeline"
+
+
+def test_cli_status(monkeypatch, capsys):
+    monkeypatch.setattr(cli, "Orchestrator", lambda repo_root: StubOrchestrator())
+    assert cli.main(["status", "run-1"]) == 0
+    output = json.loads(capsys.readouterr().out)
+    assert output["run_status"] == "paused"
+    assert output["execution_checkpoint_id"] == "cp-1"
+
+
+def test_cli_cancel(monkeypatch, capsys):
+    monkeypatch.setattr(cli, "Orchestrator", lambda repo_root: StubOrchestrator())
+    assert cli.main(["cancel", "run-1", "--reason", "user requested"]) == 0
+    output = json.loads(capsys.readouterr().out)
+    assert output["status"] == "cancelled"
+    assert output["context"]["cancel_reason"] == "user requested"
+
+
 def test_cli_approvals(monkeypatch, capsys):
     monkeypatch.setattr(cli, "Orchestrator", lambda repo_root: StubOrchestrator())
     assert cli.main(["approvals"]) == 0
@@ -528,6 +595,14 @@ def test_cli_approve_runs_human_apply(monkeypatch, capsys):
     assert "Approve runs (apply): 1 matched" in output
     assert "Results:" in output
     assert "run-1 -> completed (approve)" in output
+
+
+def test_cli_workflows(monkeypatch, capsys):
+    monkeypatch.setattr(cli, "Orchestrator", lambda repo_root: StubOrchestrator())
+    assert cli.main(["workflows"]) == 0
+    output = json.loads(capsys.readouterr().out)
+    assert output["count"] == 1
+    assert output["workflows"][0]["name"] == "release_pipeline"
 
 
 def test_cli_archive_runs(monkeypatch, capsys):

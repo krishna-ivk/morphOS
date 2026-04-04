@@ -35,6 +35,7 @@ That role belongs to the Skyforce repos:
 See [agentic_os_architecture.md](docs/architecture/agentic_os_architecture.md) for the full system design.
 Use [docs/README.md](docs/README.md) as the documentation index.
 Use [docs/milestones/P1/P1_IMPLEMENTATION_STATUS.md](docs/milestones/P1/P1_IMPLEMENTATION_STATUS.md) when you need a quick read on which `P1` specs are already implemented versus still doctrinal.
+Use [docs/milestones/v1/MORPHOS_SPEC_BASELINE.md](docs/milestones/v1/MORPHOS_SPEC_BASELINE.md) for the current baseline release posture and the grounded answer to “how far are we from production?”
 
 ## Start Here
 
@@ -191,4 +192,10 @@ Current specification release line:
 
 - `0.1.0`
 
-This is a specification baseline, not a production runtime release.
+Current baseline posture:
+
+- specification baseline
+- alpha runtime spine
+- not production-ready yet
+
+See [docs/milestones/v1/MORPHOS_SPEC_BASELINE.md](docs/milestones/v1/MORPHOS_SPEC_BASELINE.md) for the baseline dated 2026-04-02.

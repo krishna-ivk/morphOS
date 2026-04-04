@@ -10,7 +10,8 @@
         {
           "name": "dependency_report",
           "path": "${artifacts_dir}/vuln_report.json",
-          "kind": "file_exists"
+          "kind": "file_exists",
+          "required": true
         }
       ]
     },
@@ -23,7 +24,8 @@
           "name": "test_results",
           "path": "${validation_dir}/test_results.json",
           "kind": "json_schema",
-          "schema_name": "TestResults"
+          "schema_name": "TestResults",
+          "required": true
         }
       ],
       "signals": [
@@ -51,7 +53,8 @@
         {
           "name": "deploy_receipt",
           "path": "${artifacts_dir}/deploy_receipt.json",
-          "kind": "file_exists"
+          "kind": "file_exists",
+          "required": true
         }
       ]
     },

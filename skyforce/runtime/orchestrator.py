@@ -7,6 +7,7 @@ import subprocess
 import hashlib
 import fnmatch
 import difflib
+import shlex
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Any
@@ -23,7 +24,18 @@ from .agents import (
     vision_agent,
 )
 from .io import read_json, write_json
-from .models import AgentInvocation, RunState, StepState
+from .models import (
+    AgentInvocation,
+    ArchitectureReport,
+    CodingTaskReceipt,
+    ExecutionCheckpoint,
+    FeaturePlan,
+    RunState,
+    StepState,
+    TaskList,
+    TestResults,
+    ValidationReport,
+)
 from .policy_engine import PolicyEngine
 from .retrieval import build_retrieval_context
 
@@ -119,8 +131,12 @@ class Orchestrator:
 
         for index, step in enumerate(workflow_def.get("steps", [])):
             step_state = state.steps[index]
+            state.current_step_index = index
+            self._write_run_state(run_dir, state)
             if step.get("condition") and not state.context.get(step["condition"], False):
                 step_state.status = "skipped"
+                self._write_checkpoint(run_dir, state, step, status="skipped")
+                self._write_run_state(run_dir, state)
                 continue
 
             decision = self.policy_engine.check_step_start(
@@ -131,6 +147,13 @@ class Orchestrator:
                 step_state.status = "deferred"
                 state.status = "paused"
                 state.pause_reason = "connectivity"
+                self._write_checkpoint(
+                    run_dir,
+                    state,
+                    step,
+                    status="paused",
+                    reason=decision.reason,
+                )
                 self._append_event(
                     run_dir,
                     {
@@ -148,6 +171,13 @@ class Orchestrator:
                 step_state.status = "deferred"
                 state.status = "paused"
                 state.pause_reason = "approval"
+                self._write_checkpoint(
+                    run_dir,
+                    state,
+                    step,
+                    status="paused",
+                    reason="approval",
+                )
                 self._append_event(
                     run_dir,
                     {
@@ -165,6 +195,8 @@ class Orchestrator:
             step_state.output_ref = result.get("output_ref")
             if result.get("details"):
                 step_state.details = result["details"]
+            checkpoint_status = "completed" if step_state.status != "failed" else "failed"
+            self._write_checkpoint(run_dir, state, step, status=checkpoint_status)
 
             self._evaluate_signals(run_dir, state, step)
             report_path = self._write_contract_report(run_dir, state, step)
@@ -178,12 +210,15 @@ class Orchestrator:
 
         state.status = "completed"
         state.ended_at = _now()
+        self._write_checkpoint(run_dir, state, None, status="completed")
         self._finalize_run(run_dir, state)
         self._write_run_state(run_dir, state)
         return state
 
     def apply_approval(self, run_id: str, decision: str, reason: str) -> RunState:
         state, run_dir = self._load_run(run_id)
+        if state.status == "cancelled":
+            return state
         approval_path = run_dir / "approvals" / "approval_packet.json"
         payload = read_json(approval_path, {})
         payload.update(
@@ -206,13 +241,53 @@ class Orchestrator:
 
         state.status = "failed" if decision == "reject" else "paused"
         state.pause_reason = "approval"
+        self._write_checkpoint(run_dir, state, None, status=state.status, reason=state.pause_reason)
         self._write_run_state(run_dir, state)
         return state
 
     def resume_run(self, run_id: str) -> RunState:
         state, run_dir = self._load_run(run_id)
+        if state.status == "cancelled":
+            return state
+        checkpoint = self._load_checkpoint(run_dir)
+        if checkpoint:
+            state.execution_checkpoint_id = checkpoint.get("checkpoint_id")
+            state.current_step_index = checkpoint.get("step_index", state.current_step_index)
         state.context["connectivity_mode"] = self.connectivity_manager.detect_mode()
-        return self._resume_from_deferred(run_dir, state)
+        return self._resume_from_deferred(run_dir, state, checkpoint=checkpoint)
+
+    def cancel_run(self, run_id: str, reason: str | None = None) -> RunState:
+        state, run_dir = self._load_run(run_id)
+        if state.status in {"completed", "failed", "cancelled"}:
+            return state
+        state.status = "cancelled"
+        state.pause_reason = "cancelled"
+        state.ended_at = _now()
+        state.context["cancel_reason"] = reason
+        approval_path = run_dir / "approvals" / "approval_packet.json"
+        if approval_path.exists():
+            payload = read_json(approval_path, {})
+            payload.update(
+                {
+                    "status": "cancelled",
+                    "decision": "cancelled",
+                    "reason": reason or payload.get("reason"),
+                    "decided_at": _now(),
+                }
+            )
+            write_json(approval_path, payload)
+        self._write_checkpoint(run_dir, state, None, status="cancelled", reason=reason)
+        self._append_event(
+            run_dir,
+            {
+                "event_type": "run.cancelled",
+                "run_id": run_id,
+                "reason": reason,
+                "at": _now(),
+            },
+        )
+        self._write_run_state(run_dir, state)
+        return state
 
     def resume_connectivity_paused_runs(self, dry_run: bool = False) -> dict[str, Any]:
         runs = []
@@ -254,6 +329,8 @@ class Orchestrator:
             if workflow and state.workflow != workflow:
                 continue
             if pause_reason and state.pause_reason != pause_reason:
+                continue
+            if state.status == "cancelled":
                 continue
 
             approval_path = (
@@ -366,6 +443,7 @@ class Orchestrator:
         state, run_dir = self._load_run(run_id)
         validation = read_json(run_dir / "validation" / "validation_report.json", None)
         pending = read_json(run_dir / "approvals" / "approval_packet.json", None)
+        checkpoint = read_json(run_dir / "artifacts" / "checkpoint.json", None)
         evidence = read_json(run_dir / "summaries" / "evidence.json", {})
         promotion_receipts = sorted(
             str(path)
@@ -381,6 +459,7 @@ class Orchestrator:
             "mode": state.mode,
             "connectivity_mode": state.context.get("connectivity_mode"),
             "pause_reason": state.pause_reason,
+            "checkpoint": checkpoint,
             "summary_short": f"Workflow `{state.workflow}` is `{state.status}`.",
             "steps": [step.to_dict() for step in state.steps],
             "validation": validation,
@@ -393,6 +472,18 @@ class Orchestrator:
                 for path in (run_dir / "validation").glob("*_contract_report.json")
             ),
         }
+
+    def status(self, run_id: str) -> dict[str, Any]:
+        summary = self.run_summary(run_id)
+        state, _ = self._load_run(run_id)
+        summary.update(
+            {
+                "run_status": state.status,
+                "current_step_index": state.current_step_index,
+                "execution_checkpoint_id": state.execution_checkpoint_id,
+            }
+        )
+        return summary
 
     def archive_runs(
         self,
@@ -697,25 +788,49 @@ class Orchestrator:
             "task_result": output,
         }
 
-    def _resume_from_deferred(self, run_dir: Path, state: RunState) -> RunState:
+    def list_workflows(self) -> dict[str, Any]:
+        workflows = [
+            {"name": path.stem, "path": str(path)}
+            for path in sorted((self.repo_root / "workflows").glob("*.yaml"))
+        ]
+        return {"count": len(workflows), "workflows": workflows}
+
+    def _resume_from_deferred(
+        self,
+        run_dir: Path,
+        state: RunState,
+        checkpoint: dict[str, Any] | None = None,
+    ) -> RunState:
         workflow_def = self._load_workflow(state.context.get("workflow_ref") or state.workflow)
-        start_index = next(
-            (idx for idx, step in enumerate(state.steps) if step.status == "deferred"),
-            len(state.steps),
-        )
+        start_index = checkpoint.get("step_index") if checkpoint else state.current_step_index
+        if start_index is None or start_index >= len(state.steps):
+            start_index = next(
+                (idx for idx, step in enumerate(state.steps) if step.status == "deferred"),
+                len(state.steps),
+            )
 
         for index in range(start_index, len(workflow_def.get("steps", []))):
             step = workflow_def["steps"][index]
             step_state = state.steps[index]
+            state.current_step_index = index
             if step_state.status == "completed":
+                self._write_checkpoint(run_dir, state, step, status="completed")
                 continue
             if step.get("condition") and not state.context.get(step["condition"], False):
                 step_state.status = "skipped"
+                self._write_checkpoint(run_dir, state, step, status="skipped")
                 continue
             if step["type"] == "approval":
                 step_state.status = "deferred"
                 state.status = "paused"
                 state.pause_reason = "approval"
+                self._write_checkpoint(
+                    run_dir,
+                    state,
+                    step,
+                    status="paused",
+                    reason="approval",
+                )
                 self._append_event(
                     run_dir,
                     {
@@ -732,18 +847,22 @@ class Orchestrator:
             step_state.output_ref = result.get("output_ref")
             if result.get("details"):
                 step_state.details = result["details"]
+            checkpoint_status = "completed" if step_state.status != "failed" else "failed"
+            self._write_checkpoint(run_dir, state, step, status=checkpoint_status)
             self._evaluate_signals(run_dir, state, step)
             report_path = self._write_contract_report(run_dir, state, step)
             step_state.details["contract_report"] = str(report_path)
             if step_state.status == "failed" or state.context.get("__contract_failure__"):
                 state.status = "failed"
                 state.ended_at = _now()
+                self._write_checkpoint(run_dir, state, step, status="failed")
                 self._write_run_state(run_dir, state)
                 return state
 
         state.status = "completed"
         state.pause_reason = None
         state.ended_at = _now()
+        self._write_checkpoint(run_dir, state, None, status="completed")
         self._finalize_run(run_dir, state)
         self._write_run_state(run_dir, state)
         return state
@@ -753,7 +872,7 @@ class Orchestrator:
         self._append_event(run_dir, {"event_type": "step.start", "step_id": step_id, "at": _now()})
 
         if step["type"] == "program":
-            command = _expand(step["command"], state.context)
+            command = _expand_shell(step["command"], state.context)
             completed = subprocess.run(
                 command,
                 cwd=state.context["workspace_path"],
@@ -846,15 +965,37 @@ class Orchestrator:
     ) -> Path:
         contract_results = []
         overall_result = "pass"
+        schema_map = {
+            "ArchitectureReport": ArchitectureReport,
+            "CodingTaskReceipt": CodingTaskReceipt,
+            "FeaturePlan": FeaturePlan,
+            "TaskList": TaskList,
+            "TestResults": TestResults,
+            "ValidationReport": ValidationReport,
+        }
         for contract in step.get("contracts", []):
             contract_path = Path(_expand(contract["path"], state.context))
             exists = contract_path.exists()
             result = "pass"
             failure_reason = None
             if contract.get("kind") in {"file_exists", "json_schema"} and not exists:
-                result = "fail"
-                failure_reason = "missing"
-            if contract.get("required") and result == "fail":
+                if contract.get("required"):
+                    result = "fail"
+                    failure_reason = "missing"
+            elif contract.get("kind") == "json_schema" and exists:
+                schema_name = contract.get("schema_name")
+                schema_model = schema_map.get(schema_name)
+                if schema_model is None:
+                    result = "fail"
+                    failure_reason = f"unknown schema: {schema_name}"
+                else:
+                    payload = read_json(contract_path, None)
+                    try:
+                        schema_model.model_validate(payload)
+                    except Exception as exc:  # noqa: BLE001
+                        result = "fail"
+                        failure_reason = f"schema validation failed: {exc}"
+            if result == "fail":
                 overall_result = "fail"
                 state.context["__contract_failure__"] = True
             contract_results.append(
@@ -918,6 +1059,53 @@ class Orchestrator:
                 "status": "pending",
             },
         )
+
+    def _write_checkpoint(
+        self,
+        run_dir: Path,
+        state: RunState,
+        step: dict[str, Any] | None,
+        status: str,
+        reason: str | None = None,
+    ) -> ExecutionCheckpoint:
+        checkpoint_id = f"cp-{uuid4().hex[:8]}"
+        step_index = state.current_step_index if step is not None else state.current_step_index
+        record = ExecutionCheckpoint(
+            checkpoint_id=checkpoint_id,
+            run_id=state.run_id,
+            workflow=state.workflow,
+            mode=state.mode,
+            step_id=step.get("id") if step else None,
+            step_index=step_index,
+            step_type=step.get("type") if step else None,
+            status=status,
+            pause_reason=reason or state.pause_reason,
+            expanded_command=(
+                _expand_shell(step["command"], state.context)
+                if step and step.get("type") == "program" and step.get("command")
+                else None
+            ),
+            agent=step.get("agent") if step else None,
+            input_artifact_refs=[
+                state.context.get("artifacts_dir", ""),
+                state.context.get("validation_dir", ""),
+            ],
+            context_refs=state.context.get("retrieval", {}).get("reference_context", [])[:3],
+            created_at=_now(),
+            updated_at=_now(),
+        )
+        state.execution_checkpoint_id = checkpoint_id
+        write_json(run_dir / "artifacts" / "checkpoint.json", record.model_dump(mode="json"))
+        checkpoints_dir = run_dir / "artifacts" / "checkpoints"
+        checkpoints_dir.mkdir(parents=True, exist_ok=True)
+        write_json(checkpoints_dir / f"{checkpoint_id}.json", record.model_dump(mode="json"))
+        self._write_run_state(run_dir, state)
+        return record
+
+    def _load_checkpoint(self, run_dir: Path) -> dict[str, Any] | None:
+        checkpoint_path = run_dir / "artifacts" / "checkpoint.json"
+        payload = read_json(checkpoint_path, None)
+        return payload if isinstance(payload, dict) else None
 
     def _write_deferred_action(self, run_dir: Path, step: dict[str, Any], reason: str) -> None:
         actions = read_json(run_dir / "artifacts" / "deferred_actions.json", [])
@@ -1111,6 +1299,14 @@ def _json_path(payload: dict[str, Any], path: str | None) -> Any:
 def _expand(command: str, context: dict[str, Any]) -> str:
     def replace(match: re.Match[str]) -> str:
         return str(context.get(match.group(1), ""))
+
+    return re.sub(r"\$\{([^}]+)\}", replace, command)
+
+
+def _expand_shell(command: str, context: dict[str, Any]) -> str:
+    def replace(match: re.Match[str]) -> str:
+        value = context.get(match.group(1), "")
+        return shlex.quote(str(value))
 
     return re.sub(r"\$\{([^}]+)\}", replace, command)
 

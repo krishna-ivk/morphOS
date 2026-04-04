@@ -140,6 +140,28 @@ def test_release_pipeline_replays_deferred_step_when_connectivity_returns(repo_r
     assert resumed.pause_reason == "approval"
 
 
+def test_release_pipeline_checkpoint_survives_fresh_orchestrator(repo_root):
+    orchestrator = Orchestrator(repo_root)
+    orchestrator.connectivity_manager.detect_mode = lambda: "offline"
+    state = orchestrator.run_workflow(
+        "release_pipeline", mode="factory", seed_path=None, repo_path=str(repo_root)
+    )
+    checkpoint_path = (
+        repo_root / "artifacts" / "runs" / state.run_id / "artifacts" / "checkpoint.json"
+    )
+    checkpoint = json.loads(checkpoint_path.read_text())
+    assert checkpoint["step_id"] == "dependency_scan"
+    assert checkpoint["status"] == "paused"
+    assert checkpoint["checkpoint_id"] == state.execution_checkpoint_id
+
+    fresh = Orchestrator(repo_root)
+    fresh.connectivity_manager.detect_mode = lambda: "online_read"
+    resumed = fresh.resume_run(state.run_id)
+    assert resumed.steps[0].status == "completed"
+    assert resumed.status == "paused"
+    assert resumed.pause_reason == "approval"
+
+
 def test_resume_connectivity_paused_runs_resumes_only_connectivity_runs(repo_root):
     orchestrator = Orchestrator(repo_root)
     orchestrator.connectivity_manager.detect_mode = lambda: "offline"
@@ -156,6 +178,20 @@ def test_resume_connectivity_paused_runs_resumes_only_connectivity_runs(repo_roo
     resumed = {item["run_id"]: item for item in result["runs"]}
     assert resumed[deferred.run_id]["resumed"] is True
     assert resumed[approval.run_id]["resumed"] is False
+
+
+def test_cancel_run_marks_cancelled_and_blocks_resume(repo_root):
+    orchestrator = Orchestrator(repo_root)
+    orchestrator.connectivity_manager.detect_mode = lambda: "offline"
+    state = orchestrator.run_workflow(
+        "release_pipeline", mode="factory", seed_path=None, repo_path=str(repo_root)
+    )
+    cancelled = orchestrator.cancel_run(state.run_id, reason="user requested")
+    assert cancelled.status == "cancelled"
+    assert cancelled.pause_reason == "cancelled"
+    assert cancelled.context["cancel_reason"] == "user requested"
+    resumed = orchestrator.resume_run(state.run_id)
+    assert resumed.status == "cancelled"
 
 
 def test_logs_and_deferred_inspection(repo_root):
@@ -192,6 +228,7 @@ def test_list_pending_approvals_and_run_summary(repo_root):
     assert summary["pending_approval"]["status"] == "pending"
     assert summary["validation"]["overall_result"] == "pass"
     assert "run_tests" in summary["contract_reports"]
+    assert summary["checkpoint"]["step_id"] == "request_release_approval"
     assert (
         str(
             repo_root
@@ -203,6 +240,20 @@ def test_list_pending_approvals_and_run_summary(repo_root):
         )
         in summary["evidence_refs"]
     )
+
+
+def test_cancelled_run_is_removed_from_pending_approval_queue(repo_root):
+    orchestrator = Orchestrator(repo_root)
+    orchestrator.connectivity_manager.detect_mode = lambda: "deploy_enabled"
+    state = orchestrator.run_workflow(
+        "release_pipeline", mode="factory", seed_path=None, repo_path=str(repo_root)
+    )
+    before = orchestrator.list_pending_approvals(run_id=state.run_id)
+    assert before["matched"] == 1
+    cancelled = orchestrator.cancel_run(state.run_id, reason="user requested")
+    assert cancelled.status == "cancelled"
+    after = orchestrator.list_pending_approvals(run_id=state.run_id)
+    assert after["matched"] == 0
 
 
 def test_list_paused_runs_filtered(repo_root):

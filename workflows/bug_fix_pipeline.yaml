@@ -10,7 +10,8 @@
           "name": "test_results",
           "path": "${validation_dir}/test_results.json",
           "kind": "json_schema",
-          "schema_name": "TestResults"
+          "schema_name": "TestResults",
+          "required": true
         }
       ],
       "signals": [
@@ -33,7 +34,8 @@
           "name": "repair_tasks",
           "path": "${artifacts_dir}/repair_tasks.json",
           "kind": "json_schema",
-          "schema_name": "TaskList"
+          "schema_name": "TaskList",
+          "required": true
         }
       ]
     },
@@ -48,12 +50,14 @@
         {
           "name": "applied_fix_results",
           "path": "${artifacts_dir}/apply_fixes_output.json",
-          "kind": "file_exists"
+          "kind": "file_exists",
+          "required": true
         },
         {
           "name": "applied_fix_source_handoff",
           "path": "${artifacts_dir}/apply_fixes_source_handoff.json",
-          "kind": "file_exists"
+          "kind": "file_exists",
+          "required": true
         }
       ]
     },
@@ -67,7 +71,8 @@
           "name": "rerun_test_results",
           "path": "${validation_dir}/test_results.json",
           "kind": "json_schema",
-          "schema_name": "TestResults"
+          "schema_name": "TestResults",
+          "required": true
         }
       ],
       "signals": [

@@ -206,6 +206,16 @@ def _format_promote_workspace(data: dict[str, Any]) -> str:
     return "\n".join(lines) + "\n"
 
 
+def _jsonify_state(state: Any) -> str:
+    if hasattr(state, "model_dump"):
+        payload = state.model_dump(mode="json")
+    elif isinstance(state, dict):
+        payload = state
+    else:
+        payload = state
+    return json.dumps(payload, indent=2, default=str)
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="skyforce")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -223,6 +233,10 @@ def build_parser() -> argparse.ArgumentParser:
 
     resume_parser = subparsers.add_parser("resume", help="Resume a paused run")
     resume_parser.add_argument("run_id")
+
+    cancel_parser = subparsers.add_parser("cancel", help="Cancel a run")
+    cancel_parser.add_argument("run_id")
+    cancel_parser.add_argument("--reason")
 
     resume_connectivity_parser = subparsers.add_parser(
         "resume-paused-connectivity", help="Resume eligible connectivity-paused runs"
@@ -281,17 +295,21 @@ def build_parser() -> argparse.ArgumentParser:
     summary_parser.add_argument("run_id", nargs="?")
     summary_parser.add_argument("--json", action="store_true", dest="as_json")
     summary_parser.add_argument("--workflow")
-    summary_parser.add_argument("--pause-reason", choices=["approval", "connectivity"])
     summary_parser.add_argument(
-        "--status", choices=["running", "paused", "completed", "failed"]
+        "--pause-reason", choices=["approval", "connectivity", "cancelled"]
+    )
+    summary_parser.add_argument(
+        "--status", choices=["running", "paused", "completed", "failed", "cancelled"]
     )
 
     paused_parser = subparsers.add_parser("paused-runs", help="List paused runs")
     paused_parser.add_argument("--workflow")
-    paused_parser.add_argument("--pause-reason", choices=["approval", "connectivity"])
+    paused_parser.add_argument(
+        "--pause-reason", choices=["approval", "connectivity", "cancelled"]
+    )
     paused_parser.add_argument(
         "--status",
-        choices=["running", "paused", "completed", "failed"],
+        choices=["running", "paused", "completed", "failed", "cancelled"],
         default="paused",
     )
     paused_parser.add_argument("--older-than-days", type=int)
@@ -302,9 +320,11 @@ def build_parser() -> argparse.ArgumentParser:
     archive_parser.add_argument("--apply", action="store_true")
     archive_parser.add_argument("--run-id")
     archive_parser.add_argument("--workflow")
-    archive_parser.add_argument("--pause-reason", choices=["approval", "connectivity"])
     archive_parser.add_argument(
-        "--status", choices=["paused", "completed", "failed", "running"]
+        "--pause-reason", choices=["approval", "connectivity", "cancelled"]
+    )
+    archive_parser.add_argument(
+        "--status", choices=["paused", "completed", "failed", "running", "cancelled"]
     )
     archive_parser.add_argument("--origin", choices=["manual", "test"])
     archive_parser.add_argument("--older-than-days", type=int)
@@ -391,18 +411,26 @@ def main(argv: list[str] | None = None) -> int:
             state = orchestrator.resume_run(args.resume)
         else:
             state = orchestrator.run_workflow(
-                workflow_ref=args.workflow,
+                workflow=args.workflow,
                 mode=args.mode,
                 seed_path=args.seed,
                 repo_path=args.repo_path,
             )
-        print(json.dumps(state.model_dump(mode="json"), indent=2))
-        return 0 if state.status in {"completed", "paused"} else 1
+        print(_jsonify_state(state))
+        status = state.status if hasattr(state, "status") else state.get("status")
+        return 0 if status in {"completed", "paused"} else 1
 
     if args.command == "resume":
         state = orchestrator.resume_run(args.run_id)
-        print(json.dumps(state.model_dump(mode="json"), indent=2))
-        return 0 if state.status in {"completed", "paused"} else 1
+        print(_jsonify_state(state))
+        status = state.status if hasattr(state, "status") else state.get("status")
+        return 0 if status in {"completed", "paused"} else 1
+
+    if args.command == "cancel":
+        state = orchestrator.cancel_run(args.run_id, reason=args.reason)
+        print(_jsonify_state(state))
+        status = state.status if hasattr(state, "status") else state.get("status")
+        return 0 if status in {"completed", "paused", "cancelled"} else 1
 
     if args.command == "resume-paused-connectivity":
         data = orchestrator.resume_connectivity_paused_runs(dry_run=args.dry_run)

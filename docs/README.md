@@ -16,6 +16,8 @@ Canonical priority note: use [MORPHOS_V0_IMPLEMENTATION_BOARD.md](milestones/v0/
 - `architecture/agentic_os_architecture.md` - overall operating system design
 - `milestones/v0/MORPHOS_V0_IMPLEMENTATION_BOARD.md` - canonical prioritized build board
 - `milestones/v1/MORPHOS_V1_RELEASE_TARGET.md` - release-definition document for aiming the current `v0` work toward a real `v1.0` launch
+- `milestones/v1/MORPHOS_SPEC_BASELINE.md` - current spec baseline and grounded production-readiness judgment for the active stack
+- `milestones/v1/MORPHOS_RELEASE_READINESS_CHECKLIST.md` - operational release checklist with repo-by-repo completion estimates and the current critical path
 - `milestones/v0/MORPHOS_V0_IMPLEMENTATION_REPO_REVIEW.md` - repo-wise architectural and testing reality check across the active Skyforce implementation repos
 - `milestones/P1/P1_IMPLEMENTATION_STATUS.md` - practical bridge between `P1` doctrine and what is actually implemented in code right now
 - `examples/P0_GOLDEN_PATH_WORK_ORDER.json` - canonical sample work-order packet for the first factory-spine proving run
