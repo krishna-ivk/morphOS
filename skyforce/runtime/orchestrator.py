@@ -38,6 +38,11 @@ from .models import (
 )
 from .policy_engine import PolicyEngine
 from .retrieval import build_retrieval_context
+from .git_promotion import GitPromotionEngine
+from .durable_lifecycle import DurableLifecycleManager, RetryConfig
+from .program_executor import ProgramStepExecutor
+from .event_taxonomy import EventTaxonomy
+from .summary_pyramid import SummaryPyramidGenerator
 
 
 class ConnectivityManager:
@@ -74,6 +79,9 @@ class Orchestrator:
         self.policy_engine = PolicyEngine(self.repo_root)
         self.connectivity_manager = ConnectivityManager()
         self.job_store = JobStore(self.repo_root)
+        self.git_promotion = GitPromotionEngine(self.repo_root)
+        self.durable_lifecycle = DurableLifecycleManager(self.repo_root)
+        self.program_executor = ProgramStepExecutor(self.repo_root, self.policy_engine)
 
     def run_workflow(
         self,
@@ -111,7 +119,9 @@ class Orchestrator:
                 consumer="coding_agent",
             ),
         }
-        write_json(run_dir / "artifacts" / "retrieval_context.json", context["retrieval"])
+        write_json(
+            run_dir / "artifacts" / "retrieval_context.json", context["retrieval"]
+        )
 
         state = RunState(
             run_id=run_id,
@@ -129,11 +139,21 @@ class Orchestrator:
 
         self._write_run_state(run_dir, state)
 
+        events = EventTaxonomy(
+            run_dir,
+            run_id,
+            context.get("workspace_id", ""),
+            context.get("issue_identifier", ""),
+        )
+        events.run_started(selected, mode)
+
         for index, step in enumerate(workflow_def.get("steps", [])):
             step_state = state.steps[index]
             state.current_step_index = index
             self._write_run_state(run_dir, state)
-            if step.get("condition") and not state.context.get(step["condition"], False):
+            if step.get("condition") and not state.context.get(
+                step["condition"], False
+            ):
                 step_state.status = "skipped"
                 self._write_checkpoint(run_dir, state, step, status="skipped")
                 self._write_run_state(run_dir, state)
@@ -154,16 +174,11 @@ class Orchestrator:
                     status="paused",
                     reason=decision.reason,
                 )
-                self._append_event(
-                    run_dir,
-                    {
-                        "event_type": "step.deferred",
-                        "step_id": step["id"],
-                        "reason": decision.reason,
-                        "at": _now(),
-                    },
+                events.step_deferred(step["id"], decision.reason or "deferred")
+                events.run_blocked(decision.reason or "connectivity", step["id"])
+                self._write_deferred_action(
+                    run_dir, step, decision.reason or "deferred"
                 )
-                self._write_deferred_action(run_dir, step, decision.reason or "deferred")
                 self._write_run_state(run_dir, state)
                 return state
 
@@ -178,40 +193,50 @@ class Orchestrator:
                     status="paused",
                     reason="approval",
                 )
-                self._append_event(
-                    run_dir,
-                    {
-                        "event_type": "step.approval_requested",
-                        "step_id": step["id"],
-                        "at": _now(),
-                    },
-                )
+                events.step_approval_requested(step["id"], step.get("message"))
+                events.approval_requested(step["id"], step.get("message"))
+                events.run_paused("approval", step["id"])
                 self._write_approval_packet(run_dir, state, step)
                 self._write_run_state(run_dir, state)
                 return state
 
+            events.step_executing(step["id"], step["type"], step.get("command"))
             result = self._execute_step(run_dir, state, step)
             step_state.status = result.get("status", "completed")
             step_state.output_ref = result.get("output_ref")
             if result.get("details"):
                 step_state.details = result["details"]
-            checkpoint_status = "completed" if step_state.status != "failed" else "failed"
+            checkpoint_status = (
+                "completed" if step_state.status != "failed" else "failed"
+            )
             self._write_checkpoint(run_dir, state, step, status=checkpoint_status)
 
             self._evaluate_signals(run_dir, state, step)
             report_path = self._write_contract_report(run_dir, state, step)
             step_state.details["contract_report"] = str(report_path)
 
-            if step_state.status == "failed" or state.context.get("__contract_failure__"):
+            if step_state.status == "failed" or state.context.get(
+                "__contract_failure__"
+            ):
                 state.status = "failed"
                 state.ended_at = _now()
+                events.step_failed(step["id"], "execution or contract failure")
+                events.run_failed("step failed", step["id"])
                 self._write_run_state(run_dir, state)
+                SummaryPyramidGenerator(run_dir).write_summaries(state.to_dict())
                 return state
+
+            events.step_completed(step["id"], step_state.output_ref)
 
         state.status = "completed"
         state.ended_at = _now()
         self._write_checkpoint(run_dir, state, None, status="completed")
+        events.run_completed(
+            sum(1 for s in state.steps if s.status == "completed"),
+            len(state.steps),
+        )
         self._finalize_run(run_dir, state)
+        SummaryPyramidGenerator(run_dir).write_summaries(state.to_dict())
         self._write_run_state(run_dir, state)
         return state
 
@@ -241,7 +266,9 @@ class Orchestrator:
 
         state.status = "failed" if decision == "reject" else "paused"
         state.pause_reason = "approval"
-        self._write_checkpoint(run_dir, state, None, status=state.status, reason=state.pause_reason)
+        self._write_checkpoint(
+            run_dir, state, None, status=state.status, reason=state.pause_reason
+        )
         self._write_run_state(run_dir, state)
         return state
 
@@ -249,10 +276,63 @@ class Orchestrator:
         state, run_dir = self._load_run(run_id)
         if state.status == "cancelled":
             return state
+        recovery = self.durable_lifecycle.resume_from_checkpoint(run_id)
+        if recovery and recovery["status"] == "retry_pending":
+            state.status = "paused"
+            state.pause_reason = f"retry_pending (attempt {recovery['attempt']})"
+            self._write_run_state(run_dir, state)
+            return state
         checkpoint = self._load_checkpoint(run_dir)
         if checkpoint:
             state.execution_checkpoint_id = checkpoint.get("checkpoint_id")
-            state.current_step_index = checkpoint.get("step_index", state.current_step_index)
+            state.current_step_index = checkpoint.get(
+                "step_index", state.current_step_index
+            )
+        state.context["connectivity_mode"] = self.connectivity_manager.detect_mode()
+        return self._resume_from_deferred(run_dir, state, checkpoint=checkpoint)
+
+    def cancel_run(self, run_id: str, reason: str | None = None) -> RunState:
+        state, run_dir = self._load_run(run_id)
+        if state.status in {"completed", "failed", "cancelled"}:
+            return state
+        self.durable_lifecycle.cancel_run(run_id, reason or "user_requested")
+        state.status = "cancelled"
+        state.pause_reason = reason or "cancelled"
+        state.ended_at = _now()
+        state.context["cancel_reason"] = reason
+        approval_path = run_dir / "approvals" / "approval_packet.json"
+        if approval_path.exists():
+            payload = read_json(approval_path, {})
+            payload.update(
+                {
+                    "status": "cancelled",
+                    "decision": "cancelled",
+                    "reason": reason or payload.get("reason"),
+                    "decided_at": _now(),
+                }
+            )
+            write_json(approval_path, payload)
+        self._write_checkpoint(run_dir, state, None, status="cancelled", reason=reason)
+        self._append_event(
+            run_dir,
+            {
+                "event_type": "run.cancelled",
+                "run_id": run_id,
+                "reason": reason,
+                "at": _now(),
+            },
+        )
+        self._write_run_state(run_dir, state)
+        return state
+
+    def recover_runs(self) -> dict[str, Any]:
+        return self.durable_lifecycle.recover_from_reboot()
+        checkpoint = self._load_checkpoint(run_dir)
+        if checkpoint:
+            state.execution_checkpoint_id = checkpoint.get("checkpoint_id")
+            state.current_step_index = checkpoint.get(
+                "step_index", state.current_step_index
+            )
         state.context["connectivity_mode"] = self.connectivity_manager.detect_mode()
         return self._resume_from_deferred(run_dir, state, checkpoint=checkpoint)
 
@@ -293,7 +373,11 @@ class Orchestrator:
         runs = []
         for state in _load_runs(self.repo_root):
             resumed = False
-            if state.status == "paused" and state.pause_reason == "connectivity" and not dry_run:
+            if (
+                state.status == "paused"
+                and state.pause_reason == "connectivity"
+                and not dry_run
+            ):
                 self.resume_run(state.run_id)
                 resumed = True
             runs.append({"run_id": state.run_id, "resumed": resumed})
@@ -302,15 +386,23 @@ class Orchestrator:
     def logs(self, run_id: str, limit: int | None = None) -> dict[str, Any]:
         _, run_dir = self._load_run(run_id)
         events = read_json(run_dir / "artifacts" / "events.json", [])
-        return {"run_id": run_id, "events": events[: limit or len(events)], "limit": limit}
+        return {
+            "run_id": run_id,
+            "events": events[: limit or len(events)],
+            "limit": limit,
+        }
 
     def inspect_deferred_actions(self, run_id: str) -> dict[str, Any]:
         state, run_dir = self._load_run(run_id)
         return {
             "run_id": run_id,
             "pause_reason": state.pause_reason,
-            "deferred_actions": read_json(run_dir / "artifacts" / "deferred_actions.json", []),
-            "pending_approval": read_json(run_dir / "approvals" / "approval_packet.json", None),
+            "deferred_actions": read_json(
+                run_dir / "artifacts" / "deferred_actions.json", []
+            ),
+            "pending_approval": read_json(
+                run_dir / "approvals" / "approval_packet.json", None
+            ),
         }
 
     def list_pending_approvals(
@@ -345,7 +437,9 @@ class Orchestrator:
             if not packet or packet.get("status", "pending") != status:
                 continue
             requested_at = packet.get("requested_at")
-            if older_than_days is not None and not _older_than(requested_at, older_than_days):
+            if older_than_days is not None and not _older_than(
+                requested_at, older_than_days
+            ):
                 continue
             approvals.append(
                 {
@@ -396,8 +490,12 @@ class Orchestrator:
                 "ordered_by": "requested_at",
                 "tie_breaker": "run_id",
                 "total_candidates": len(approvals),
-                "oldest_candidate_at": approvals[0]["requested_at"] if approvals else None,
-                "newest_candidate_at": approvals[-1]["requested_at"] if approvals else None,
+                "oldest_candidate_at": approvals[0]["requested_at"]
+                if approvals
+                else None,
+                "newest_candidate_at": approvals[-1]["requested_at"]
+                if approvals
+                else None,
             },
             "approvals": approvals,
         }
@@ -418,7 +516,9 @@ class Orchestrator:
                 continue
             if status and state.status != status:
                 continue
-            if older_than_days is not None and not _older_than(state.started_at, older_than_days):
+            if older_than_days is not None and not _older_than(
+                state.started_at, older_than_days
+            ):
                 continue
             runs.append(
                 {
@@ -426,7 +526,11 @@ class Orchestrator:
                     "workflow": state.workflow,
                     "pause_reason": state.pause_reason,
                     "blocking_step_id": next(
-                        (step.step_id for step in state.steps if step.status == "deferred"),
+                        (
+                            step.step_id
+                            for step in state.steps
+                            if step.status == "deferred"
+                        ),
                         None,
                     ),
                     "connectivity_mode": state.context.get("connectivity_mode"),
@@ -447,7 +551,9 @@ class Orchestrator:
         evidence = read_json(run_dir / "summaries" / "evidence.json", {})
         promotion_receipts = sorted(
             str(path)
-            for path in (run_dir / "artifacts" / "promotions").glob("*_promotion_receipt.json")
+            for path in (run_dir / "artifacts" / "promotions").glob(
+                "*_promotion_receipt.json"
+            )
         )
         source_handoffs = sorted(
             str(path) for path in (run_dir / "artifacts").glob("*_source_handoff.json")
@@ -464,9 +570,15 @@ class Orchestrator:
             "steps": [step.to_dict() for step in state.steps],
             "validation": validation,
             "pending_approval": pending,
-            "deferred_actions": read_json(run_dir / "artifacts" / "deferred_actions.json", []),
+            "deferred_actions": read_json(
+                run_dir / "artifacts" / "deferred_actions.json", []
+            ),
             "evidence": evidence,
-            "evidence_refs": [str(run_dir / "summaries" / "evidence.json"), *source_handoffs, *promotion_receipts],
+            "evidence_refs": [
+                str(run_dir / "summaries" / "evidence.json"),
+                *source_handoffs,
+                *promotion_receipts,
+            ],
             "contract_reports": sorted(
                 path.name.replace("_contract_report.json", "")
                 for path in (run_dir / "validation").glob("*_contract_report.json")
@@ -514,7 +626,9 @@ class Orchestrator:
             ):
                 continue
             if state.status == "running":
-                skipped.append({"run_id": state.run_id, "reason": "status=running not archivable"})
+                skipped.append(
+                    {"run_id": state.run_id, "reason": "status=running not archivable"}
+                )
                 continue
             candidates.append(self._candidate_record(state))
 
@@ -531,17 +645,27 @@ class Orchestrator:
                 dst = archive_root / item["run_id"]
                 if src.exists():
                     shutil.copytree(src, dst, dirs_exist_ok=True)
-                archived.append({"run_id": item["run_id"], "reason": "archive-runs command"})
+                archived.append(
+                    {"run_id": item["run_id"], "reason": "archive-runs command"}
+                )
 
         return {
             "dry_run": not apply,
             "matched": len(candidates),
             "preview": {
                 "total_candidates": len(candidates),
-                "oldest_candidate_at": candidates[0]["archive_basis_at"] if candidates else None,
-                "newest_candidate_at": candidates[-1]["archive_basis_at"] if candidates else None,
+                "oldest_candidate_at": candidates[0]["archive_basis_at"]
+                if candidates
+                else None,
+                "newest_candidate_at": candidates[-1]["archive_basis_at"]
+                if candidates
+                else None,
             },
-            "filters": {"older_than_days": older_than_days, "limit": limit, "origin": origin},
+            "filters": {
+                "older_than_days": older_than_days,
+                "limit": limit,
+                "origin": origin,
+            },
             "candidates": candidates,
             "archived": archived,
             "skipped": skipped,
@@ -564,17 +688,23 @@ class Orchestrator:
         )
         if not include_paused:
             preview["candidates"] = [
-                item for item in preview["candidates"] if item.get("status") in {"completed", "failed"}
+                item
+                for item in preview["candidates"]
+                if item.get("status") in {"completed", "failed"}
             ]
         if limit is not None:
             preview["candidates"] = preview["candidates"][: max(0, limit)]
         preview["matched"] = len(preview["candidates"])
         preview["preview"]["total_candidates"] = len(preview["candidates"])
         preview["preview"]["oldest_candidate_at"] = (
-            preview["candidates"][0]["archive_basis_at"] if preview["candidates"] else None
+            preview["candidates"][0]["archive_basis_at"]
+            if preview["candidates"]
+            else None
         )
         preview["preview"]["newest_candidate_at"] = (
-            preview["candidates"][-1]["archive_basis_at"] if preview["candidates"] else None
+            preview["candidates"][-1]["archive_basis_at"]
+            if preview["candidates"]
+            else None
         )
         if apply:
             archive_root = self.repo_root / "artifacts" / "archived-runs"
@@ -585,13 +715,16 @@ class Orchestrator:
                 dst = archive_root / item["run_id"]
                 if src.exists():
                     shutil.copytree(src, dst, dirs_exist_ok=True)
-                archived.append({"run_id": item["run_id"], "reason": "cleanup-test-runs command"})
+                archived.append(
+                    {"run_id": item["run_id"], "reason": "cleanup-test-runs command"}
+                )
             preview["archived"] = archived
         preview["filters"].update(
             {
                 "workflow": workflow,
                 "origin": "test",
-                "statuses": ["completed", "failed"] + (["paused"] if include_paused else []),
+                "statuses": ["completed", "failed"]
+                + (["paused"] if include_paused else []),
                 "include_paused": include_paused,
             }
         )
@@ -634,7 +767,11 @@ class Orchestrator:
             },
             "queue_totals": approvals["queue_totals"],
             "preview": approvals["preview"],
-            "filtered_counts": {"matched": len(candidates), "applied": len(results), "skipped": 0},
+            "filtered_counts": {
+                "matched": len(candidates),
+                "applied": len(results),
+                "skipped": 0,
+            },
             "matched": len(candidates),
             "applied": len(results),
             "candidates": [] if apply else candidates,
@@ -671,94 +808,47 @@ class Orchestrator:
 
         for handoff_path in handoff_paths:
             handoff = read_json(handoff_path, {})
+            handoff["workflow"] = state.workflow
             workspace_path = Path(handoff["workspace_path"])
             source_repo_path = Path(handoff["source_repo_path"])
             workspace_files = handoff.get("workspace_files", [])
-            selected_files = self._select_workspace_files(workspace_files, only_files, exclude_files)
-            file_statuses = []
-            checksums = []
-            for rel_path in selected_files:
-                workspace_file = workspace_path / rel_path
-                source_file = source_repo_path / rel_path
-                workspace_text = workspace_file.read_text(encoding="utf-8") if workspace_file.exists() else ""
-                source_text = source_file.read_text(encoding="utf-8") if source_file.exists() else ""
-                status = "create" if not source_file.exists() else ("overwrite" if source_text != workspace_text else "unchanged")
-                preview = "".join(
-                    difflib.unified_diff(
-                        source_text.splitlines(keepends=True),
-                        workspace_text.splitlines(keepends=True),
-                        fromfile=f"a/{rel_path}",
-                        tofile=f"b/{rel_path}",
-                        n=2,
-                    )
-                )
-                checksum_entry = {
-                    "path": rel_path,
-                    "source": self._checksum_text(source_text) if source_file.exists() else None,
-                    "workspace": self._checksum_text(workspace_text) if workspace_file.exists() else None,
+
+            promotion_result = self.git_promotion.promote_with_git(
+                run_id=run_id,
+                handoff=handoff,
+                apply=apply,
+                only_files=only_files,
+                exclude_files=exclude_files,
+            )
+
+            candidates.append(
+                {
+                    "run_id": run_id,
+                    "step_id": handoff.get("step_id"),
+                    "workspace_path": str(workspace_path),
+                    "source_repo_path": str(source_repo_path),
+                    "promotion_ready": promotion_result.get("promotion_ready", False),
+                    "changed_file_count": promotion_result.get("changed_file_count", 0),
+                    "file_statuses": promotion_result.get("file_statuses", []),
+                    "pre_land_invariants": promotion_result.get(
+                        "pre_land_invariants", {}
+                    ),
+                    "branch_name": promotion_result.get("branch_name"),
+                    "error": promotion_result.get("error"),
                 }
-                checksums.append(checksum_entry)
-                file_statuses.append(
-                    {
-                        "path": rel_path,
-                        "status": status,
-                        "preview": preview,
-                        "checksums": checksum_entry,
-                    }
-                )
+            )
 
-            source_dirty = self._is_git_dirty(source_repo_path)
-            candidate = {
-                "run_id": run_id,
-                "step_id": handoff.get("step_id"),
-                "workspace_path": str(workspace_path),
-                "source_repo_path": str(source_repo_path),
-                "promotion_ready": handoff.get("promotion_ready", False),
-                "changed_file_count": len(selected_files),
-                "workspace_files": workspace_files,
-                "selected_files": selected_files,
-                "selection": {
-                    "only_files": only_files or [],
-                    "exclude_files": exclude_files or [],
-                },
-                "file_statuses": file_statuses,
-                "source_dirty": source_dirty,
-            }
-            candidates.append(candidate)
-
-            if apply and selected_files and not source_dirty:
-                promoted_files = []
-                promoted_checksums = []
-                for rel_path in selected_files:
-                    workspace_file = workspace_path / rel_path
-                    source_file = source_repo_path / rel_path
-                    source_file.parent.mkdir(parents=True, exist_ok=True)
-                    content = workspace_file.read_text(encoding="utf-8")
-                    source_file.write_text(content, encoding="utf-8")
-                    promoted_files.append(rel_path)
-                    promoted_checksums.append(
-                        {
-                            "path": rel_path,
-                            "source_after": self._checksum_text(content),
-                        }
-                    )
-                receipt_path = run_dir / "artifacts" / "promotions" / f"{handoff.get('step_id')}_promotion_receipt.json"
-                write_json(
-                    receipt_path,
-                    {
-                        "run_id": run_id,
-                        "step_id": handoff.get("step_id"),
-                        "files_promoted": promoted_files,
-                        "checksums": promoted_checksums,
-                    },
-                )
+            if apply and not promotion_result.get("error"):
                 promoted.append(
                     {
                         "run_id": run_id,
                         "step_id": handoff.get("step_id"),
-                        "files_promoted": promoted_files,
-                        "checksums": promoted_checksums,
-                        "receipt_path": str(receipt_path),
+                        "files_promoted": promotion_result.get("files_promoted", []),
+                        "branch_name": promotion_result.get("branch_name"),
+                        "commit_sha": promotion_result.get("commit_sha"),
+                        "pr_url": promotion_result.get("pr_url"),
+                        "rollback_branch": promotion_result.get("rollback_branch"),
+                        "receipt_path": promotion_result.get("receipt_path"),
                     }
                 )
 
@@ -771,12 +861,20 @@ class Orchestrator:
             "promoted": promoted,
         }
 
+    def rollback_promotion(self, run_id: str, step_id: str) -> dict[str, Any]:
+        return self.git_promotion.rollback_promotion(run_id, step_id)
+
     def run_codex_smoke(self, repo_path: str = ".") -> dict[str, Any]:
         state = self.run_workflow(
             "codex_smoke", mode="factory", seed_path=None, repo_path=repo_path
         )
         output = read_json(
-            self.repo_root / "artifacts" / "runs" / state.run_id / "artifacts" / "probe_coding_agent_output.json",
+            self.repo_root
+            / "artifacts"
+            / "runs"
+            / state.run_id
+            / "artifacts"
+            / "probe_coding_agent_output.json",
             {},
         )
         return {
@@ -801,11 +899,19 @@ class Orchestrator:
         state: RunState,
         checkpoint: dict[str, Any] | None = None,
     ) -> RunState:
-        workflow_def = self._load_workflow(state.context.get("workflow_ref") or state.workflow)
-        start_index = checkpoint.get("step_index") if checkpoint else state.current_step_index
+        workflow_def = self._load_workflow(
+            state.context.get("workflow_ref") or state.workflow
+        )
+        start_index = (
+            checkpoint.get("step_index") if checkpoint else state.current_step_index
+        )
         if start_index is None or start_index >= len(state.steps):
             start_index = next(
-                (idx for idx, step in enumerate(state.steps) if step.status == "deferred"),
+                (
+                    idx
+                    for idx, step in enumerate(state.steps)
+                    if step.status == "deferred"
+                ),
                 len(state.steps),
             )
 
@@ -816,7 +922,9 @@ class Orchestrator:
             if step_state.status == "completed":
                 self._write_checkpoint(run_dir, state, step, status="completed")
                 continue
-            if step.get("condition") and not state.context.get(step["condition"], False):
+            if step.get("condition") and not state.context.get(
+                step["condition"], False
+            ):
                 step_state.status = "skipped"
                 self._write_checkpoint(run_dir, state, step, status="skipped")
                 continue
@@ -847,12 +955,16 @@ class Orchestrator:
             step_state.output_ref = result.get("output_ref")
             if result.get("details"):
                 step_state.details = result["details"]
-            checkpoint_status = "completed" if step_state.status != "failed" else "failed"
+            checkpoint_status = (
+                "completed" if step_state.status != "failed" else "failed"
+            )
             self._write_checkpoint(run_dir, state, step, status=checkpoint_status)
             self._evaluate_signals(run_dir, state, step)
             report_path = self._write_contract_report(run_dir, state, step)
             step_state.details["contract_report"] = str(report_path)
-            if step_state.status == "failed" or state.context.get("__contract_failure__"):
+            if step_state.status == "failed" or state.context.get(
+                "__contract_failure__"
+            ):
                 state.status = "failed"
                 state.ended_at = _now()
                 self._write_checkpoint(run_dir, state, step, status="failed")
@@ -867,22 +979,41 @@ class Orchestrator:
         self._write_run_state(run_dir, state)
         return state
 
-    def _execute_step(self, run_dir: Path, state: RunState, step: dict[str, Any]) -> dict[str, Any]:
+    def _execute_step(
+        self, run_dir: Path, state: RunState, step: dict[str, Any]
+    ) -> dict[str, Any]:
         step_id = step["id"]
-        self._append_event(run_dir, {"event_type": "step.start", "step_id": step_id, "at": _now()})
+        self._append_event(
+            run_dir, {"event_type": "step.start", "step_id": step_id, "at": _now()}
+        )
 
         if step["type"] == "program":
             command = _expand_shell(step["command"], state.context)
-            completed = subprocess.run(
-                command,
-                cwd=state.context["workspace_path"],
-                shell=True,
-                capture_output=True,
-                text=True,
-                check=False,
+            timeout = step.get("timeout", 300)
+            result = self.program_executor.execute(
+                run_id=state.run_id,
+                step_id=step_id,
+                command=command,
+                context=state.context,
+                timeout=timeout,
+                workspace_path=state.context.get("workspace_path"),
             )
-            status = "completed" if completed.returncode == 0 else "failed"
-            return {"status": status, "details": {"stdout": completed.stdout, "stderr": completed.stderr}}
+            result_dict = self.program_executor.to_dict(result)
+            if result.policy_blocked:
+                status = "deferred"
+            elif result.returncode == 0 and result.contract_valid:
+                status = "completed"
+            else:
+                status = "failed"
+                if result.timed_out:
+                    self.durable_lifecycle.retry_with_backoff(
+                        run_id=state.run_id,
+                        step_id=step_id,
+                        step_index=state.current_step_index or 0,
+                        state={"command": command},
+                        error="timeout",
+                    )
+            return {"status": status, "details": result_dict}
 
         if step["type"] == "agent":
             return self._run_agent_step(run_dir, state, step)
@@ -899,7 +1030,9 @@ class Orchestrator:
 
         return {"status": "completed"}
 
-    def _run_agent_step(self, run_dir: Path, state: RunState, step: dict[str, Any]) -> dict[str, Any]:
+    def _run_agent_step(
+        self, run_dir: Path, state: RunState, step: dict[str, Any]
+    ) -> dict[str, Any]:
         agent = step["agent"]
         if agent == "vision_agent":
             result = vision_agent(self.repo_root, run_dir)
@@ -928,11 +1061,15 @@ class Orchestrator:
             result = {"status": "completed"}
 
         if step["id"] == "architecture_review":
-            write_json(run_dir / "artifacts" / "architecture_review_output.json", result)
+            write_json(
+                run_dir / "artifacts" / "architecture_review_output.json", result
+            )
 
         return {"status": "completed", "details": result}
 
-    def _invoke_agent(self, agent: str, run_dir: Path, state: RunState, item: dict[str, Any]) -> dict[str, Any]:
+    def _invoke_agent(
+        self, agent: str, run_dir: Path, state: RunState, item: dict[str, Any]
+    ) -> dict[str, Any]:
         backend = self.agent_registry.get(agent)
         if backend:
             invocation = AgentInvocation(
@@ -953,7 +1090,9 @@ class Orchestrator:
             )
         return {"task_id": item.get("id"), "status": "completed", "backend": "local"}
 
-    def _evaluate_signals(self, run_dir: Path, state: RunState, step: dict[str, Any]) -> None:
+    def _evaluate_signals(
+        self, run_dir: Path, state: RunState, step: dict[str, Any]
+    ) -> None:
         for signal in step.get("signals", []):
             path = Path(_expand(signal["path"], state.context))
             payload = read_json(path, {})
@@ -1023,8 +1162,12 @@ class Orchestrator:
                 "workflow": state.workflow,
                 "run_id": state.run_id,
                 "retrieval": {
-                    "reference_context_count": state.context.get("retrieval", {}).get("reference_context_count", 0),
-                    "reference_context_titles": state.context.get("retrieval", {}).get("reference_context_titles", []),
+                    "reference_context_count": state.context.get("retrieval", {}).get(
+                        "reference_context_count", 0
+                    ),
+                    "reference_context_titles": state.context.get("retrieval", {}).get(
+                        "reference_context_titles", []
+                    ),
                 },
             },
         )
@@ -1047,7 +1190,9 @@ class Orchestrator:
                 {"overall_result": "pass"},
             )
 
-    def _write_approval_packet(self, run_dir: Path, state: RunState, step: dict[str, Any]) -> None:
+    def _write_approval_packet(
+        self, run_dir: Path, state: RunState, step: dict[str, Any]
+    ) -> None:
         write_json(
             run_dir / "approvals" / "approval_packet.json",
             {
@@ -1069,7 +1214,9 @@ class Orchestrator:
         reason: str | None = None,
     ) -> ExecutionCheckpoint:
         checkpoint_id = f"cp-{uuid4().hex[:8]}"
-        step_index = state.current_step_index if step is not None else state.current_step_index
+        step_index = (
+            state.current_step_index if step is not None else state.current_step_index
+        )
         record = ExecutionCheckpoint(
             checkpoint_id=checkpoint_id,
             run_id=state.run_id,
@@ -1090,15 +1237,21 @@ class Orchestrator:
                 state.context.get("artifacts_dir", ""),
                 state.context.get("validation_dir", ""),
             ],
-            context_refs=state.context.get("retrieval", {}).get("reference_context", [])[:3],
+            context_refs=state.context.get("retrieval", {}).get(
+                "reference_context", []
+            )[:3],
             created_at=_now(),
             updated_at=_now(),
         )
         state.execution_checkpoint_id = checkpoint_id
-        write_json(run_dir / "artifacts" / "checkpoint.json", record.model_dump(mode="json"))
+        write_json(
+            run_dir / "artifacts" / "checkpoint.json", record.model_dump(mode="json")
+        )
         checkpoints_dir = run_dir / "artifacts" / "checkpoints"
         checkpoints_dir.mkdir(parents=True, exist_ok=True)
-        write_json(checkpoints_dir / f"{checkpoint_id}.json", record.model_dump(mode="json"))
+        write_json(
+            checkpoints_dir / f"{checkpoint_id}.json", record.model_dump(mode="json")
+        )
         self._write_run_state(run_dir, state)
         return record
 
@@ -1107,7 +1260,9 @@ class Orchestrator:
         payload = read_json(checkpoint_path, None)
         return payload if isinstance(payload, dict) else None
 
-    def _write_deferred_action(self, run_dir: Path, step: dict[str, Any], reason: str) -> None:
+    def _write_deferred_action(
+        self, run_dir: Path, step: dict[str, Any], reason: str
+    ) -> None:
         actions = read_json(run_dir / "artifacts" / "deferred_actions.json", [])
         actions.append({"step_id": step["id"], "reason": reason})
         write_json(run_dir / "artifacts" / "deferred_actions.json", actions)
@@ -1143,14 +1298,18 @@ class Orchestrator:
             "promotion_ready": True,
             "results": results,
         }
-        write_json(run_dir / "artifacts" / f"{step_id}_source_handoff.json", source_handoff)
+        write_json(
+            run_dir / "artifacts" / f"{step_id}_source_handoff.json", source_handoff
+        )
         if step_id == "implement_features":
             write_json(
                 run_dir / "artifacts" / "implement_features_delivery.json",
                 {
                     "step_id": step_id,
                     "results": results,
-                    "cited_reference_context": state.context.get("retrieval", {}).get("reference_context", [])[:3],
+                    "cited_reference_context": state.context.get("retrieval", {}).get(
+                        "reference_context", []
+                    )[:3],
                 },
             )
 
@@ -1197,34 +1356,44 @@ class Orchestrator:
             path = self.repo_root / "workflows" / f"{workflow}.yaml"
         payload = json.loads(path.read_text())
         if workflow == "bug_fix_pipeline":
-            payload.setdefault("steps", [
-                {
-                    "id": "run_tests",
-                    "type": "program",
-                    "command": "bash programs/run_tests.sh ${run_id} ${validation_dir}",
-                    "signals": [
-                        {
-                            "name": "test_failure_signal",
-                            "path": "${validation_dir}/test_results.json",
-                            "json_path": "overall_result",
-                            "equals": "fail",
-                            "context_key": "test_failure",
-                        }
-                    ],
-                },
-                {
-                    "id": "apply_fixes",
-                    "type": "parallel_agents",
-                    "condition": "test_failure",
-                    "agent": "coding_agent",
-                    "items_from": "repair_tasks.json",
-                    "max_parallel": 1,
-                },
-            ])
+            payload.setdefault(
+                "steps",
+                [
+                    {
+                        "id": "run_tests",
+                        "type": "program",
+                        "command": "bash programs/run_tests.sh ${run_id} ${validation_dir}",
+                        "signals": [
+                            {
+                                "name": "test_failure_signal",
+                                "path": "${validation_dir}/test_results.json",
+                                "json_path": "overall_result",
+                                "equals": "fail",
+                                "context_key": "test_failure",
+                            }
+                        ],
+                    },
+                    {
+                        "id": "apply_fixes",
+                        "type": "parallel_agents",
+                        "condition": "test_failure",
+                        "agent": "coding_agent",
+                        "items_from": "repair_tasks.json",
+                        "max_parallel": 1,
+                    },
+                ],
+            )
         return payload
 
     def _prepare_run_dirs(self, run_dir: Path) -> None:
-        for name in ["artifacts", "validation", "summaries", "approvals", "work", "workspace"]:
+        for name in [
+            "artifacts",
+            "validation",
+            "summaries",
+            "approvals",
+            "work",
+            "workspace",
+        ]:
             (run_dir / name).mkdir(parents=True, exist_ok=True)
 
     def _seed_workspace(self, source_repo: Path, workspace: Path) -> None:
@@ -1244,7 +1413,9 @@ class Orchestrator:
 
     def _load_run(self, run_id: str) -> tuple[RunState, Path]:
         run_dir = self.repo_root / "artifacts" / "runs" / run_id
-        state = RunState.from_dict(read_json(run_dir / "artifacts" / "run_state.json", {}))
+        state = RunState.from_dict(
+            read_json(run_dir / "artifacts" / "run_state.json", {})
+        )
         return state, run_dir
 
     def _append_event(self, run_dir: Path, event: dict[str, Any]) -> None:
