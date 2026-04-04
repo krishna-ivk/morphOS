@@ -50,6 +50,10 @@ The next critical proof point is one **single executable release gate** for the 
 - source of truth command: `npm run release-gate:p0`
 - source of truth repo: `skyforce-harness`
 - supporting runbook: [../P0/P0_FACTORY_SPINE_IMPLEMENTATION_CHECKLIST.md](../P0/P0_FACTORY_SPINE_IMPLEMENTATION_CHECKLIST.md)
+- governed land bar:
+  - pre-land invariant gate blocks merge without promotion receipt, merge-ready validation, summary readiness, and clean target repo state
+  - rollback safety restores branch/repo posture if land fails after checkout
+  - post-land verification confirms landed state before merge is treated as final
 
 This gate should remain the short-form answer to “how do we prove the full path twice?” until a stricter clean-environment release gate replaces it.
 
