@@ -30,6 +30,7 @@ operator behavior aligned to the real factory spine.
 
 - `milestones/P0/P0_FACTORY_SPINE_RECOVERY_PLAN.md` - recovery posture for proving the first real end-to-end factory transaction before expanding doctrine again
 - `milestones/P0/P0_FACTORY_SPINE_IMPLEMENTATION_CHECKLIST.md` - concrete cross-repo build order for the first intake-to-approval transaction
+- `skyforce-harness` `npm run release-gate:p0` - current single-command release gate for proving the P0 spine twice with bounded retry/second-run coverage
 - `milestones/P0/P0_GOLDEN_PATH_SEED_PACKET.md` - narrow golden-path seed used to prove Symphony, Harness, and Command Centre integration
 - `milestones/v0/MORPHOS_V0_IMPLEMENTATION_REPO_REVIEW.md` - implementation-repo review that records which stack layers are currently strong, transitional, or still prototype-grade
 - `core-mechanics/WORK_ORDER_SCHEMA_SPEC.md` - normalized intake contract

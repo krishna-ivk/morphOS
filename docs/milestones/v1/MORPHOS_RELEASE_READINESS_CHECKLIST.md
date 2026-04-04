@@ -43,6 +43,16 @@ The platform should not be called production-ready until all of these gates are 
 | Safe promotion back into source repos | partial | 40% |
 | Reproducible cross-repo validation in clean environments | partial | 45% |
 
+## Immediate Critical Bar
+
+The next critical proof point is one **single executable release gate** for the P0 spine:
+
+- source of truth command: `npm run release-gate:p0`
+- source of truth repo: `skyforce-harness`
+- supporting runbook: [../P0/P0_FACTORY_SPINE_IMPLEMENTATION_CHECKLIST.md](../P0/P0_FACTORY_SPINE_IMPLEMENTATION_CHECKLIST.md)
+
+This gate should remain the short-form answer to “how do we prove the full path twice?” until a stricter clean-environment release gate replaces it.
+
 ## Repo-by-Repo Readiness
 
 These are grounded estimates for how close each active repo is to its required `v1.0` role.

@@ -18,6 +18,16 @@ This checklist is done only when:
 - one human approval packet is used in the flow
 - one change merges through the governed path
 
+## Single Release-Gate Source Of Truth
+
+Use **`skyforce-harness`** as the executable proof surface for this checklist.
+
+- command: `npm run release-gate:p0`
+- repo: `skyforce-harness`
+- purpose: prove the factory spine, retry path, second run, and artifact/receipt flow from one bounded command
+
+This is the operational bar for “the line works twice” until a stricter clean-environment gate replaces it.
+
 ## Repo Map
 
 - [morphOS](/home/vashista/skyforce/morphOS): doctrine source and MVP contract source
