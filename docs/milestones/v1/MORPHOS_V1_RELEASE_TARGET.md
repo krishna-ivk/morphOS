@@ -34,6 +34,16 @@ That means:
 4. `skyforce-core` provides the shared contract layer without concept drift from `morphOS`.
 5. `skyforce-command-centre-live` provides a protected operator surface that reflects real execution, approval, validation, and promotion state.
 
+## Repo-local requirement ownership
+
+`morphOS` keeps the cross-repo release bar. Detailed repo-specific `v1.0` implementation requirements live in the owning repos:
+
+- `skyforce-symphony`: [../../../../skyforce-symphony/docs/MORPHOS_V1_REQUIREMENTS.md](../../../../skyforce-symphony/docs/MORPHOS_V1_REQUIREMENTS.md)
+- `skyforce-harness`: [../../../../skyforce-harness/docs/MORPHOS_V1_REQUIREMENTS.md](../../../../skyforce-harness/docs/MORPHOS_V1_REQUIREMENTS.md)
+- `skyforce-core`: [../../../../skyforce-core/docs/MORPHOS_V1_REQUIREMENTS.md](../../../../skyforce-core/docs/MORPHOS_V1_REQUIREMENTS.md)
+- `skyforce-command-centre-live`: [../../../../sky-force-command-centre-live/MORPHOS_V1_REQUIREMENTS.md](../../../../sky-force-command-centre-live/MORPHOS_V1_REQUIREMENTS.md)
+- `morphos-agent-room`: [../../../../morphos-agent-room/docs/MORPHOS_V1_REQUIREMENTS.md](../../../../morphos-agent-room/docs/MORPHOS_V1_REQUIREMENTS.md)
+
 ## Required v1.0 Capabilities
 
 ### 1. Stable Contract Authority
@@ -151,4 +161,3 @@ When choosing work after this point:
 - prefer work that closes a release blocker over work that adds a new concept
 - prefer convergence across repos over expanding doctrine
 - prefer executable control-path improvements over observational-only features
-

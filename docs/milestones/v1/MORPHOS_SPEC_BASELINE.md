@@ -104,50 +104,17 @@ Why this is the right judgment:
    - stable operator governance
 3. multiple critical repos are still classified as transitional or prototype-grade in the repo review
 
-## Repo-by-Repo Baseline Posture
+## Repo-local Requirement Specs
 
-### `skyforce-symphony`
+Repo-specific `v1.0` implementation requirements have been moved into the owning repos for faster execution and local ownership:
 
-- posture: strongest current runtime host
-- baseline truth: credible execution host and observability surface
-- still missing for production:
-  - explicit durable step execution
-  - stronger restart/recovery semantics
-  - less heuristic workflow routing
+- `skyforce-symphony`: [../../../../skyforce-symphony/docs/MORPHOS_V1_REQUIREMENTS.md](../../../../skyforce-symphony/docs/MORPHOS_V1_REQUIREMENTS.md)
+- `skyforce-harness`: [../../../../skyforce-harness/docs/MORPHOS_V1_REQUIREMENTS.md](../../../../skyforce-harness/docs/MORPHOS_V1_REQUIREMENTS.md)
+- `skyforce-core`: [../../../../skyforce-core/docs/MORPHOS_V1_REQUIREMENTS.md](../../../../skyforce-core/docs/MORPHOS_V1_REQUIREMENTS.md)
+- `skyforce-command-centre-live`: [../../../../sky-force-command-centre-live/MORPHOS_V1_REQUIREMENTS.md](../../../../sky-force-command-centre-live/MORPHOS_V1_REQUIREMENTS.md)
+- `morphos-agent-room`: [../../../../morphos-agent-room/docs/MORPHOS_V1_REQUIREMENTS.md](../../../../morphos-agent-room/docs/MORPHOS_V1_REQUIREMENTS.md)
 
-### `skyforce-harness`
-
-- posture: useful artifact and execution seam, still prototype-grade
-- baseline truth: good proving surface for receipts, summaries, approval packets, and factory-spine scripts
-- still missing for production:
-  - typed core
-  - stronger contract enforcement
-  - deeper idempotency and trust guarantees
-
-### `skyforce-core`
-
-- posture: valuable but transitional
-- baseline truth: contract layer plus practical workspace CLI
-- still missing for production:
-  - cleaner architecture boundaries
-  - stronger validation story
-  - less monolithic orchestration logic in the CLI
-
-### `skyforce-command-centre-live`
-
-- posture: credible operator shell, not yet the final governance runtime
-- baseline truth: real operator-facing surface with login, issue views, and summary/promotion/approval affordances
-- still missing for production:
-  - stronger backend truth and authority alignment
-  - less dependence on transitional control-plane seams
-
-### `morphos-agent-room`
-
-- posture: new room-to-factory intake surface
-- baseline truth: useful adjunct repo for collaborative feature-room handoff
-- still missing for production:
-  - explicit integration into the validated production spine
-  - clear release ownership within the `v1.0` bar
+`morphOS` keeps cross-repo release posture and gating truth; each runtime repo now owns its concise feature requirements and cross-repo impact reasoning.
 
 ## Baseline Release Blockers
 

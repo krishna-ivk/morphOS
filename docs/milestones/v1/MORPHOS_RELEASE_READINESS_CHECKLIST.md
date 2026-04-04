@@ -47,14 +47,14 @@ The platform should not be called production-ready until all of these gates are 
 
 These are grounded estimates for how close each active repo is to its required `v1.0` role.
 
-| Repo | Role in `v1.0` | Readiness | Why |
+| Repo | Role in `v1.0` | Readiness | Owner spec |
 |---|---|---:|---|
-| `morphOS` | specification authority | 70% | strong doctrine, clear release target, but still ahead of runtime convergence |
-| `skyforce-symphony` | orchestration runtime host | 60% | strongest runtime repo, but still lacks fully durable explicit step execution |
-| `skyforce-core` | contracts + CLI + validation seam | 50% | useful and real, but still architecturally transitional |
-| `skyforce-harness` | execution + receipts + validation seam | 40% | valuable proving surface, still too script-heavy / prototype-grade |
-| `skyforce-command-centre-live` | operator control surface | 50% | real operator UI exists, but not yet the final governance runtime |
-| `morphos-agent-room` | room-to-factory intake adjunct | 25% | useful new intake repo, but not yet a proven production-spine dependency |
+| `morphOS` | specification authority | 70% | this file set (`morphOS` remains cross-repo release authority) |
+| `skyforce-symphony` | orchestration runtime host | 60% | [MORPHOS_V1_REQUIREMENTS.md](../../../../skyforce-symphony/docs/MORPHOS_V1_REQUIREMENTS.md) |
+| `skyforce-core` | contracts + CLI + validation seam | 50% | [MORPHOS_V1_REQUIREMENTS.md](../../../../skyforce-core/docs/MORPHOS_V1_REQUIREMENTS.md) |
+| `skyforce-harness` | execution + receipts + validation seam | 40% | [MORPHOS_V1_REQUIREMENTS.md](../../../../skyforce-harness/docs/MORPHOS_V1_REQUIREMENTS.md) |
+| `skyforce-command-centre-live` | operator control surface | 50% | [MORPHOS_V1_REQUIREMENTS.md](../../../../sky-force-command-centre-live/MORPHOS_V1_REQUIREMENTS.md) |
+| `morphos-agent-room` | room-to-factory intake adjunct | 25% | [MORPHOS_V1_REQUIREMENTS.md](../../../../morphos-agent-room/docs/MORPHOS_V1_REQUIREMENTS.md) |
 
 ## Detailed Checklist
 
