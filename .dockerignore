@@ -1,0 +1,12 @@
+__pycache__
+*.pyc
+*.pyo
+.git
+.github
+.next
+node_modules
+*.log
+.coverage
+test_results.txt
+.pytest_cache
+.ruff_cache
