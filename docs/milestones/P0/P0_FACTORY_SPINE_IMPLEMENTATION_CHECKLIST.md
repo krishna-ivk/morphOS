@@ -24,7 +24,8 @@ Use **`skyforce-harness`** as the executable proof surface for this checklist.
 
 - command: `npm run release-gate:p0`
 - repo: `skyforce-harness`
-- purpose: prove the factory spine, retry path, second run, and artifact/receipt flow from one bounded command
+- purpose: prove the factory spine, retry path, second run, artifact/receipt flow, and governed land-safety verification from one bounded command
+- cross-repo expansion: when `skyforce-core` is present, this gate also runs the governed land-safety suite there
 - governed land safety inside this bar means:
   - pre-land invariants must pass before merge
   - failed land attempts must restore repo/branch posture

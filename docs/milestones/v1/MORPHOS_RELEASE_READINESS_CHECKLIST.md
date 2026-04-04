@@ -50,6 +50,7 @@ The next critical proof point is one **single executable release gate** for the 
 - source of truth command: `npm run release-gate:p0`
 - source of truth repo: `skyforce-harness`
 - supporting runbook: [../P0/P0_FACTORY_SPINE_IMPLEMENTATION_CHECKLIST.md](../P0/P0_FACTORY_SPINE_IMPLEMENTATION_CHECKLIST.md)
+- gate expansion: when `skyforce-core` is present, this command also executes the governed land-safety suite there
 - governed land bar:
   - pre-land invariant gate blocks merge without promotion receipt, merge-ready validation, summary readiness, and clean target repo state
   - rollback safety restores branch/repo posture if land fails after checkout
