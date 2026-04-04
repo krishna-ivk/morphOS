@@ -43,6 +43,15 @@ from .durable_lifecycle import DurableLifecycleManager, RetryConfig
 from .program_executor import ProgramStepExecutor
 from .event_taxonomy import EventTaxonomy
 from .summary_pyramid import SummaryPyramidGenerator
+from .mode_enforcement import (
+    detect_mode_from_seed,
+    should_interrupt_for_approval,
+    get_summary_level,
+    format_mode_status,
+    MODE_AUTO,
+)
+from .connectivity import ConnectivityManager as RealConnectivityManager
+from .pr_client import PRClient
 
 
 class ConnectivityManager:
@@ -82,6 +91,7 @@ class Orchestrator:
         self.git_promotion = GitPromotionEngine(self.repo_root)
         self.durable_lifecycle = DurableLifecycleManager(self.repo_root)
         self.program_executor = ProgramStepExecutor(self.repo_root, self.policy_engine)
+        self.connectivity_manager = RealConnectivityManager()
 
     def run_workflow(
         self,
@@ -99,6 +109,8 @@ class Orchestrator:
         source_repo = Path(repo_path or self.repo_root)
         workspace = run_dir / "workspace"
         self._seed_workspace(source_repo, workspace)
+
+        resolved_mode = detect_mode_from_seed(seed_path, mode)
 
         context = {
             "repo_path": str(workspace),
@@ -327,47 +339,6 @@ class Orchestrator:
 
     def recover_runs(self) -> dict[str, Any]:
         return self.durable_lifecycle.recover_from_reboot()
-        checkpoint = self._load_checkpoint(run_dir)
-        if checkpoint:
-            state.execution_checkpoint_id = checkpoint.get("checkpoint_id")
-            state.current_step_index = checkpoint.get(
-                "step_index", state.current_step_index
-            )
-        state.context["connectivity_mode"] = self.connectivity_manager.detect_mode()
-        return self._resume_from_deferred(run_dir, state, checkpoint=checkpoint)
-
-    def cancel_run(self, run_id: str, reason: str | None = None) -> RunState:
-        state, run_dir = self._load_run(run_id)
-        if state.status in {"completed", "failed", "cancelled"}:
-            return state
-        state.status = "cancelled"
-        state.pause_reason = "cancelled"
-        state.ended_at = _now()
-        state.context["cancel_reason"] = reason
-        approval_path = run_dir / "approvals" / "approval_packet.json"
-        if approval_path.exists():
-            payload = read_json(approval_path, {})
-            payload.update(
-                {
-                    "status": "cancelled",
-                    "decision": "cancelled",
-                    "reason": reason or payload.get("reason"),
-                    "decided_at": _now(),
-                }
-            )
-            write_json(approval_path, payload)
-        self._write_checkpoint(run_dir, state, None, status="cancelled", reason=reason)
-        self._append_event(
-            run_dir,
-            {
-                "event_type": "run.cancelled",
-                "run_id": run_id,
-                "reason": reason,
-                "at": _now(),
-            },
-        )
-        self._write_run_state(run_dir, state)
-        return state
 
     def resume_connectivity_paused_runs(self, dry_run: bool = False) -> dict[str, Any]:
         runs = []
