@@ -11,6 +11,16 @@ Canonical priority note: use [MORPHOS_V0_IMPLEMENTATION_BOARD.md](milestones/v0/
 - `human_roles/` - human collaborators, responsibilities, and escalation paths
 - `architecture/`, `core-mechanics/`, `doctrines/`, `workflows/`, and `milestones/` - organized system specifications and planning docs
 
+## Related Repos
+
+The main runtime repos live outside this docs folder, but they matter for keeping doctrine and implementation aligned:
+
+- `skyforce-symphony` - orchestration runtime and event truth
+- `skyforce-harness` - execution evidence and release-gate runtime
+- `skyforce-core` - shared contracts, CLI, and validation surface
+- `skyforce-command-centre` / `skyforce-command-centre-live` - operator surfaces
+- `morphos-agent-room` - collaborative intake and room-to-factory handoff boundary
+
 ## Start Here
 
 - `architecture/agentic_os_architecture.md` - overall operating system design
@@ -33,6 +43,7 @@ operator behavior aligned to the real factory spine.
 - `skyforce-harness` `npm run release-gate:p0` - current single-command release gate for proving the P0 spine twice with bounded retry/second-run coverage, and for running governed land-safety verification through `skyforce-core` when that repo is present
 - `milestones/P0/P0_GOLDEN_PATH_SEED_PACKET.md` - narrow golden-path seed used to prove Symphony, Harness, and Command Centre integration
 - `milestones/v0/MORPHOS_V0_IMPLEMENTATION_REPO_REVIEW.md` - implementation-repo review that records which stack layers are currently strong, transitional, or still prototype-grade
+- `milestones/P0/P0_FACTORY_CLOSEOUT_INTEGRATION_SMOKE_RUNBOOK.md` - exact operator runbook for proving the current closeout path from manual run through merge execution
 - `core-mechanics/WORK_ORDER_SCHEMA_SPEC.md` - normalized intake contract
 - `core-mechanics/EXECUTION_RECEIPT_SCHEMA_SPEC.md` - execution proof contract
 - `core-mechanics/APPROVAL_PACKET_SCHEMA_SPEC.md` - approval artifact contract
