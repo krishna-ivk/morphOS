@@ -380,7 +380,8 @@ This spec implies concrete follow-on work:
 - `skyforce-core` should define policy verdict, policy finding, and boundary-hook enums
 - `skyforce-symphony` should call policy hooks at named factory boundaries and route accordingly
 - `skyforce-harness` should surface tool-action and execution metadata in a policy-consumable shape
-- `skyforce-command-centre` should show `blocked_at`, policy verdicts, and approval requirements as first-class delivery state
+- `skyforce-command-centre-live` should show `blocked_at`, policy verdicts, and approval requirements as first-class delivery state
+- `skyforce-api-gateway` should stabilize those policy and approval projections for operator clients
 
 ## Recommended First Implementation Slice
 

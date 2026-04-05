@@ -291,7 +291,8 @@ This spec implies concrete follow-on work:
 - `skyforce-core` should define workflow acceptance profile contracts
 - `skyforce-symphony` should apply profiles during validation, review, and promotion transitions
 - workflow packs should ship profile metadata alongside templates
-- `skyforce-command-centre` should surface active profile, missing evidence, and acceptance blockers clearly
+- `skyforce-command-centre-live` should surface active profile, missing evidence, and acceptance blockers clearly
+- `skyforce-api-gateway` should normalize acceptance-blocker projections for operator clients
 
 ## Recommended First Implementation Slice
 

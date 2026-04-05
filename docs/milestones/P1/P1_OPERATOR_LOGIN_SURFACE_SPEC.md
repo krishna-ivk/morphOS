@@ -172,7 +172,7 @@ claims over unauthenticated raw headers.
 - carries operator identity, role, and workspace through navigation
 - signs write-context claims when the shared secret is configured
 
-### `skyforce-command-centre`
+### `skyforce-api-gateway`
 
 - verifies signed claims when production trust mode is enabled
 - enforces role checks on write actions

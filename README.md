@@ -29,7 +29,9 @@ That role belongs to the Skyforce repos:
 
 - `skyforce-symphony`: orchestration runtime
 - `skyforce-harness`: execution and adapter runtime
-- `skyforce-command-centre`: operator control plane
+- `skyforce-api-gateway`: backend adapter and operator-facing API normalization
+- `skyforce-command-centre-live`: primary operator UI
+- `skyforce-command-centre`: transitional compatibility UI during migration
 - `skyforce-core`: shared contracts, CLI, and validation surface
 - `morphos-agent-room`: collaborative intake and room-to-factory handoff boundary
 

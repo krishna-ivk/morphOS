@@ -12,7 +12,7 @@ It does not turn `morphOS` into a second runtime platform.
 1. `morphOS` defines, Skyforce implements.
 2. Shared contracts must converge in `skyforce-core`.
 3. Runtime behavior belongs in `skyforce-symphony` and `skyforce-harness`.
-4. Human visibility and approvals belong in `skyforce-command-centre`.
+4. Human visibility and approvals belong in `skyforce-command-centre-live`, with backend normalization in `skyforce-api-gateway`.
 5. Self-evolution must remain proposal-driven until validation and policy are mature.
 
 ## Version 0.1.x — Foundation Baseline
@@ -104,13 +104,14 @@ Primary work:
 - align event taxonomy across runtime repos
 - emit typed workflow and execution events
 - add policy evaluation hooks in Symphony and Harness
-- expose policy and event visibility in Command Centre
+- expose policy and event visibility in Command Centre Live via the gateway
 
 Expected implementation repos:
 
 - `skyforce-symphony`
 - `skyforce-harness`
-- `skyforce-command-centre`
+- `skyforce-api-gateway`
+- `skyforce-command-centre-live`
 - `skyforce-core`
 
 Exit criteria:

@@ -24,7 +24,9 @@ This checklist is done only when:
 - [skyforce-core](/home/vashista/skyforce/skyforce-core): shared contracts and sync/runtime helpers
 - [skyforce-symphony](/home/vashista/skyforce/skyforce-symphony): orchestration and workflow planning
 - [skyforce-harness](/home/vashista/skyforce/skyforce-harness): execution and receipt loop
-- [skyforce-command-centre](/home/vashista/skyforce/skyforce-command-centre): approval and operator surface
+- [skyforce-api-gateway](/home/vashista/skyforce/skyforce-api-gateway): backend adapter and operator-facing API layer
+- [skyforce-command-centre-live](/home/vashista/skyforce/skyforce-command-centre-live): primary approval and operator surface
+- [skyforce-command-centre](/home/vashista/skyforce/skyforce-command-centre): transitional compatibility UI
 
 ## Phase 1: Golden Path Seed
 
@@ -147,7 +149,7 @@ This checklist is done only when:
 
 ## Phase 6: Approval Packet And Operator Loop
 
-### `skyforce-command-centre`
+### `skyforce-command-centre-live`
 
 - display or accept one approval packet
 - show:
@@ -155,6 +157,11 @@ This checklist is done only when:
   - authority requirement
   - evidence refs
   - risk summary
+
+### `skyforce-api-gateway`
+
+- normalize approval packet and action responses for operator clients
+- keep operator HTTP contracts stable while runtime repos evolve
 
 ### `skyforce-core`
 
@@ -197,7 +204,7 @@ This checklist is done only when:
 
 ### Suggested Placement
 
-- lightweight event stream or timeline in Command Centre
+- lightweight event stream or timeline in Command Centre Live
 - filesystem artifacts remain the audit trail
 
 ### Exit Condition
@@ -246,7 +253,8 @@ unless they directly unblock one checklist item above.
 - `skyforce-core`: shared payloads and helper types
 - `skyforce-symphony`: workflow selection, orchestration, retry routing
 - `skyforce-harness`: execution boundary and receipt emission
-- `skyforce-command-centre`: approval packet rendering and response capture
+- `skyforce-api-gateway`: operator-facing API normalization and response handling
+- `skyforce-command-centre-live`: approval packet rendering and response capture
 
 ## Summary
 

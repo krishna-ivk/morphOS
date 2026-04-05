@@ -33,7 +33,7 @@ flowchart TD
         E -->|Passed Check| F[Emit Evidence & Receipts]:::harness
     end
     
-    subgraph centre_env [skyforce-command-centre - The Operator UI]
+    subgraph centre_env [skyforce-command-centre-live + skyforce-api-gateway - The Operator Surface]
         F --> G{Human Approval Gate}:::centre
         G -->|Reject / Rework| D
         G -->|Approve| H([Promote to Source / Actioned]):::centre
@@ -62,12 +62,14 @@ flowchart LR
 
     S[skyforce-symphony]:::orch_node
     H[skyforce-harness]:::exec_node
-    C[sky-force-command-centre]:::ui_node
+    C[skyforce-command-centre-live]:::ui_node
+    GATEWAY[skyforce-api-gateway]:::core_node
     CORE[skyforce-core]:::core_node
 
     %% Flow
     S <-->|Requests validation & execution| H
-    C -->|Triggers & Approves runs| S
+    C -->|Triggers & Approves runs| GATEWAY
+    GATEWAY -->|Normalizes backend actions| S
     
     subgraph Model [The Operating Model]
         M[morphOS]:::model_node
@@ -93,6 +95,12 @@ flowchart LR
         C -.- C_T
     end
 
+    subgraph Gateway [The Operator API Plane]
+        GATEWAY
+        G_T["<b>Owns:</b><br>- HTTP API Normalization<br>- Action Proxying<br>- Compatibility Boundary"]:::trait
+        GATEWAY -.- G_T
+    end
+
     subgraph Contracts [Shared System Contracts]
         CORE
         CORE_T["<b>Owns:</b><br>- Shared Native Schemas<br>- CLI Inspection Tooling<br>- Event Contract Enforcement"]:::trait
@@ -104,4 +112,5 @@ flowchart LR
     CORE -.-> S
     CORE -.-> H
     CORE -.-> C
+    CORE -.-> GATEWAY
 ```

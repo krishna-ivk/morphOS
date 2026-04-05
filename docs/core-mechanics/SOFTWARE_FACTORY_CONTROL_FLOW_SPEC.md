@@ -70,7 +70,7 @@ The key rule is:
 - agents perform work
 - Symphony advances factory flow
 - Durable preserves execution truth
-- operators intervene at explicit control points
+- operators intervene at explicit control points through the gateway and operator UI surfaces
 
 ## Factory Control States
 
@@ -465,9 +465,19 @@ It complements rather than replaces:
 - shared phase and control-point contracts
 - CLI projections
 
-### `skyforce-command-centre` owns
+### `skyforce-api-gateway` owns
+
+- backend normalization for operator-facing factory state
+- stable HTTP projections for gates, approvals, and evidence
+- action proxying from operator surfaces into runtime repos
+
+### `skyforce-command-centre-live` owns
 
 - operator rendering of control states, review queues, and intervention actions
+
+### `skyforce-command-centre` owns
+
+- only transitional compatibility behavior while the long-term operator UI cutover completes
 
 ### `skyforce-harness` owns
 
