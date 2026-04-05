@@ -31,6 +31,7 @@ That role belongs to the Skyforce repos:
 - `skyforce-harness`: execution and adapter runtime
 - `skyforce-command-centre`: operator control plane
 - `skyforce-core`: shared contracts, CLI, and validation surface
+- `morphos-agent-room`: collaborative intake and room-to-factory handoff boundary
 
 See [agentic_os_architecture.md](docs/architecture/agentic_os_architecture.md) for the full system design.
 Use [docs/README.md](docs/README.md) as the documentation index.
@@ -77,6 +78,8 @@ The current platform model is:
 - Skyforce runs the organism
 
 That boundary matters. It keeps architecture and runtime from drifting into two overlapping systems.
+
+Supporting intake and pre-handoff packaging work also exists in `morphos-agent-room`, which should remain an intake adapter and not drift into becoming a second runtime.
 
 ## What Is Already Real In Skyforce
 
@@ -138,6 +141,7 @@ The Skyforce runtime already implements several `morphOS`-aligned pieces:
 - [MVP workflow behavior spec](docs/core-mechanics/MVP_WORKFLOW_BEHAVIOR_SPEC.md)
 - [P0 factory spine recovery plan](docs/milestones/P0/P0_FACTORY_SPINE_RECOVERY_PLAN.md)
 - [P0 factory spine implementation checklist](docs/milestones/P0/P0_FACTORY_SPINE_IMPLEMENTATION_CHECKLIST.md)
+- [P0 factory closeout integration smoke runbook](docs/milestones/P0/P0_FACTORY_CLOSEOUT_INTEGRATION_SMOKE_RUNBOOK.md)
 - [P1 event taxonomy spec](docs/milestones/P1/P1_EVENT_TAXONOMY_SPEC.md)
 - [P1 policy hooks spec](docs/milestones/P1/P1_POLICY_HOOKS_SPEC.md)
 - [P1 safe promotion spec](docs/milestones/P1/P1_SAFE_PROMOTION_SPEC.md)

@@ -11,6 +11,16 @@ Canonical priority note: use [MORPHOS_V0_IMPLEMENTATION_BOARD.md](milestones/v0/
 - `human_roles/` - human collaborators, responsibilities, and escalation paths
 - `architecture/`, `core-mechanics/`, `doctrines/`, `workflows/`, and `milestones/` - organized system specifications and planning docs
 
+## Related Repos
+
+The main runtime repos live outside this docs folder, but they matter for keeping doctrine and implementation aligned:
+
+- `skyforce-symphony` - orchestration runtime and event truth
+- `skyforce-harness` - execution evidence and release-gate runtime
+- `skyforce-core` - shared contracts, CLI, and validation surface
+- `skyforce-command-centre` / `skyforce-command-centre-live` - operator surfaces
+- `morphos-agent-room` - collaborative intake and room-to-factory handoff boundary
+
 ## Start Here
 
 - `architecture/agentic_os_architecture.md` - overall operating system design
@@ -26,6 +36,7 @@ operator behavior aligned to the real factory spine.
 - `milestones/P0/P0_FACTORY_SPINE_RECOVERY_PLAN.md` - recovery posture for proving the first real end-to-end factory transaction before expanding doctrine again
 - `milestones/P0/P0_FACTORY_SPINE_IMPLEMENTATION_CHECKLIST.md` - concrete cross-repo build order for the first intake-to-approval transaction
 - `milestones/P0/P0_GOLDEN_PATH_SEED_PACKET.md` - narrow golden-path seed used to prove Symphony, Harness, and Command Centre integration
+- `milestones/P0/P0_FACTORY_CLOSEOUT_INTEGRATION_SMOKE_RUNBOOK.md` - exact operator runbook for proving the current closeout path from manual run through merge execution
 - `core-mechanics/WORK_ORDER_SCHEMA_SPEC.md` - normalized intake contract
 - `core-mechanics/EXECUTION_RECEIPT_SCHEMA_SPEC.md` - execution proof contract
 - `core-mechanics/APPROVAL_PACKET_SCHEMA_SPEC.md` - approval artifact contract
