@@ -21,6 +21,13 @@ Canonical priority note: use [MORPHOS_V0_IMPLEMENTATION_BOARD.md](/Users/shivakr
 - `policy_engine_spec.md` — safety and approval model
 - `GITHUB_2_0_FROM_STARRED_REPOS.md` — starred-repo inspiration mapped into a software-factory GitHub direction
 - `MORPHOS_GAP_ANALYSIS_FROM_GITHUB_STARS.md` — concrete gaps between current morphOS plans and star-driven inspiration
+- `LADDER_AGENT_ROOM_INTEGRATION.md` — how Ladder can fit the morphOS agent-room and feed the software factory
+- `LADDER_AGENT_ROOM_IMPLEMENTATION_BRIEF.md` — concise execution brief for the first Ladder integration slices
+- `LADDER_AGENT_ROOM_ROLLOUT_BACKLOG.md` — task-oriented rollout backlog for implementing Ladder in the agent-room
+- `LADDER_AGENT_ROOM_FAQ.md` — plain-language FAQ for the Ladder agent-room integration decisions
+- `ADR_LADDER_AGENT_ROOM_V1.md` — architecture decision record for the `v1` Ladder integration approach
+- `LADDER_AGENT_ROOM_REVIEW_CHECKLIST.md` — review checklist for approving the Ladder agent-room design and rollout
+- `LADDER_AGENT_ROOM_DOCSET.md` — entry point for the full Ladder agent-room documentation set
 
 ## Authoring Conventions
 
