@@ -1,0 +1,9 @@
+{
+  "task_id": "task_002",
+  "prompt": "Retrieve previous bug fixes for date parsers to ensure consistency.",
+  "agent_thoughts": "I'm going to load everything from /memory/ to find any references to date parsing.",
+  "plan": "Filter through 450MB of raw context to find how we fixed date parsers.",
+  "patch": "None. Context limit exceeded or agent lost track of instructions.",
+  "outcome": "failed",
+  "reason": "Memory bloat. The context retrieval agent over-fetched data, causing the execution agent to lose focus and fail."
+}

@@ -1,0 +1,9 @@
+{
+  "task_id": "task_007",
+  "prompt": "Recover from an agent crashing mid-execution while holding the state lock.",
+  "agent_thoughts": "Converting Mutex locks to TTL leases. If an agent dies, the lease simply expires and the next agent takes over.",
+  "plan": "Agent 1 crashes. Agent 2 waits until TTL expires and reclaims the lock.",
+  "patch": "System patched Node 1 independently after Agent 1 died.",
+  "outcome": "success",
+  "reason": "TTL Lease successfully expired the dead agent's holding lock, allowing the system to naturally recover from a deadlock state."
+}

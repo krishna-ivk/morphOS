@@ -1,0 +1,20 @@
+decision:
+  title: "Integrated Hermes Worker Architecture v13"
+intent:
+  goal: "Prove that the core structural patterns (Locks, Event Bus, DLQ) from the Panopticon Sandbox function correctly when unified in the live Hermes repository."
+execution:
+  task_id: task_015
+  steps_taken: 3
+evaluation:
+  tests_passed: 2
+  tests_failed: 0
+  success: true
+failure_analysis:
+  - "The success task (Test A) correctly triggered the Heartbeat, processed logic, and published to the completion topic."
+  - "The poison pill task (Test B) correctly triggered the Heartbeat, caught the RuntimeError, bypassed the retry loop, and fired the fatal Alert Webhook."
+gaps_detected:
+  - type: infra_gap
+    description: "The Mock Event Bus is strictly in-process (Python threads). For production Hermes clusters, these classes must be swapped for real Redis client implementations."
+next_actions:
+  - "Install Redis inside the Ubuntu environment."
+  - "Update src/core/events/bus.py to use redis-py for multi-container coordination."

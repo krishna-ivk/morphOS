@@ -1,0 +1,22 @@
+decision:
+  title: "Introduce Active Heartbeat Leases v7"
+intent:
+  goal: "Cure the 'Split-Brain' flaw where heavy API latency causes an active agent's TTL lock to expire."
+execution:
+  task_id: task_008
+  steps_taken: 2
+evaluation:
+  tests_passed: 1
+  tests_failed: 0
+  success: true
+failure_analysis:
+  - "Agent 1 acquired the lock but took 2.5 seconds to process (longer than the 1.0s limit)."
+  - "The background Heartbeat Thread successfully renewed the lease every 0.5 seconds."
+  - "Agent 2 correctly queued instead of assuming Agent 1 died, averting a split-brain collision."
+gaps_detected:
+  - type: infra_gap
+    description: "Multi-agent coordination requires central event messaging (PubSub/Kafka) instead of pure DB locking."
+  - type: agent_gap
+    description: "Agents cannot directly 'talk' to each other, they only communicate through state locks."
+next_actions:
+  - "Introduce an Event Bus / PubSub layer for true declarative A2A chatter."

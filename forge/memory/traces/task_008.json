@@ -1,0 +1,9 @@
+{
+  "task_id": "task_008",
+  "prompt": "Perform a heavy computation while preventing other agents from hijacking the TTL lease.",
+  "agent_thoughts": "Spawning a heartbeat child-thread. It will ping the lock manager every 0.5s to keep my lease alive while I sleep for 2.5s.",
+  "plan": "Agent 1 works for 2.5s. Heartbeat renews lock. Agent 2 waits patiently. No overlap occurs.",
+  "patch": "Applied patches to Node 1 and Node 2 sequentially with no split-brain.",
+  "outcome": "success",
+  "reason": "Active Heartbeat successfully shielded the slow agent from false-positive deadlocks."
+}

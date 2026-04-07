@@ -1,0 +1,9 @@
+{
+  "task_id": "task_010",
+  "prompt": "Recover elegantly when a PubSub message fails execution (e.g. malformed data), routing it to a Dead-Letter recovery loop for fix and retry.",
+  "agent_thoughts": "Creating a secondary DLQ topic. If an agent crashes parsing a message, it intercepts the exception and pushes the raw bytes to the DLQ.",
+  "plan": "Publisher sends bad JSON. Processor crashes, pushes to DLQ. Recovery Agent fixes JSON and re-publishes.",
+  "patch": "System parsed the poison pill, recovered it, and cleanly executed the patch.",
+  "outcome": "success",
+  "reason": "DLQ isolation prevented the poison pill from crashing the main Event Bus consumer loop."
+}

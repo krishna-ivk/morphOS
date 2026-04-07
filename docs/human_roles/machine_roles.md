@@ -66,7 +66,7 @@ integration:
 
 ---
 
-## External Agents (OpenClaw, Other OS Instances)
+## External Agents (Hermes, Other OS Instances)
 
 ### Identity
 

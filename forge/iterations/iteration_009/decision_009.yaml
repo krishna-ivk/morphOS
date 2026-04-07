@@ -1,0 +1,23 @@
+decision:
+  title: "Deploy A2A Event Bus v8"
+intent:
+  goal: "Cure the rigid polling and database lock dependency identified in Iteration 008 by moving to declarative Event-Driven architecture."
+execution:
+  task_id: task_009
+  steps_taken: 2
+evaluation:
+  tests_passed: 1
+  tests_failed: 0
+  success: true
+failure_analysis:
+  - "Agent 1 successfully executed the patch and declared intention to the network."
+  - "Agent 2, strictly decoupled, received the message via the Event Bus and reacted immediately."
+  - "No CPU polling loops, locks, or leases were required for coordination."
+gaps_detected:
+  - type: infra_gap
+    description: "In-memory Queue lacks persistence. If the message broker restarts, inflight events are lost."
+  - type: spec_gap
+    description: "No dead-letter queue (DLQ) for events that fail processing."
+next_actions:
+  - "Integrate a persistent message broker (RabbitMQ/Redis Streams)."
+  - "Establish a Dead-Letter agent to retry failed events."

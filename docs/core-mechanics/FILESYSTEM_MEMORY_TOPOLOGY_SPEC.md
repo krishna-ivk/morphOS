@@ -392,7 +392,7 @@ Default access:
 - operational context: broader read
 - persistent memory: broader read, proposed write only
 
-### OpenClaw-style communication agent
+### Support-oriented communication agent
 
 Default access:
 

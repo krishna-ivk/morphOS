@@ -68,7 +68,7 @@ For Skyforce, this would be useful for:
 
 - Hermes implementation tasks
 - Architect platform work
-- OpenClaw synthesis and drafting support
+- Hermes-backed synthesis and drafting support
 - validation and review agents that need precise external references
 
 ### 2. Session-to-Session Knowledge Carryover
@@ -243,7 +243,7 @@ Short answer:
 
 - Hermes looks up framework docs before coding
 - Architect reviews versioned platform docs
-- OpenClaw grounds communication summaries in actual technical references
+- Hermes support profiles ground communication summaries in actual technical references
 - validation agents fetch source-of-truth package or provider docs
 
 ### Bad uses
@@ -269,7 +269,7 @@ Recommended follow-up clarifications in `morphOS`:
 1. Add a `context architecture` document that separates these three layers.
 2. Define which layer is read-mostly, write-heavy, or policy-gated.
 3. Define how workflows reference context without copying too much state.
-4. Define how context access differs for Hermes, Architect, OpenClaw, and validation agents.
+4. Define how context access differs for Hermes, Architect, support-oriented agent profiles, and validation agents.
 
 ## Final Recommendation
 

@@ -1,0 +1,23 @@
+decision:
+  title: "Introduce Embedding-Based Retrieval v4"
+intent:
+  goal: "Cure the memory bloat detected in Iteration 002 by restricting the context window to strictly Top-K semantic matches."
+execution:
+  task_id: task_005
+  steps_taken: 2
+evaluation:
+  tests_passed: 1
+  tests_failed: 0
+  success: true
+failure_analysis:
+  - "The semantic retrieval successfully isolated the specific cause of the Iteration 001 failure."
+  - "Context window usage decreased from 450MB out-of-memory to 215 bytes."
+  - "No gaps detected in the basic operational loop."
+gaps_detected:
+  - type: evaluation_gap
+    description: "Semantic search assumes pure context relevance. We have no 'RAG hallucination' detection."
+  - type: infra_gap
+    description: "Mock setup requires a real vector repository (e.g. Neo4j/Qdrant/Pinecone)."
+next_actions:
+  - "Integrate an actual vector database for the Memory Graph."
+  - "Build an Evaluation Agent that specifically grades retrieved context for factual hallucination before executing."

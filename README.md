@@ -52,6 +52,7 @@ If you are reading this as a human operator, builder, or collaborator, use this 
 8. [Durable execution handoff contracts](docs/architecture/DURABLE_EXECUTION_HANDOFF_CONTRACTS.md)
 9. [P0 factory spine recovery plan](docs/milestones/P0/P0_FACTORY_SPINE_RECOVERY_PLAN.md)
 10. [P0 factory spine implementation checklist](docs/milestones/P0/P0_FACTORY_SPINE_IMPLEMENTATION_CHECKLIST.md)
+11. [Repo build verification checklist](docs/REPO_BUILD_VERIFICATION_CHECKLIST.md)
 
 ## What morphOS Owns
 
@@ -144,6 +145,7 @@ The Skyforce runtime already implements several `morphOS`-aligned pieces:
 - [P0 factory spine implementation checklist](docs/milestones/P0/P0_FACTORY_SPINE_IMPLEMENTATION_CHECKLIST.md)
 - [P0 factory closeout integration smoke runbook](docs/milestones/P0/P0_FACTORY_CLOSEOUT_INTEGRATION_SMOKE_RUNBOOK.md)
 - [P1 event taxonomy spec](docs/milestones/P1/P1_EVENT_TAXONOMY_SPEC.md)
+- [P1 v1 build and test checklist](docs/milestones/P1/P1_V1_BUILD_AND_TEST_CHECKLIST.md)
 - [P1 policy hooks spec](docs/milestones/P1/P1_POLICY_HOOKS_SPEC.md)
 - [P1 safe promotion spec](docs/milestones/P1/P1_SAFE_PROMOTION_SPEC.md)
 - [P1 summary pyramid spec](docs/milestones/P1/P1_SUMMARY_PYRAMID_SPEC.md)
