@@ -51,7 +51,9 @@ The factory has officially transitioned from **P1 (Governance & Artifact Discipl
 - `sky archetypes`: Inspect canonical factory roles.
 - `sky ledger <issue-id>`: Inspect the traceable work history.
 - `sky outcome <issue-id> --verdict success`: Record a verified run result.
+- `sky learning <run-state.json> --run-id <id>`: Extract patterns, fixes, and lessons from a completed run.
+- `sky learning --recall <query>`: Search the capability store for relevant past knowledge.
 
 ## Next High-Value Objective
 
-Implement Playbook Outcome Learning Loops (P3+) — the agent that synthesizes operational outcomes into future run prompts, closing the feedback loop between the Outcome Registry and execution planning.
+Implement Context Compression (Phase 2.2) — transition the `context_hub.py` logic into a dedicated service with cross-repo context handover, reducing operational context footprint for long-running agents.
