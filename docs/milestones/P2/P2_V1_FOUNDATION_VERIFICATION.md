@@ -27,15 +27,22 @@ The factory has officially transitioned from **P1 (Governance & Artifact Discipl
 - **Symphony Integration**: The Elixir `AgentHub` now summarizes and monitors availability by role (architect, planner, coder, fixer, etc.).
 - **CLI**: Added `sky archetypes` to inspect the canonical roles.
 
-## Architectural Seams (In-Progress)
+## Architectural Seams (Completed)
 
 ### 1. Context Hub Service (P2.3)
 - **Status**: Operational (V1 Extraction Complete)
 - **Repo**: `skyforce-context-hub`
 - **Objective**: Decoupled the `RepoDocContextProvider` from the API Gateway. The Gateway now proxies search and annotation requests to a dedicated service, enabling cross-repo situational awareness and high-performance indexing.
 - **Protocol**: HTTP/JSON over Port 3005.
+- **Endpoints**: `GET /api/context/search`, `GET /api/context/:context_id`, `GET /api/context/:context_id/annotations`, `POST /api/context/:context_id/annotations`
 
-### 2. Playbook Outcome Learning Loops (P3+)
+### 2. Hermes Redis Event Bus (Iteration v15)
+- **Status**: Operational
+- **Repo**: `skyforce-hermes`
+- **Objective**: Replaced in-process file-backed event bus with `redis-py` pub/sub for multi-container coordination. Graceful fallback to file-backed JSONL when Redis is unavailable.
+- **Heartbeat**: Updated to use real `redis.expire()` for TTL lease renewal.
+
+### 3. Playbook Outcome Learning Loops (P3+)
 - **Status**: Conceptualized
 - **Objective**: Create the learning agent capable of synthesizing positive exemplars (successes) and warning traps (failures) into future run prompts.
 
@@ -47,4 +54,4 @@ The factory has officially transitioned from **P1 (Governance & Artifact Discipl
 
 ## Next High-Value Objective
 
-Transition the `skyforce-api-gateway/context_hub.py` logic into a dedicated service to fulfill the P2 requirement for "Context Service Maturity" as defined in [CONTEXT_HUB_MATURITY_PLAN.md](file:///Ubuntu-24.04/home/vashista/skyforce/morphOS/docs/milestones/P2/CONTEXT_HUB_MATURITY_PLAN.md).
+Implement Playbook Outcome Learning Loops (P3+) — the agent that synthesizes operational outcomes into future run prompts, closing the feedback loop between the Outcome Registry and execution planning.
