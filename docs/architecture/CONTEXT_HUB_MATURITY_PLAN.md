@@ -37,7 +37,7 @@ Ensure context retrieval respects the **Human Authority Model**. Sensitive conte
 
 ## Implementation Steps
 
-1. **Service Extraction**: Extract `RepoDocContextProvider` and related logic into a standalone `skyforce-context-hub` service.
-2. **Protocol Standard**: Define an HTTP/gRPC protocol for requesting context using `ContextRef` as the key.
-3. **Agent Integration**: Update `skyforce-harness` to fetch context-blobs from the Service instead of resolving them through filesystem/CLI.
-4. **Retention Policy**: Implement the "Reference -> Operational -> Memory" promotion path.
+1. **Service Extraction**: Extract `RepoDocContextProvider` and related logic into a standalone `skyforce-context-hub` service. ✅ DONE — Express service on port 3005 with search, get, list-annotations, create-annotation endpoints.
+2. **Protocol Standard**: Define an HTTP/gRPC protocol for requesting context using `ContextRef` as the key. ✅ DONE — HTTP REST protocol defined and implemented; API gateway proxies all context operations through Context Hub with `sky` CLI fallback.
+3. **Agent Integration**: Update `skyforce-harness` to fetch context-blobs from the Service instead of resolving them through filesystem/CLI. ✅ DONE — harness already treats `context_refs` as opaque references and carries them through the pipeline; context resolution happens upstream via API gateway → Context Hub.
+4. **Retention Policy**: Implement the "Reference -> Operational -> Memory" promotion path. ⏳ PENDING — Context Compression (Phase 2.2) and Cross-Repo Context Handover (Phase 2.3) remain.
