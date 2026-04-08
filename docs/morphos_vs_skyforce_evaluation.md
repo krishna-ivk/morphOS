@@ -1,10 +1,22 @@
-# morphOS Existing Spec vs Skyforce Current Build
+# [STALE] morphOS Existing Spec vs Skyforce Current Build
+
+This document is retained for historical comparison.
+
+It does not reflect the current canonical project positioning.
+Use these documents first for the current view:
+
+- [workspace README](/home/vashista/skyforce/README.md)
+- [morphOS README](/home/vashista/skyforce/morphOS/README.md)
+- [morphOS buildability plan](/home/vashista/skyforce/morphOS/docs/morphos_buildability_plan.md)
+- [P1 implementation status](/home/vashista/skyforce/morphOS/docs/milestones/P1/P1_IMPLEMENTATION_STATUS.md)
 
 This document compares the current `morphOS` specification set with what is already built across the Skyforce repositories:
 
 - `skyforce-symphony`
 - `skyforce-harness`
+- `skyforce-command-centre-live`
 - `skyforce-command-centre`
+- `skyforce-api-gateway`
 - `skyforce-core`
 
 The goal is to evaluate whether `morphOS` should remain a separate repo, what it is strong at today, and where it currently overlaps or lags behind the executable Skyforce platform.

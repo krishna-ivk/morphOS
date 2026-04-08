@@ -2,6 +2,11 @@
 
 `morphOS` is the specification repo for the long-term operating model of the platform.
 
+Use this short model throughout the workspace:
+
+- `morphOS` defines the operating model
+- Skyforce runs the operating model as the product
+
 ## What This Repo Is For
 
 Use this repo when you need to understand:
@@ -28,7 +33,7 @@ Use this repo when you need to understand:
 1. [README](../README.md)
 2. [Skyforce runtime overview](SKYFORCE_RUNTIME_OVERVIEW.md)
 3. [Buildability plan](morphos_buildability_plan.md)
-4. [morphOS vs Skyforce evaluation](morphos_vs_skyforce_evaluation.md)
+4. [[STALE] morphOS vs Skyforce evaluation](morphos_vs_skyforce_evaluation.md)
 5. [morphOS v0 core stack](milestones/v0/MORPHOS_V0_CORE_STACK.md)
 6. [morphOS v0 runtime contracts](milestones/v0/MORPHOS_V0_RUNTIME_CONTRACTS.md)
 7. [Symphony and Durable authority boundary](architecture/SYMPHONY_DURABLE_AUTHORITY_BOUNDARY.md)
@@ -50,3 +55,12 @@ Use this repo when you need to understand:
 - what are the safe boundaries?
 
 It should not become a second runtime or a duplicate of Skyforce.
+
+For the current realistic v1, treat `morphOS` as:
+
+- the doctrine and contract layer for the first safe Skyforce factory spine
+
+Do not treat it as:
+
+- the primary runtime
+- a complete autonomous memory-and-learning system already in production

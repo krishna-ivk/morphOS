@@ -2,6 +2,11 @@
 
 `morphOS` is the specification and operating-model repository for the long-term agentic system.
 
+Short version:
+
+- Skyforce is an operator-governed software factory powered by `morphOS` contracts
+- `morphOS` defines the operating model and Skyforce executes it
+
 Canonical build-priority note: treat [docs/milestones/v0/MORPHOS_V0_IMPLEMENTATION_BOARD.md](docs/milestones/v0/MORPHOS_V0_IMPLEMENTATION_BOARD.md) as the source of truth for what to build next across `morphOS` and Skyforce.
 
 It defines how the platform should think, coordinate, protect itself, and evolve.
@@ -29,7 +34,9 @@ That role belongs to the Skyforce repos:
 
 - `skyforce-symphony`: orchestration runtime
 - `skyforce-harness`: execution and adapter runtime
-- `skyforce-command-centre`: operator control plane
+- `skyforce-api-gateway`: normalized backend adapter and proxy API
+- `skyforce-command-centre-live`: primary operator UI direction
+- `skyforce-command-centre`: transitional operator control plane during migration
 - `skyforce-core`: shared contracts, CLI, and validation surface
 - `morphos-agent-room`: collaborative intake and room-to-factory handoff boundary
 
@@ -71,6 +78,20 @@ It should not own:
 - the main event bus runtime
 - node execution
 - the operator UI
+
+## Realistic v1 Boundary
+
+The realistic `morphOS` v1 subset is narrower than the full doctrine.
+
+For v1, `morphOS` should primarily provide:
+
+- workflow semantics for the supported runtime subset
+- policy semantics and approval semantics
+- authority boundaries
+- runtime contract direction
+- workflow templates consumed by Symphony
+
+It should not be described as a full autonomous operating system in production today.
 
 ## Current Relationship To Skyforce
 
