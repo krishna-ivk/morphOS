@@ -1,0 +1,9 @@
+{
+  "session_id": "omx-1775531379082-kgxh05",
+  "started_at": "2026-04-07T03:09:39.265Z",
+  "cwd": "/home/vashista/skyforce",
+  "pid": 9031,
+  "platform": "linux",
+  "pid_start_ticks": 797254,
+  "pid_cmdline": "node /home/vashista/.npm-global/bin/omx"
+}

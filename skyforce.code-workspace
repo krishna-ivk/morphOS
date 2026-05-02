@@ -1,0 +1,29 @@
+{
+  "folders": [
+    {
+      "name": "command-centre",
+      "path": "skyforce-command-centre"
+    },
+    {
+      "name": "harness",
+      "path": "skyforce-harness"
+    },
+    {
+      "name": "symphony",
+      "path": "skyforce-symphony"
+    },
+    {
+      "name": "core",
+      "path": "skyforce-core"
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/.git": true,
+      "**/node_modules": true,
+      "**/dist": true,
+      "**/.next": true,
+      "**/tmp-workspaces": true
+    }
+  }
+}

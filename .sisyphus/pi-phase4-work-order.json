@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "work_order_id": "wo_pi_phase4_config_validation_test",
+  "created_at": "2026-04-14T00:00:00Z",
+  "source": {
+    "seed_kind": "operator_request",
+    "origin_system": "morphos-agent-room",
+    "origin_ref": "spec-006-phase-4"
+  },
+  "request": {
+    "title": "Implement spec 006 Phase 4 config validation",
+    "summary": "Implement the Phase 4 user-story slice for clear error reporting on missing configuration by adding config validation tests, implementing validate!/0 in jido_murmur and jido_tasks, and wiring startup validation.",
+    "work_type": "feature_delivery",
+    "desired_outcome": "phase4_config_validation_receipt"
+  },
+  "scope": {
+    "target_repos": [
+      "morphos-agent-room"
+    ]
+  },
+  "constraints": {
+    "execution_mode": "factory"
+  },
+  "acceptance": {
+    "required_outputs": [
+      "execution_receipt",
+      "evidence_bundle",
+      "proposal_artifact"
+    ],
+    "required_validations": [
+      "mix test apps/jido_murmur/test/jido_murmur/config_test.exs apps/jido_tasks/test/jido_tasks/config_test.exs"
+    ],
+    "done_definition": "Phase 4 config validation emits clear startup errors, validate!/0 exists in jido_murmur and jido_tasks, and the expected tests pass."
+  },
+  "governance": {
+    "approval_posture": "workspace_review",
+    "requires_human_review": false,
+    "workspace_id": "workspace-spec-006-phase-4"
+  },
+  "routing": {
+    "suggested_workflow": "feature_pipeline",
+    "suggested_archetypes": [
+      "planner",
+      "coder",
+      "validator"
+    ]
+  }
+}
