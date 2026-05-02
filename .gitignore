@@ -1,0 +1,19 @@
+questions.db
+
+# Logs
+logs/
+*.log
+
+# OS
+.DS_Store
+*.pid
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+
+# Temp
+/tmp/
+*.tmp
