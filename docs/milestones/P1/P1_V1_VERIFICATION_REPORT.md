@@ -1,40 +1,70 @@
-# P1 V1 Milestone Verification Report
+# P1 V1 Verification Report
 
 ## Status Summary
 
-The **P1 V1 Milestone** for the MorphOS Software Factory is officially **COMPLETE**. All core doctoral, architectural, and runtime alignment goals have been met. The system is now materially ready for its initial soak period and transition to P2 (Learning and Memory).
+The current `P1`/v1 bridge completed a meaningful **local proving pass**, but it should
+not be read as a declaration that the Skyforce stack is already production-ready.
 
-| Feature Segment | Status | Verification Evidence |
+The grounded posture remains:
+
+- `morphOS` baseline: `pre-v1 proving track`
+- runtime posture: `alpha-quality software-factory spine`
+- production posture: `not production-ready`
+
+Use the following documents as the current release-truth surface:
+
+- [../v1/MORPHOS_SPEC_BASELINE.md](../v1/MORPHOS_SPEC_BASELINE.md)
+- [../v1/MORPHOS_RELEASE_READINESS_CHECKLIST.md](../v1/MORPHOS_RELEASE_READINESS_CHECKLIST.md)
+- [P1_IMPLEMENTATION_STATUS.md](P1_IMPLEMENTATION_STATUS.md)
+
+## Current Feature Read
+
+| Feature Segment | Current Read | Verification Posture |
 | :--- | :--- | :--- |
-| **Event Taxonomy** | `implemented` | Canonical taxonomy defined; shared contracts updated in `skyforce-core`. |
-| **Human Authority** | `implemented` | Role-mapping finalized in `AUTHORITY_MODEL_SPEC.md`; enforcement verified in Gateway. |
-| **Safe Promotion** | `implemented` | Real Git-based materialization and land paths verified in `sky.mjs` and API. |
-| **Agent Archetypes** | `implemented` | Machine-readable manifest created; Symphony Agent Hub registrations synchronized. |
-| **Summary Pyramid** | `implemented` | Tiered artifact emission (short/full/evidence) verified in Harness and Command Centre. |
-| **Policy Hooks** | `implemented` | Evaluated across all sensitive API routes; role-based enforcement active. |
+| **Event Taxonomy** | `partially_implemented` | Canonical event types exist and are consumed in key repos, but cross-repo event and artifact normalization is still incomplete. |
+| **Human Authority** | `partially_implemented` | Role mapping, authority labels, and limited approval-routing behavior exist in the current proving stack, but executable workspace-admin and super-admin governance are not yet fully proven across the stack. |
+| **Safe Promotion** | `partially_implemented` | Promotion preview/apply and governed land seams exist, but the path is not yet proven as a repeatable clean-environment production lane. |
+| **Agent Archetypes** | `implemented` | The archetype contract is defined and used as part of the current proving stack, even though broader skill/runtime attachment remains later-wave work. |
+| **Summary Pyramid** | `implemented` | Summary and evidence layers are emitted and surfaced in the current operator path. |
+| **Policy Hooks** | `partially_implemented` | Hook evaluation exists in important runtime paths, but release confidence still depends on broader cross-repo proof and repeatable gate execution. |
 
-## Key Accomplishments (Final Batch)
+## What This Batch Actually Proved
 
-- **Shared Registry**: Centralized the `MorphOSEventType` in `skyforce-core`, ensuring all repository logs and timelines use a single source of truth.
-- **Archetype Formalization**: Defined the 6 MVP archetypes and ensured the Symphony runtime is configured to recognize them.
-- **Authority Enforcement**: Defined the hierarchy of `super_admin`, `admin`, `operator`, and `observer`, mapping them to specific P1 capabilities.
-- **Learning Infrastructure (P1/P2 Bridge)**: Created the `PLAYBOOK_OUTCOME_RECORDING_SPEC.md` and added `PlaybookRef`/`PlaybookOutcome` contracts to enable ACE-style learning loops.
+- the current stack is beyond doctrine-only status
+- multiple `P1` capabilities are real enough to exercise locally
+- the operator surface, shared contracts, and runtime artifacts are aligning around one smaller v1 subset
+- the docs can talk about several runtime behaviors in present tense rather than only as future plans
+
+## What It Did Not Prove
+
+This batch did **not** prove:
+
+- one repeatable end-to-end factory transaction with no hidden manual glue
+- first-class native `program` and `approval` step behavior across the whole runtime
+- restart-safe durable resume/cancel semantics
+- fully executable and auditable workspace-admin and super-admin governance
+- reproducible clean-environment release confidence across the primary repos
 
 ## System Readiness
 
-The factory spine is stable. The following repositories are now in a known-good configuration for P1/V1:
-- `morphOS`: Doctrinal and taxonomic truth.
-- `skyforce-core`: Shared types, contracts, and CLI tools.
-- `skyforce-symphony`: Orchestration and agent registrations.
-- `skyforce-api-gateway`: Policy enforcement and audit history.
-- `skyforce-harness`: Guided execution and artifact emission.
+The stack is in a stronger local proving state than before, but the factory spine
+should still be treated as an active proving track rather than a release-candidate
+system.
 
-## Next High-Value Moves (P2 Foundation)
+The most accurate short-form claim is:
 
-1.  **Durable Work Ledger**: Move from file-backed JSON history to a structured repository-based ledger for work history.
-2.  **Playbook Learning**: Implement the `outcome_capture` trigger in Symphony to begin populating the learning registry.
-3.  **Context Hub Maturity**: Move toward a dedicated Context Service for cross-repo memory delivery.
+> The `P1`/v1 bridge is materially real in the current proving stack, but the
+> platform still has open release-gate, durability, governance, and end-to-end
+> runtime-validation work before it can be called production-ready.
+
+## Next High-Value Moves
+
+1. prove the `P0` factory spine twice from the executable release gate in `skyforce-harness`
+2. close the durable lifecycle gaps around checkpoint, resume, cancel, and retry
+3. make `program` and `approval` runtime behavior fully first-class instead of partially projected
+4. finish executable human-authority routing and auditability
+5. keep status and milestone docs aligned with the actual proving posture rather than with the strongest historical pass
 
 ---
-**Verified By**: MorphOS AI Agent (Antigravity)
-**Date**: 2026-04-07
+**Verified By**: MorphOS AI Agent (updated for current baseline alignment)
+**Original milestone date**: 2026-04-07

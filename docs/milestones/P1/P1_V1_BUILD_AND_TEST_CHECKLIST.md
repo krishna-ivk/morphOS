@@ -1,11 +1,13 @@
-# P1 V1 Build And Test Checklist (COMPLETED)
+# P1 V1 Build And Test Checklist (Local Proving Pass; Release Gate Still Open)
 
 ## Purpose
 
 This document turns the `P1` milestones and specs into a concrete build-and-verification list for the current codebase.
 
-- **Status**: ✅ **V1 COMPLETED**
+- **Status**: ⚠️ **Local proving pass completed; release readiness still open**
 - **Final Report**: [P1_V1_VERIFICATION_REPORT.md](file:///wsl.localhost/Ubuntu-24.04/home/vashista/skyforce/morphOS/docs/milestones/P1/P1_V1_VERIFICATION_REPORT.md)
+
+For the current release posture, treat [../v1/MORPHOS_SPEC_BASELINE.md](../v1/MORPHOS_SPEC_BASELINE.md) and [../v1/MORPHOS_RELEASE_READINESS_CHECKLIST.md](../v1/MORPHOS_RELEASE_READINESS_CHECKLIST.md) as the stronger source of truth.
 
 This document is not a doctrine expansion.
 It is the build-and-test gate for proving that the current `morphOS` v1 subset is:
@@ -16,6 +18,18 @@ It is the build-and-test gate for proving that the current `morphOS` v1 subset i
 - covered by tests and smoke paths
 
 Use this checklist when verifying whether `morphOS` v1 is real rather than merely specified.
+
+## Reading Rule
+
+Unless a section explicitly says otherwise, checked boxes in this document mean the
+behavior was demonstrated in a local proving path or focused verification pass.
+They do **not** automatically mean:
+
+- cross-repo normalization is complete
+- clean-environment release confidence is established
+- the broader `v1.0` production bar is closed
+
+For those stronger claims, defer to the baseline and release-readiness documents.
 
 ## v1 Definition
 
@@ -522,29 +536,35 @@ At minimum, the following end-to-end scenarios should be runnable or reproducibl
 
 ## 17. Release Gate Checklist
 
-Before calling the current `morphOS` v1 subset real, the release gate should require:
+Before calling the current `morphOS` v1 subset release-ready, the release gate should require:
 
-- [x] all repo-local tests are green
-- [x] cross-repo smoke path is green
-- [x] docs match runtime truth
-- [x] no unresolved contract drift exists across the main repos
-- [x] at least one governed approval path is proven
-- [x] at least one policy-block path is proven
-- [x] at least one `program` step path is proven
-- [x] at least one operator-visible receipt, evidence, and summary path is proven
+These items should be read as the **current open bar** for release confidence, not as
+claims that the full repo set is presently green just because earlier proving passes succeeded.
+
+- [ ] all repo-local tests are green
+- [ ] cross-repo smoke path is green
+- [ ] docs match runtime truth
+- [ ] no unresolved contract drift exists across the main repos
+- [ ] at least one governed approval path is proven
+- [ ] at least one policy-block path is proven
+- [ ] at least one `program` step path is proven
+- [ ] at least one operator-visible receipt, evidence, and summary path is proven
 
 ## 18. v1 Exit Criteria
 
-You may treat `morphOS` v1 as real only when all of the following are true:
+You may treat the current `morphOS` v1 subset as locally proven only when all of the following are true:
+
+Even when the items below are checked in a focused proving pass, that does not override
+the broader release posture recorded in the baseline and readiness docs.
 
 - [x] `morphOS` templates and contracts are actively used by the Skyforce runtime
 - [x] Symphony executes the declared v1 workflow subset with clear semantics
 - [x] Harness consumes envelopes and emits trustworthy receipts
-- [x] approvals and policy hooks genuinely control runtime behavior
-- [x] Gateway, CLI, and operator UI all reflect the same state model
+- [ ] approvals and policy hooks genuinely control runtime behavior
+- [ ] Gateway, CLI, and operator UI all reflect the same state model
 - [x] evidence, summaries, and receipts are inspectable
-- [x] core lifecycle behaviors are covered by tests and smoke paths
-- [x] the docs describe the current system rather than only the intended future system
+- [ ] core lifecycle behaviors are covered by tests and smoke paths
+- [ ] the docs describe the current system rather than only the intended future system
 
 ## Practical Use
 

@@ -1,0 +1,55 @@
+{
+  "skill_pack_id": "pi-governed-builder",
+  "name": "Pi Governed Builder",
+  "version": "0.1.0",
+  "description": "Governed coding-worker skill pack that keeps Pi focused on building Skyforce through factory contracts, bounded execution, and evidence-backed follow-up proposals.",
+  "owner": "morphOS",
+  "source": "local-first",
+  "adoption_mode": "core",
+  "runtime_compatibility": {
+    "min_contract_version": "0.1.0",
+    "max_contract_version": "1.x",
+    "requires": [
+      "WorkOrder",
+      "ExecutionEnvelope",
+      "ExecutionReceipt",
+      "ValidationHandoff",
+      "PlaybookOutcome"
+    ]
+  },
+  "skill_entries": [
+    {
+      "skill_id": "pi-governed-builder-focus",
+      "name": "Pi Governed Builder Focus",
+      "version": "0.1.0",
+      "description": "Keeps Pi aligned to governed coding-worker behavior while Skyforce integrates Pi more deeply.",
+      "provider": "morphOS",
+      "input_contract_refs": [
+        "WorkOrder",
+        "ExecutionEnvelope"
+      ],
+      "output_contract_refs": [
+        "ExecutionReceipt",
+        "ValidationHandoff",
+        "PlaybookOutcome"
+      ],
+      "required_tools": [
+        "repo_mutation",
+        "bounded_validation",
+        "receipt_emission"
+      ],
+      "required_context_layers": [
+        "operational",
+        "reference"
+      ],
+      "supported_archetypes": [
+        "coder",
+        "validator",
+        "operator_liaison"
+      ]
+    }
+  ],
+  "default_activation_posture": "curated_active",
+  "created_at": "2026-04-08T00:00:00Z",
+  "updated_at": "2026-04-08T00:00:00Z"
+}

@@ -102,8 +102,19 @@ def test_promote_workspace_changes_previews_and_applies(tmp_path):
     workspace = run_dir / "workspace"
     source_repo.mkdir(parents=True, exist_ok=True)
     workspace.mkdir(parents=True, exist_ok=True)
+    
+    # Initialize source repo as git repository
+    import subprocess
+    subprocess.run(["git", "init"], cwd=source_repo, check=True, capture_output=True)
+    subprocess.run(["git", "config", "user.name", "Test"], cwd=source_repo, check=True, capture_output=True)
+    subprocess.run(["git", "config", "user.email", "test@example.com"], cwd=source_repo, check=True, capture_output=True)
+    
     (source_repo / "sample.txt").write_text("old")
     (workspace / "sample.txt").write_text("new")
+    
+    # Commit the initial file
+    subprocess.run(["git", "add", "."], cwd=source_repo, check=True, capture_output=True)
+    subprocess.run(["git", "commit", "-m", "initial"], cwd=source_repo, check=True, capture_output=True)
     write_json(
         run_dir / "artifacts" / "implement_features_source_handoff.json",
         {
@@ -120,7 +131,7 @@ def test_promote_workspace_changes_previews_and_applies(tmp_path):
     assert preview["matched"] == 1
     candidate = preview["candidates"][0]
     assert candidate["changed_file_count"] == 1
-    assert candidate["file_statuses"][0]["status"] == "overwrite"
+    assert candidate["file_statuses"][0]["status"] == "modify"
     applied = orchestrator.promote_workspace_changes("run-123", apply=True)
     assert applied["dry_run"] is False
     assert applied["promoted"][0]["files_promoted"] == ["sample.txt"]

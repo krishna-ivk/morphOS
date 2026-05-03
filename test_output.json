@@ -1,0 +1,6 @@
+Created [test.txt](/home/vashista/skyforce/morphOS/test.txt) with `hello world`.
+
+Verified content on disk:
+```text
+hello world
+```

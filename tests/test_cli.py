@@ -258,6 +258,7 @@ class StubOrchestrator:
 
     def status(self, run_id):
         data = self.run_summary(run_id)
+
         data.update(
             {
                 "run_status": "paused",
@@ -475,6 +476,17 @@ def test_cli_run_uses_workflow_argument(monkeypatch, capsys):
     assert cli.main(["run", "release_pipeline"]) == 0
     output = json.loads(capsys.readouterr().out)
     assert output["workflow"] == "release_pipeline"
+
+
+def test_cli_sudoku_launches_gui(monkeypatch):
+    launched = {"called": False}
+
+    def fake_launch():
+        launched["called"] = True
+
+    monkeypatch.setattr(cli, "_launch_sudoku", fake_launch)
+    assert cli.main(["sudoku"]) == 0
+    assert launched["called"] is True
 
 
 def test_cli_status(monkeypatch, capsys):

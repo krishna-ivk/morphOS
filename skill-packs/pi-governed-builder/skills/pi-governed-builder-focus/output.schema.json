@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Pi Governed Builder Focus Output",
+  "type": "object",
+  "required": [
+    "execution_receipt_ref",
+    "validation_handoff_ref",
+    "summary"
+  ],
+  "properties": {
+    "execution_receipt_ref": { "type": "string" },
+    "validation_handoff_ref": { "type": "string" },
+    "playbook_outcome_ref": { "type": "string" },
+    "follow_up_requirements_proposal_ref": { "type": ["string", "null"] },
+    "summary": { "type": "string" }
+  }
+}

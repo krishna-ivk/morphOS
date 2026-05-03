@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Pi Governed Builder Focus Input",
+  "type": "object",
+  "required": [
+    "work_order_ref",
+    "execution_envelope_ref",
+    "workspace_path",
+    "target_repos",
+    "acceptance",
+    "governance"
+  ],
+  "properties": {
+    "work_order_ref": { "type": "string" },
+    "execution_envelope_ref": { "type": "string" },
+    "workspace_path": { "type": "string" },
+    "target_repos": {
+      "type": "array",
+      "items": { "type": "string" },
+      "minItems": 1
+    },
+    "acceptance": {
+      "type": "object",
+      "required": ["required_outputs", "done_definition"],
+      "properties": {
+        "required_outputs": { "type": "array", "items": { "type": "string" } },
+        "required_validations": { "type": "array", "items": { "type": "string" } },
+        "done_definition": { "type": "string" }
+      }
+    },
+    "governance": {
+      "type": "object",
+      "required": ["approval_posture", "requires_human_review"],
+      "properties": {
+        "approval_posture": { "type": "string" },
+        "requires_human_review": { "type": "boolean" },
+        "authority_scope": { "type": "string" }
+      }
+    }
+  }
+}

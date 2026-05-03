@@ -56,6 +56,8 @@ class ModelWorkerBackend(AgentBackend):
             json.dumps(schema),
             "--output-last-message",
             str(response_path),
+            "--sandbox",
+            "workspace-write",
         ]
         if not (Path(invocation.repo_root) / ".git").exists():
             command.append("--skip-git-repo-check")

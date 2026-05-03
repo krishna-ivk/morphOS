@@ -1,0 +1,27 @@
+{
+  "name": "calculator_app",
+  "steps": [
+    {
+      "id": "create_calculator_app",
+      "type": "agent",
+      "agent": "coding_agent",
+      "contracts": [
+        {
+          "name": "coding_receipt",
+          "path": "${artifacts_dir}/create_calculator_app_output.json",
+          "kind": "json_schema",
+          "schema_name": "CodingTaskReceipt"
+        }
+      ],
+      "payload": {
+        "id": "CALC-001",
+        "task": "Create Calculator App",
+        "description": "Create a fully functional calculator web application with HTML, CSS, and JavaScript. The calculator should support basic arithmetic operations (+, -, *, /), have a clean UI with number buttons 0-9, operation buttons, equals button, clear button, and decimal point support. Include proper error handling for division by zero and invalid inputs. Create a calculator/ directory with index.html, style.css, and script.js files.",
+        "status": "pending",
+        "assigned_agent": "coding_agent",
+        "feature_ref": "calculator_app",
+        "depends_on": []
+      }
+    }
+  ]
+}

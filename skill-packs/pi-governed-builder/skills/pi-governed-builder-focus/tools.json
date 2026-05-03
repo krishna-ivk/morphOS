@@ -1,0 +1,13 @@
+{
+  "tool_families": [
+    "repo_mutation",
+    "bounded_validation",
+    "receipt_emission"
+  ],
+  "disallowed_actions": [
+    "self_approval",
+    "policy_mutation",
+    "promotion_claim",
+    "scope_expansion_without_reentry"
+  ]
+}

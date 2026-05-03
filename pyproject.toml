@@ -12,7 +12,7 @@ dependencies = [
 ]
 
 [tool.setuptools]
-packages = ["skyforce", "skyforce.runtime"]
+packages = ["skyforce", "skyforce.runtime", "skyforce.sudoku"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

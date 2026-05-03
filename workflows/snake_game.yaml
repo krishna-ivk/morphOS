@@ -1,0 +1,27 @@
+{
+  "name": "snake_game",
+  "steps": [
+    {
+      "id": "create_snake_game",
+      "type": "agent",
+      "agent": "coding_agent",
+      "contracts": [
+        {
+          "name": "coding_receipt",
+          "path": "${artifacts_dir}/create_snake_game_output.json",
+          "kind": "json_schema",
+          "schema_name": "CodingTaskReceipt"
+        }
+      ],
+      "payload": {
+        "id": "SNAKE-001",
+        "task": "Create Snake Game",
+        "description": "Create a simple snake game with HTML, CSS, and JavaScript. The game should have a snake that moves around eating food and growing longer. Include game controls and scoring.",
+        "status": "pending",
+        "assigned_agent": "coding_agent",
+        "feature_ref": "snake_game",
+        "depends_on": []
+      }
+    }
+  ]
+}

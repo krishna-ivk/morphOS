@@ -2,10 +2,24 @@ from __future__ import annotations
 
 import argparse
 import json
+import sys
 from pathlib import Path
 from typing import Any
 
 from skyforce.runtime.orchestrator import Orchestrator
+
+
+def _launch_sudoku() -> None:
+    try:
+        from skyforce.sudoku.app import launch
+    except ModuleNotFoundError as exc:
+        if exc.name == "tkinter":
+            raise RuntimeError(
+                "tkinter is not available in this Python environment."
+            ) from exc
+        raise
+
+    launch()
 
 
 def _format_run_summary(data: dict[str, Any]) -> str:
@@ -220,6 +234,8 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="skyforce")
     subparsers = parser.add_subparsers(dest="command", required=True)
 
+    subparsers.add_parser("sudoku", help="Launch the Sudoku tkinter game")
+
     run_parser = subparsers.add_parser("run", help="Run a workflow")
     run_parser.add_argument(
         "workflow", help="Workflow name, 'auto', or workflow file path"
@@ -403,6 +419,15 @@ def build_parser() -> argparse.ArgumentParser:
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
+
+    if args.command == "sudoku":
+        try:
+            _launch_sudoku()
+        except RuntimeError as exc:
+            print(str(exc), file=sys.stderr)
+            return 1
+        return 0
+
     repo_root = Path(__file__).resolve().parent.parent
     orchestrator = Orchestrator(repo_root)
 
