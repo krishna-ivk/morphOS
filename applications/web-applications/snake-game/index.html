@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="game-shell">
+        <section class="game-panel">
+            <div class="game-copy">
+                <p class="eyebrow">Arcade Demo</p>
+                <h1>Snake Game</h1>
+                <p class="subtitle">Use the arrow keys or WASD to collect food, grow longer, and avoid crashing.</p>
+            </div>
+
+            <div class="status-bar" aria-label="Game status">
+                <div class="status-card">
+                    <span class="status-label">Score</span>
+                    <strong id="score">0</strong>
+                </div>
+                <div class="status-card">
+                    <span class="status-label">Best</span>
+                    <strong id="best-score">0</strong>
+                </div>
+                <div class="status-card">
+                    <span class="status-label">State</span>
+                    <strong id="game-state">Ready</strong>
+                </div>
+            </div>
+
+            <div class="board-wrap">
+                <canvas
+                    id="game-board"
+                    width="400"
+                    height="400"
+                    aria-label="Snake game board"
+                    role="img"
+                ></canvas>
+                <div class="overlay" id="overlay">
+                    <p class="overlay-title">Press Start</p>
+                    <p class="overlay-text">Eat food, grow the snake, and survive as long as you can.</p>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button id="start-button" class="button button-primary" type="button">Start Game</button>
+                <button id="pause-button" class="button button-secondary" type="button">Pause</button>
+                <button id="restart-button" class="button button-secondary" type="button">Restart</button>
+            </div>
+
+            <div class="help-grid">
+                <div class="help-card">
+                    <h2>Controls</h2>
+                    <p>Arrow keys or <span>W A S D</span></p>
+                    <p><span>Space</span> toggles pause</p>
+                </div>
+                <div class="help-card">
+                    <h2>Rules</h2>
+                    <p>Each food pickup adds one point.</p>
+                    <p>Walls and your own tail end the run.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
