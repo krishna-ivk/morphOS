@@ -1,0 +1,22 @@
+decision:
+  title: "Introduce TTL Locks for Deadlock Recovery v6"
+intent:
+  goal: "Cure the fatal deadlock flaw identified in Iteration 006 where a crashed agent indefinitely halts the execution loop."
+execution:
+  task_id: task_007
+  steps_taken: 2
+evaluation:
+  tests_passed: 1
+  tests_failed: 0
+  success: true
+failure_analysis:
+  - "Agent 1 acquired the lock and suffered a simulated fatal crash before releasing the Mutex."
+  - "Agent 2 polled the lock, realized the 1-second TTL had expired, and forcibly reclaimed the lease."
+  - "System recovered from what would have historically been a permanent deadlock."
+gaps_detected:
+  - type: infra_gap
+    description: "If an agent experiences heavy GC or network latency, its TTL might expire while it's still alive, causing Split-Brain scenario."
+  - type: agent_gap
+    description: "Agents need a heartbeat thread to renew leases if tasks take longer than expected."
+next_actions:
+  - "Implement an active Heartbeat / Lease Renewal background loop inside Execution Agents."

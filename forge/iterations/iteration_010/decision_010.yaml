@@ -1,0 +1,20 @@
+decision:
+  title: "Deploy Dead-Letter Queue (DLQ) v9"
+intent:
+  goal: "Cure the fatal queue poisoning identified in Iteration 009 by routing failing events to a dedicated recovery agent."
+execution:
+  task_id: task_010
+  steps_taken: 3
+evaluation:
+  tests_passed: 1
+  tests_failed: 0
+  success: true
+failure_analysis:
+  - "Publisher Agent dispatched an event with an invalid payload schema."
+  - "Processing Agent caught the Exception and correctly flushed the poison pill into the DLQ."
+  - "DLQ Agent successfully parsed, repaired, and requeued the event back to the main topic."
+gaps_detected:
+  - type: infra_gap
+    description: "Endless loop danger if DLQ Agent repairs incorrectly and perpetually requeues the same poison pill."
+next_actions:
+  - "Implement 'Max Retries' headers on events before permanently discarding."

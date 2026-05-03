@@ -1,0 +1,23 @@
+decision:
+  title: "Introduce Context and Memory Agent v1"
+intent:
+  goal: "Enable the system to recall past decisions before executing new tasks to avoid repeated mistakes."
+execution:
+  task_id: task_002
+  steps_taken: 2
+evaluation:
+  tests_passed: 0
+  tests_failed: 1
+  success: false
+failure_analysis:
+  - "Agent loaded entire 450MB memory graph"
+  - "Context window overflowed"
+  - "Retrieval was too slow and inefficient"
+gaps_detected:
+  - type: infra_gap
+    description: "No vector or semantic search; loading raw graphs is unsustainable."
+  - type: agent_gap
+    description: "Agent cannot filter out noisy context on its own."
+next_actions:
+  - "Implement an embedding-based retrieval layer"
+  - "Add context truncation limits to the Agent orchestration"

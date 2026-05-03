@@ -18,6 +18,21 @@ This checklist is done only when:
 - one human approval packet is used in the flow
 - one change merges through the governed path
 
+## Single Release-Gate Source Of Truth
+
+Use **`skyforce-harness`** as the executable proof surface for this checklist.
+
+- command: `npm run release-gate:p0`
+- repo: `skyforce-harness`
+- purpose: prove the factory spine, retry path, second run, artifact/receipt flow, and governed land-safety verification from one bounded command
+- cross-repo expansion: when `skyforce-core` is present, this gate also runs the governed land-safety suite there
+- governed land safety inside this bar means:
+  - pre-land invariants must pass before merge
+  - failed land attempts must restore repo/branch posture
+  - landed changes must pass one post-land verification step before the path is treated as complete
+
+This is the operational bar for “the line works twice” until a stricter clean-environment gate replaces it.
+
 ## Repo Map
 
 - [morphOS](/home/vashista/skyforce/morphOS): doctrine source and MVP contract source

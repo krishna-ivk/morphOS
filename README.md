@@ -38,6 +38,7 @@ That role belongs to the Skyforce repos:
 See [agentic_os_architecture.md](docs/architecture/agentic_os_architecture.md) for the full system design.
 Use [docs/README.md](docs/README.md) as the documentation index.
 Use [docs/milestones/P1/P1_IMPLEMENTATION_STATUS.md](docs/milestones/P1/P1_IMPLEMENTATION_STATUS.md) when you need a quick read on which `P1` specs are already implemented versus still doctrinal.
+Use [docs/milestones/v1/MORPHOS_SPEC_BASELINE.md](docs/milestones/v1/MORPHOS_SPEC_BASELINE.md) for the current baseline release posture and the grounded answer to “how far are we from production?”
 
 ## Start Here
 
@@ -53,6 +54,7 @@ If you are reading this as a human operator, builder, or collaborator, use this 
 8. [Durable execution handoff contracts](docs/architecture/DURABLE_EXECUTION_HANDOFF_CONTRACTS.md)
 9. [P0 factory spine recovery plan](docs/milestones/P0/P0_FACTORY_SPINE_RECOVERY_PLAN.md)
 10. [P0 factory spine implementation checklist](docs/milestones/P0/P0_FACTORY_SPINE_IMPLEMENTATION_CHECKLIST.md)
+11. [Repo build verification checklist](docs/REPO_BUILD_VERIFICATION_CHECKLIST.md)
 
 ## What morphOS Owns
 
@@ -145,6 +147,7 @@ The Skyforce runtime already implements several `morphOS`-aligned pieces:
 - [P0 factory spine implementation checklist](docs/milestones/P0/P0_FACTORY_SPINE_IMPLEMENTATION_CHECKLIST.md)
 - [P0 factory closeout integration smoke runbook](docs/milestones/P0/P0_FACTORY_CLOSEOUT_INTEGRATION_SMOKE_RUNBOOK.md)
 - [P1 event taxonomy spec](docs/milestones/P1/P1_EVENT_TAXONOMY_SPEC.md)
+- [P1 v1 build and test checklist](docs/milestones/P1/P1_V1_BUILD_AND_TEST_CHECKLIST.md)
 - [P1 policy hooks spec](docs/milestones/P1/P1_POLICY_HOOKS_SPEC.md)
 - [P1 safe promotion spec](docs/milestones/P1/P1_SAFE_PROMOTION_SPEC.md)
 - [P1 summary pyramid spec](docs/milestones/P1/P1_SUMMARY_PYRAMID_SPEC.md)
@@ -197,4 +200,10 @@ Current specification release line:
 
 - `0.1.0`
 
-This is a specification baseline, not a production runtime release.
+Current baseline posture:
+
+- specification baseline
+- alpha runtime spine
+- not production-ready yet
+
+See [docs/milestones/v1/MORPHOS_SPEC_BASELINE.md](docs/milestones/v1/MORPHOS_SPEC_BASELINE.md) for the baseline dated 2026-04-02.

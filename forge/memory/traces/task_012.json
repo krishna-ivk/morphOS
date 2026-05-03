@@ -1,0 +1,9 @@
+{
+  "task_id": "task_012",
+  "prompt": "Trigger an outbound Webhook to the Human Engineering Team when a task is permanently destroyed via Discard Bin.",
+  "agent_thoughts": "Deploying a dedicated Alerter daemon that specifically listens to the Discard Bin topic for terminal payloads.",
+  "plan": "Poison pill hits Max Retries. DLQ drops to Discard Bin. Alerter picks it up and prints PagerDuty alert.",
+  "patch": "Alert fired. Engineering notified of dropped workload from Agent 1.",
+  "outcome": "success",
+  "reason": "Complete observability loop established. 'Silent' failures no longer exist."
+}

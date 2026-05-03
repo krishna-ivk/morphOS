@@ -1,0 +1,22 @@
+decision:
+  title: "Introduce A2A Locking Protocol v5"
+intent:
+  goal: "Cure the race conditions exposed in Iteration 003 by adding distributed Mutex locking across agents."
+execution:
+  task_id: task_006
+  steps_taken: 3 # 1 orchestrator, 3 sub-agents via locks
+evaluation:
+  tests_passed: 1
+  tests_failed: 0
+  success: true
+failure_analysis:
+  - "The Agents correctly requested and awaited locks before accessing the shared node state."
+  - "All 3 nodes were patched sequentially inside the concurrent thread pool without overriding each other."
+gaps_detected:
+  - type: agent_gap
+    description: "Agents wait indefinitely if a lock is held by a dead agent (Deadlock risk)."
+  - type: infra_gap
+    description: "Locking is currently in-memory. Cross-node agents will need Redis or etcd-backed leases."
+next_actions:
+  - "Implement TTL (Time-To-Live) on A2A distributed locks."
+  - "Add Deadlock recovery loop to the Orchestrator."

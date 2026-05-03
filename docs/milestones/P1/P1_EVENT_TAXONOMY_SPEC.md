@@ -21,37 +21,47 @@ interface MorphOSEvent {
 
 ## Minimum P1 Event Families
 
-### Run Events
-
+### Run Lifecycle
+- `factory.manual_run.started`
+- `factory.manual_run.completed`
 - `run.started`
 - `run.blocked`
 - `run.completed`
 - `run.failed`
 
-### Step Events
-
+### Step execution
 - `step.executing`
 - `step.completed`
 - `step.failed`
+- `durable.refresh`
+- `durable.resume`
+- `durable.cancel`
 
-### Validation Events
+### Directives & Approvals
+- `directive.created`
+- `directive.applied`
+- `approval.packet.requested`
+- `approval.packet.approved`
+- `approval.packet.rejected`
 
-- `validation.started`
-- `validation.completed`
-- `validation.failed`
+### Validation & Summary
+- `validation.publish.started`
+- `validation.publish.completed`
+- `summary.publish.preview`
+- `summary.publish.live`
 
-### Approval Events
-
-- `approval.requested`
-- `approval.approved`
-- `approval.rejected`
-
-### Promotion Events
-
+### Promotion & Governed Merge
+- `promotion.preview`
+- `promotion.apply`
 - `promotion.ready`
-- `promotion.started`
 - `promotion.completed`
-- `promotion.failed`
+- `merge.land.prepared`
+- `merge.land.executed`
+
+### Sync & Artifacts
+- `sync.issue.started`
+- `sync.issue.completed`
+- `artifact.created`
 
 ## Required Correlation Fields
 

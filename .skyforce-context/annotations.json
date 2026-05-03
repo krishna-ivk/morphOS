@@ -1,0 +1,37 @@
+{
+  "annotations": [
+    {
+      "annotation_id": "annotation:14cbe755-804c-43de-bfff-d0e3b682d313",
+      "context_id": "ref:morphOS:test-annotations",
+      "author_kind": "human",
+      "author_id": "test-operator",
+      "content": "Test annotation for verification",
+      "trust_label": "annotated",
+      "access_label": "workspace",
+      "created_at": "2026-04-07T09:34:37.513Z",
+      "updated_at": "2026-04-07T09:34:37.513Z"
+    },
+    {
+      "annotation_id": "annotation:40e420b7-f982-4e0b-9812-a7f8c16174bc",
+      "context_id": "ref:morphOS:test-filtered-annotations",
+      "author_kind": "human",
+      "author_id": "operator",
+      "content": "public note",
+      "trust_label": "annotated",
+      "access_label": "workspace",
+      "created_at": "2026-04-07T09:34:37.527Z",
+      "updated_at": "2026-04-07T09:34:37.527Z"
+    },
+    {
+      "annotation_id": "annotation:61359cf8-1726-4718-9604-5c63796363bf",
+      "context_id": "ref:morphOS:test-filtered-annotations",
+      "author_kind": "human",
+      "author_id": "operator",
+      "content": "restricted note",
+      "trust_label": "annotated",
+      "access_label": "operator_only",
+      "created_at": "2026-04-07T09:34:37.533Z",
+      "updated_at": "2026-04-07T09:34:37.533Z"
+    }
+  ]
+}

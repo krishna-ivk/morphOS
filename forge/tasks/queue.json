@@ -1,0 +1,122 @@
+[
+  {
+    "task_id": "task_001",
+    "type": "bug_fix",
+    "description": "Fix failing test in utils/date_parser",
+    "constraints": [
+      "do not modify external APIs",
+      "keep changes minimal"
+    ],
+    "status": "pending"
+  },
+  {
+    "task_id": "task_002",
+    "type": "context_retrieval",
+    "description": "Retrieve previous bug fixes for date parsers to ensure consistency.",
+    "constraints": [
+      "Use only verified decision artifacts"
+    ],
+    "status": "pending"
+  },
+  {
+    "task_id": "task_003",
+    "type": "system_update",
+    "description": "Deploy security patch to all running nodes concurrently.",
+    "constraints": [
+      "Use orchestrator to split the task among 3 sub-agents",
+      "Do not bring the system down"
+    ],
+    "status": "pending"
+  },
+  {
+    "task_id": "task_004",
+    "type": "bug_fix",
+    "description": "Fix failing test in utils/date_parser, ensuring strict sandbox isolation.",
+    "constraints": [
+      "Scope restricted strictly to ['utils/date_parser.py']",
+      "Reject any out-of-bounds patch attempts"
+    ],
+    "status": "pending"
+  },
+  {
+    "task_id": "task_005",
+    "type": "context_retrieval",
+    "description": "Perform complex query: find reasons why date_parser failed in Iteration 001 without blowing up the context window.",
+    "constraints": [
+      "Use Top-K semantic retrieval only",
+      "Do not load raw memory dumps"
+    ],
+    "status": "pending"
+  },
+  {
+    "task_id": "task_006",
+    "type": "system_update",
+    "description": "Deploy security patch to all running nodes concurrently, enforcing atomic updates via locks.",
+    "constraints": [
+      "Use orchestrator to split the task among 3 sub-agents",
+      "Do not bring the system down",
+      "Ensure A2A locking prevents race conditions"
+    ],
+    "status": "pending"
+  },
+  {
+    "task_id": "task_007",
+    "type": "system_update",
+    "description": "Recover from an agent crashing mid-execution while holding the state lock.",
+    "constraints": [
+      "Use TTL (Time-To-Live) leases",
+      "Do not hang indefinitely"
+    ],
+    "status": "pending"
+  },
+  {
+    "task_id": "task_008",
+    "type": "system_update",
+    "description": "Perform a heavy computation while preventing other agents from hijacking the TTL lease.",
+    "constraints": [
+      "Use Active Heartbeat thread to renew TTL lease",
+      "Avoid Split-Brain state corruption"
+    ],
+    "status": "pending"
+  },
+  {
+    "task_id": "task_009",
+    "type": "orchestration",
+    "description": "Coordinate two agents to process tasks sequentially without relying on blocking database locks.",
+    "constraints": [
+      "Use PubSub / Event Bus architecture",
+      "Agent 1 must signal Agent 2 exactly when it's done"
+    ],
+    "status": "pending"
+  },
+  {
+    "task_id": "task_011",
+    "type": "orchestration",
+    "description": "Prevent an unfixable poison pill event from bouncing infinitely between the main Queue and DLQ.",
+    "constraints": [
+      "Implement a MAX_RETRIES header (e.g., 3 retries)",
+      "Permanently discard messages exceeding max retries",
+      "Do not hang the processing loop"
+    ],
+    "status": "pending"
+  },
+  {
+    "task_id": "task_012",
+    "type": "orchestration",
+    "description": "Trigger an outbound Webhook to the Human Engineering Team when a task is permanently destroyed via Discard Bin.",
+    "constraints": [
+      "Implement an Alerter monitoring the Discard Bin",
+      "Do not silently drop operations requested by users or orchestrators"
+    ],
+    "status": "pending"
+  },
+  {
+    "task_id": "task_013",
+    "type": "architecture_blueprint",
+    "description": "Translate the 12 sandbox loops of PANOPTICON FORGE into a live integration blueprint for Skyforce Hermes.",
+    "constraints": [
+      "Must map DLQs, TTL Locks, Heartbeats, and PubSub to actual Hermes node architecture"
+    ],
+    "status": "pending"
+  }
+]

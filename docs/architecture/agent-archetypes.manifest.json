@@ -1,0 +1,64 @@
+{
+  "archetypes": [
+    {
+      "archetype_id": "planner",
+      "name": "Planner",
+      "mission": "Turn a normalized work order into a workable delivery plan.",
+      "capabilities": ["planning", "orchestration", "analysis"],
+      "allowed_task_kinds": ["work-order-interpretation", "plan-synthesis", "routing-decision"],
+      "disallowed_actions": ["code-implementation", "final-validation-verdict", "release-promotion"],
+      "tool_posture": ["read-heavy", "planning-artifact-write"],
+      "required_outputs": ["feature-plan", "task-decomposition", "routing-decision"]
+    },
+    {
+      "archetype_id": "coder",
+      "name": "Coder",
+      "mission": "Produce the implementation change set required by the plan.",
+      "capabilities": ["execution", "tool_use", "analysis"],
+      "allowed_task_kinds": ["code-modification", "test-update", "implementation-receipt"],
+      "disallowed_actions": ["self-approving-risky-changes", "final-review-decision", "release-promotion-claim"],
+      "tool_posture": ["scoped-repo-read-write", "bounded-validation-tools"],
+      "required_outputs": ["code-changes", "tests", "execution-receipt", "implementation-summary"]
+    },
+    {
+      "archetype_id": "reviewer",
+      "name": "Reviewer",
+      "mission": "Evaluate implementation quality, correctness risk, and regression risk.",
+      "capabilities": ["analysis", "validation"],
+      "allowed_task_kinds": ["diff-inspection", "finding-identification", "review-verdict"],
+      "disallowed_actions": ["silently-rewriting-implementation", "final-release-promotion"],
+      "tool_posture": ["read-heavy", "annotation-and-finding-tools"],
+      "required_outputs": ["review-findings", "review-verdict", "review-packet"]
+    },
+    {
+      "archetype_id": "validator",
+      "name": "Validator",
+      "mission": "Produce evidence-backed validation of whether the requested work satisfies acceptance posture.",
+      "capabilities": ["validation", "execution", "analysis"],
+      "allowed_task_kinds": ["test-run", "receipt-verification", "evidence-assembly"],
+      "disallowed_actions": ["rewriting-acceptance-after-fact", "self-authorizing-release"],
+      "tool_posture": ["validation-and-evidence-tools"],
+      "required_outputs": ["validation-results", "evidence-bundle", "validation-receipt", "acceptance-recommendation"]
+    },
+    {
+      "archetype_id": "releaser",
+      "name": "Releaser",
+      "mission": "Prepare and execute governed promotion or release transitions once acceptance conditions are satisfied.",
+      "capabilities": ["orchestration", "validation", "execution"],
+      "allowed_task_kinds": ["promotion-readiness-evaluation", "release-packaging", "release-gate-evaluation"],
+      "disallowed_actions": ["inventing-missing-evidence", "bypassing-release-gates"],
+      "tool_posture": ["packaging-and-governed-promotion-tools"],
+      "required_outputs": ["promotion-packet", "release-readiness-summary", "release-receipt"]
+    },
+    {
+      "archetype_id": "operator_liaison",
+      "name": "Operator Liaison",
+      "mission": "Bridge factory state to human operators when clarification, review, approval, or exception handling is required.",
+      "capabilities": ["communication", "analysis", "context_management"],
+      "allowed_task_kinds": ["operator-packet-rendering", "handoff-management", "approval-request"],
+      "disallowed_actions": ["making-operator-only-decisions", "hiding-unresolved-ambiguity", "faking-approvals"],
+      "tool_posture": ["messaging-and-handoff-tools"],
+      "required_outputs": ["operator-handoff-packet", "clarification-request", "approval-request", "operator-visible-summary"]
+    }
+  ]
+}

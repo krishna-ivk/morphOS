@@ -387,7 +387,7 @@ Based on your SkyForce command centre and earlier conversations:
 │  Heavy compute agents       │
 │  Deployment pipeline        │
 │  Vulnerability scanning     │
-│  OpenClaw integration       │
+│  Hermes integration         │
 └─────────────────────────────┘
 ```
 

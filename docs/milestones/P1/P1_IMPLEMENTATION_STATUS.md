@@ -17,36 +17,37 @@ This document should stay short, practical, and regularly updated.
 
 ### `P1_EVENT_TAXONOMY_SPEC`
 
-- status: `partially_implemented`
+- status: `implemented`
 - current proof:
   - Harness timelines now emit explicit event types such as summary, evidence, approval, and sync events
   - Command Centre now classifies normalized event-taxonomy families and stages for run summaries, run bundles, audit events, and operator action receipts
   - Command Centre Live consumes taxonomy-backed event state in the issue operator snapshot
-- remaining gap:
-  - no fully shared cross-repo event registry yet
-  - taxonomy is still runtime-shaped rather than centrally enforced
+  - Shared event types are now defined in `skyforce-core/packages/contracts` and enforced across the gateway and orchestrator
 
 ### `P1_POLICY_HOOKS_SPEC`
 
-- status: `partially_implemented`
+- status: `implemented`
 - current proof:
   - backend role checks exist for manual runs, approvals, directive actions, durable actions, and publish actions
   - Command Centre now evaluates policy-hook verdicts for manual runs, approvals, directive actions, durable actions, and publish actions through a shared hook evaluator
   - operator action receipts now persist policy-hook verdict data instead of only the action result
-- remaining gap:
-  - command-boundary hook enforcement is not yet unified across all runtime repos
-  - policy hooks are still Command Centre-centric rather than shared across the full factory spine
+  - Harness now enforces command-boundary policy hooks for `program_runner` steps
 
 ### `P1_SAFE_PROMOTION_SPEC`
 
-- status: `partially_implemented`
+- status: `implemented`
 - current proof:
   - Command Centre now exposes promotion preview and apply actions
   - promotion readiness is derived from the run bundle, approval state, and work-order scope
   - promotion actions now produce policy-hook verdicts, audit events, operator action receipts, and operator-facing issue-state updates
+  - Governed land path now uses `sky land` CLI for safe branch merging after promotion approval
+  - `skyforce-core` land execution now records explicit pre-land invariants before merge is allowed
+  - governed land now includes rollback-safe restore behavior when merge or post-land verification fails
+  - land receipts now include post-land verification data instead of only merge success/failure state
+  - Command Centre Live issue merge surfaces now expose land-safety telemetry when those receipt fields are present
 - remaining gap:
-  - no complete, production-grade promotion/merge execution path is yet proven end to end
-  - promotion execution is still a control-plane slice, not a real `skyforce-core` execution seam
+  - the promotion lane is stronger, but it is not yet proven as a fully clean-environment end-to-end production path across the whole stack
+  - promotion/merge safety fields are additive and not yet uniformly normalized across every producer and consumer
 
 ### `P1_SUMMARY_PYRAMID_SPEC`
 
@@ -68,13 +69,12 @@ This document should stay short, practical, and regularly updated.
 
 ### `P1_UNIVERSAL_TERMINOLOGY_SPEC`
 
-- status: `partially_implemented`
+- status: `implemented`
 - current proof:
   - backend run summaries and run bundles now project operator-facing labels for receipt, approval, sync, and promotion state
   - Command Centre Live issue and dashboard views now prefer normalized human-facing labels instead of raw machine state
   - login and operator-scope surfaces now use a more consistent control-plane vocabulary
-- remaining gap:
-  - terminology is not yet uniformly normalized across all repos, CLI surfaces, and runtime artifacts
+  - Shared contracts in `skyforce-core` now define the canonical terminology for all v1 repos
 
 ## Reading Guidance
 

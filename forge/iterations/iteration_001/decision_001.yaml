@@ -1,0 +1,22 @@
+decision:
+  title: "Introduce Auto Execution Loop v0"
+intent:
+  goal: "Enable system to fix simple bugs autonomously"
+execution:
+  task_id: task_001
+  steps_taken: 5
+evaluation:
+  tests_passed: 48
+  tests_failed: 2
+  success: false
+failure_analysis:
+  - "Agent modified unrelated file"
+  - "Patch incomplete"
+gaps_detected:
+  - type: agent_gap
+    description: "No scope control"
+  - type: infra_gap
+    description: "No sandboxing"
+next_actions:
+  - "Add file-level constraints"
+  - "Restrict agent write scope"

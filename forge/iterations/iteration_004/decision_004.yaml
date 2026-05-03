@@ -1,0 +1,23 @@
+decision:
+  title: "Deploy Scoped Execution Sandbox v3"
+intent:
+  goal: "Prevent agent overreach by strictly enforcing file-level write constraints discovered in Iteration 001."
+execution:
+  task_id: task_004
+  steps_taken: 2
+evaluation:
+  tests_passed: 0
+  tests_failed: 1
+  success: false
+failure_analysis:
+  - "The sandbox successfully blocked the agent from editing the unauthorized 'tests/' directory."
+  - "However, the bug fix required updating a test signature, leading to a partial failure."
+  - "Agent was not sufficiently intelligent enough to request scope expansion."
+gaps_detected:
+  - type: agent_gap
+    description: "Agent lacks a protocol to dynamically request permission or scope elevation from the orchestrator."
+  - type: spec_gap
+    description: "Task spec was overly restrictive and failed to include associated test files in the allowed scope."
+next_actions:
+  - "Implement a 'Permission Request' callback loop for agents encountering sandbox blocks."
+  - "Update Task Miner to automatically include test clusters in allowed scopes."

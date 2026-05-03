@@ -27,6 +27,11 @@ The main runtime repos live outside this docs folder, but they matter for keepin
 
 - `architecture/agentic_os_architecture.md` - overall operating system design
 - `milestones/v0/MORPHOS_V0_IMPLEMENTATION_BOARD.md` - canonical prioritized build board
+- `milestones/v1/MORPHOS_V1_RELEASE_TARGET.md` - release-definition document for aiming the current `v0` work toward a real `v1.0` launch
+- `milestones/v1/MORPHOS_SPEC_BASELINE.md` - current spec baseline and grounded production-readiness judgment for the active stack
+- `milestones/v1/MORPHOS_RELEASE_READINESS_CHECKLIST.md` - operational release checklist with repo-by-repo completion estimates and the current critical path
+- repo-owned `v1.0` implementation requirements now live in each runtime repo as `MORPHOS_V1_REQUIREMENTS.md` so execution details stay close to owning code
+- `milestones/v0/MORPHOS_V0_IMPLEMENTATION_REPO_REVIEW.md` - repo-wise architectural and testing reality check across the active Skyforce implementation repos
 - `milestones/P1/P1_IMPLEMENTATION_STATUS.md` - practical bridge between `P1` doctrine and what is actually implemented in code right now
 - `examples/P0_GOLDEN_PATH_WORK_ORDER.json` - canonical sample work-order packet for the first factory-spine proving run
 
@@ -37,7 +42,9 @@ operator behavior aligned to the real factory spine.
 
 - `milestones/P0/P0_FACTORY_SPINE_RECOVERY_PLAN.md` - recovery posture for proving the first real end-to-end factory transaction before expanding doctrine again
 - `milestones/P0/P0_FACTORY_SPINE_IMPLEMENTATION_CHECKLIST.md` - concrete cross-repo build order for the first intake-to-approval transaction
+- `skyforce-harness` `npm run release-gate:p0` - current single-command release gate for proving the P0 spine twice with bounded retry/second-run coverage, and for running governed land-safety verification through `skyforce-core` when that repo is present
 - `milestones/P0/P0_GOLDEN_PATH_SEED_PACKET.md` - narrow golden-path seed used to prove Symphony, Harness, and Command Centre integration
+- `milestones/v0/MORPHOS_V0_IMPLEMENTATION_REPO_REVIEW.md` - implementation-repo review that records which stack layers are currently strong, transitional, or still prototype-grade
 - `milestones/P0/P0_FACTORY_CLOSEOUT_INTEGRATION_SMOKE_RUNBOOK.md` - exact operator runbook for proving the current closeout path from manual run through merge execution
 - `core-mechanics/WORK_ORDER_SCHEMA_SPEC.md` - normalized intake contract
 - `core-mechanics/EXECUTION_RECEIPT_SCHEMA_SPEC.md` - execution proof contract

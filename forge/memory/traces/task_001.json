@@ -1,0 +1,9 @@
+{
+  "task_id": "task_001",
+  "prompt": "Fix failing test in utils/date_parser",
+  "agent_thoughts": "I need to open the file, identify the ISO parsing logic, and add a handler for missing timezone information.",
+  "plan": "Locate date_parser.py, modify the parsing logic to handle ISO formats correctly.",
+  "patch": "--- a/utils/date_parser.py\n+++ b/utils/date_parser.py\n@@ -1,3 +1,4 @@\n def parse_date():\n-    return None\n+    return '2026-03-23'",
+  "outcome": "failed",
+  "reason": "Agent hallucinated the file and edited the wrong scope."
+}

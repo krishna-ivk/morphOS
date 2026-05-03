@@ -10,7 +10,8 @@
           "name": "feature_plan",
           "path": "${artifacts_dir}/feature_plan.json",
           "kind": "json_schema",
-          "schema_name": "FeaturePlan"
+          "schema_name": "FeaturePlan",
+          "required": true
         }
       ]
     },
@@ -23,12 +24,14 @@
           "name": "task_list",
           "path": "${artifacts_dir}/tasks.json",
           "kind": "json_schema",
-          "schema_name": "TaskList"
+          "schema_name": "TaskList",
+          "required": true
         },
         {
           "name": "execution_plan",
           "path": "${artifacts_dir}/execution_plan.json",
-          "kind": "file_exists"
+          "kind": "file_exists",
+          "required": true
         }
       ]
     },
@@ -40,7 +43,8 @@
         {
           "name": "plan_review",
           "path": "${artifacts_dir}/plan_review.json",
-          "kind": "file_exists"
+          "kind": "file_exists",
+          "required": true
         }
       ],
       "signals": [
@@ -64,7 +68,8 @@
         {
           "name": "implementation_source_handoff",
           "path": "${artifacts_dir}/implement_features_source_handoff.json",
-          "kind": "file_exists"
+          "kind": "file_exists",
+          "required": true
         }
       ]
     },
@@ -77,7 +82,8 @@
           "name": "test_results",
           "path": "${validation_dir}/test_results.json",
           "kind": "json_schema",
-          "schema_name": "TestResults"
+          "schema_name": "TestResults",
+          "required": true
         }
       ],
       "signals": [
@@ -100,7 +106,8 @@
           "name": "repair_tasks",
           "path": "${artifacts_dir}/repair_tasks.json",
           "kind": "json_schema",
-          "schema_name": "TaskList"
+          "schema_name": "TaskList",
+          "required": true
         }
       ]
     },
@@ -115,12 +122,14 @@
         {
           "name": "applied_fix_results",
           "path": "${artifacts_dir}/apply_fixes_output.json",
-          "kind": "file_exists"
+          "kind": "file_exists",
+          "required": true
         },
         {
           "name": "applied_fix_source_handoff",
           "path": "${artifacts_dir}/apply_fixes_source_handoff.json",
-          "kind": "file_exists"
+          "kind": "file_exists",
+          "required": true
         }
       ]
     },
@@ -134,7 +143,8 @@
           "name": "rerun_test_results",
           "path": "${validation_dir}/test_results.json",
           "kind": "json_schema",
-          "schema_name": "TestResults"
+          "schema_name": "TestResults",
+          "required": true
         }
       ],
       "signals": [

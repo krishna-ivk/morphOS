@@ -174,7 +174,7 @@ Skyforce is much more mature as an operator-facing system.
 
 Skyforce already knows about:
 
-- EC2 / OpenClaw
+- Hermes runtime / cloud agent lane
 - Mac Mini
 - Windows PC
 - Android monitoring nodes
