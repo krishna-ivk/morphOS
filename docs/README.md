@@ -18,7 +18,9 @@ The main runtime repos live outside this docs folder, but they matter for keepin
 - `skyforce-symphony` - orchestration runtime and event truth
 - `skyforce-harness` - execution evidence and release-gate runtime
 - `skyforce-core` - shared contracts, CLI, and validation surface
-- `skyforce-command-centre` / `skyforce-command-centre-live` - operator surfaces
+- `skyforce-api-gateway` - backend adapter and operator-facing API normalization
+- `skyforce-command-centre-live` - primary operator surface
+- `skyforce-command-centre` - transitional compatibility UI during migration
 - `morphos-agent-room` - collaborative intake and room-to-factory handoff boundary
 
 ## Start Here

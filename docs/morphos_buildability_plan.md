@@ -18,7 +18,9 @@ This plan assumes the current repo split:
 - `skyforce-core`: shared contracts, CLI, validation tooling
 - `skyforce-symphony`: orchestration runtime
 - `skyforce-harness`: execution adapters and receipts
-- `skyforce-command-centre`: human control plane
+- `skyforce-api-gateway`: backend adapter and operator-facing API normalization
+- `skyforce-command-centre-live`: human control plane
+- `skyforce-command-centre`: transitional compatibility UI
 
 ## Executive Summary
 
@@ -99,7 +101,7 @@ Built as a lightweight runtime layer.
 - `skyforce-symphony/elixir/lib/symphony_elixir/orchestrator.ex`
 - `skyforce-symphony/elixir/lib/symphony_elixir/execution_envelope.ex`
 - `skyforce-core/scripts/sky.mjs`
-- `skyforce-command-centre/frontend/src/App.jsx`
+- `skyforce-command-centre-live/lib/`
 
 ### What works now
 
@@ -174,8 +176,8 @@ Built.
 ### Where it lives
 
 - `skyforce-core/scripts/sky.mjs`
-- `skyforce-command-centre/main.py`
-- `skyforce-command-centre/frontend/src/App.jsx`
+- `skyforce-api-gateway/main.py`
+- `skyforce-command-centre-live/lib/`
 
 ### What works now
 
@@ -227,7 +229,7 @@ High.
 
 ### Why it is buildable now
 
-Approval is already a natural fit for `command-centre`, and the workflow model now identifies approval gates explicitly.
+Approval is already a natural fit for the operator surface, and the workflow model now identifies approval gates explicitly.
 
 ### What to build
 
@@ -236,7 +238,7 @@ In `skyforce-symphony`:
 - approval step pause state
 - approval wait/resume behavior
 
-In `skyforce-command-centre`:
+In `skyforce-command-centre-live` and `skyforce-api-gateway`:
 
 - approval step card and action
 - resume signal back into Symphony
@@ -261,7 +263,7 @@ In `skyforce-symphony` and `skyforce-harness`:
 
 - event naming and payload alignment
 
-In `skyforce-command-centre`:
+In `skyforce-command-centre-live` and `skyforce-api-gateway`:
 
 - event stream sections grouped by event family
 

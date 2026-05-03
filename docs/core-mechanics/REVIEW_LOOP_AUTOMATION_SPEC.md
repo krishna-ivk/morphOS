@@ -333,7 +333,8 @@ This spec implies concrete follow-on work:
 - `skyforce-core` should define review category, triage, routing, and packet-validation contracts
 - `skyforce-symphony` should trigger packet assembly and routing at review gates
 - `skyforce-harness` should emit cleaner evidence refs that support packet assembly
-- `skyforce-command-centre` should render review queues with automated triage, staleness, and authority context
+- `skyforce-command-centre-live` should render review queues with automated triage, staleness, and authority context
+- `skyforce-api-gateway` should provide stable normalized review queue projections to operator clients
 
 ## Recommended First Implementation Slice
 

@@ -51,7 +51,7 @@ For Skyforce, that would quickly create confusion across:
 - Harness
 - Command Centre
 - CLI
-- OpenClaw
+- support-oriented agent profiles
 - future mobile and distributed nodes
 
 ## Layer 1: Reference Context
@@ -74,7 +74,7 @@ Examples:
 
 - Hermes needs exact library or framework behavior
 - Architect needs provider or infrastructure references
-- OpenClaw needs grounded technical context when drafting summaries
+- support-oriented agent profiles need grounded technical context when drafting summaries
 - validation agents need source-of-truth docs during checks
 
 ### Characteristics
@@ -152,7 +152,8 @@ Examples:
 
 - `skyforce-symphony`
 - `skyforce-harness`
-- `skyforce-command-centre`
+- `skyforce-api-gateway`
+- `skyforce-command-centre-live`
 - `skyforce-core` contracts
 
 ### Not For
@@ -176,7 +177,7 @@ Examples:
 - deployment lessons
 - reusable workflow heuristics
 - operator preferences
-- communication patterns for OpenClaw
+- communication patterns for support-oriented agent profiles
 
 ### Primary Use Cases
 
@@ -238,7 +239,7 @@ Needs:
 
 May need wider read access than Hermes, but still should not bypass policy.
 
-### OpenClaw
+### Support-oriented agent
 
 Needs:
 
@@ -345,7 +346,13 @@ Should own:
 - node-local execution context
 - adapter result context
 
-### `skyforce-command-centre`
+### `skyforce-api-gateway`
+
+Should own:
+
+- API-backed context exposure and normalization for operator clients
+
+### `skyforce-command-centre-live`
 
 Should own:
 

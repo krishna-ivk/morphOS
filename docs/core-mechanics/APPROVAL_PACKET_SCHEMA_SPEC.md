@@ -9,7 +9,7 @@ This artifact is the sole mechanism by which human operators intervene during pa
 ## Schema Payload
 
 Produced by: `Review Archetype` / `Validation Handoff`
-Consumed by: `skyforce-command-centre` (Human UI), `skyforce-symphony` (Resuming Orchestrator)
+Consumed by: `skyforce-command-centre-live` (Human UI), `skyforce-api-gateway` (Operator API layer), `skyforce-symphony` (Resuming Orchestrator)
 
 ```json
 {

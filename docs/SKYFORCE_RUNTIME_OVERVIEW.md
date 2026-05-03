@@ -44,17 +44,37 @@ Responsibilities:
 - execution receipt generation
 - artifact production
 
-### skyforce-command-centre
+### skyforce-api-gateway
 
-The operator control plane.
+The backend adapter and operator-facing API normalization layer.
 
 Responsibilities:
 
-- dashboard and visibility
-- approvals and intervention
-- fleet health
-- validation visibility
-- execution and summary sync visibility
+- operator-facing HTTP endpoint shape
+- backend proxying and normalization
+- action proxy semantics
+- compatibility handling for runtime protocol differences
+
+### skyforce-command-centre-live
+
+The primary operator UI.
+
+Responsibilities:
+
+- dashboard and issue-page rendering
+- approvals and intervention UX
+- fleet health visibility
+- validation, execution, and summary-sync presentation
+- operator triage and next-step guidance
+
+### skyforce-command-centre
+
+The transitional compatibility UI.
+
+Responsibilities:
+
+- React-based operator surface during migration
+- temporary compatibility behavior while LiveView and the gateway take over
 
 ### skyforce-core
 
@@ -91,6 +111,12 @@ Skyforce already has working capability in:
 - validation summaries
 - CLI inspection flows
 - dashboard visibility
+
+The operator layer is now intentionally split:
+
+- `skyforce-api-gateway` for backend operator APIs
+- `skyforce-command-centre-live` for the long-term UI
+- `skyforce-command-centre` only as a migration-era compatibility surface
 
 ## Current Runtime Gaps
 

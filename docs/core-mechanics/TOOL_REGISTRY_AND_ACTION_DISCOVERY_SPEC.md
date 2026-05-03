@@ -434,9 +434,13 @@ It explains how tools should be registered and discovered before invocation.
 - mapping semantic actions to requested tool actions
 - routing tool requests through policy and execution boundaries
 
-### `skyforce-command-centre` observes
+### `skyforce-command-centre-live` observes
 
 - operator-visible tool actions and approvals
+
+### `skyforce-api-gateway` owns
+
+- operator-facing tool action normalization for HTTP clients
 
 ## What To Build After This Spec
 

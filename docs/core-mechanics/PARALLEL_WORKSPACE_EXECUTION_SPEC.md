@@ -377,7 +377,8 @@ This spec implies concrete follow-on work:
 - `skyforce-core` should define slice packet, conflict class, and merge strategy contracts
 - `skyforce-symphony` should coordinate slice creation, ownership, and reintegration
 - `skyforce-harness` should preserve slice-aware receipts and artifacts
-- `skyforce-command-centre` should show parent-run and slice-level status distinctly
+- `skyforce-command-centre-live` should show parent-run and slice-level status distinctly
+- `skyforce-api-gateway` should normalize parent-run and slice projections for operator clients
 
 ## Recommended First Implementation Slice
 

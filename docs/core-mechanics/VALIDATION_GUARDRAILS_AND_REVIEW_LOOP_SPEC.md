@@ -313,7 +313,8 @@ This spec implies concrete follow-on work across the runtime repos:
 - `skyforce-core` should define shared finding, validation result, and review packet contracts
 - `skyforce-harness` should emit stable validation receipts and artifact references
 - `skyforce-symphony` should treat validation as a first-class loop with retry budgeting and escalation
-- `skyforce-command-centre` should expose `Quality Checks`, findings, and `Review Queue` status clearly to operators
+- `skyforce-command-centre-live` should expose `Quality Checks`, findings, and `Review Queue` status clearly to operators
+- `skyforce-api-gateway` should normalize those review and validation surfaces for operator clients
 
 ## Recommended Next Specs
 

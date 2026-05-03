@@ -17,7 +17,8 @@
     "target_repos": [
       "skyforce-symphony",
       "skyforce-harness",
-      "skyforce-command-centre"
+      "skyforce-api-gateway",
+      "skyforce-command-centre-live"
     ],
     "expected_change_types": [
       "workflow_orchestration",

@@ -14,7 +14,7 @@
     "desired_outcome": "approval_ready_receipt"
   },
   "scope": {
-    "target_repos": ["skyforce-symphony", "skyforce-harness", "skyforce-command-centre"]
+    "target_repos": ["skyforce-symphony", "skyforce-harness", "skyforce-api-gateway", "skyforce-command-centre-live"]
   },
   "governance": {
     "workspace_id": "workspace-DEMO-002",

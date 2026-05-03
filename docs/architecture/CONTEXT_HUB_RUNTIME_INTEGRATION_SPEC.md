@@ -346,7 +346,8 @@ This spec implies concrete follow-on work:
 - `skyforce-core` should define reference-request, reference-result, and annotation-ref contracts
 - a future context-core subsystem should implement the provider adapter boundary
 - `skyforce-symphony` should request and attach scoped reference context during planning, execution, and validation where relevant
-- `skyforce-command-centre` should show operator-visible reference grounding with trust and access cues
+- `skyforce-command-centre-live` should show operator-visible reference grounding with trust and access cues
+- `skyforce-api-gateway` should preserve and normalize reference grounding metadata for operator clients
 
 ## Recommended First Implementation Slice
 

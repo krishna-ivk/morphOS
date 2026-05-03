@@ -430,9 +430,13 @@ That means:
 
 - execution receipts and evidence that feed ledger records
 
-### `skyforce-command-centre` observes
+### `skyforce-command-centre-live` observes
 
 - ledger projections for operator visibility
+
+### `skyforce-api-gateway` owns
+
+- normalized operator-facing ledger projections for HTTP clients
 
 ## What To Build After This Spec
 
